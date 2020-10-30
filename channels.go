@@ -4,6 +4,7 @@ import (
     "fmt"
 )
 
+
 // channels nhu pipe = 1 var nhan va gui data cho goroutines dung no
 // default main() la goroutines 1
 // KENH := make(chan int)
@@ -14,41 +15,44 @@ import (
 // data := <- KENH    nhan data ut KENH
 
 
-func digits(number int, dchnl chan int) {
+func digits(number int, ch_digit chan int) {
     for number != 0 {
         digit := number % 10
-        dchnl <- digit
+        ch_digit <- digit
         number /= 10
     }
-    close(dchnl)
+    close(ch_digit)
 }
 
-func calcSquares(number int, squareop chan int) {
+
+func calcSquares(number int, ch_square chan int) {
     sum := 0
-    dch := make(chan int)
-    go digits(number, dch)
-    for digit := range dch {
+    ch_digit := make(chan int)
+    go digits(number, ch_digit)
+    for digit := range ch_digit {
         sum += digit * digit
     }
-    squareop <- sum
+    ch_square <- sum
 }
 
-func calcCubes(number int, cubeop chan int) {
+
+func calcCubes(number int, ch_cube chan int) {
     sum := 0
-    dch := make(chan int)
-    go digits(number, dch)
-    for digit := range dch {
+    ch_digit := make(chan int)
+    go digits(number, ch_digit)
+    for digit := range ch_digit {
         sum += digit * digit * digit
     }
-    cubeop <- sum
+    ch_cube <- sum
 }
+
 
 func main() {
     number := 589
-    sqrch := make(chan int)
-    cubech := make(chan int)
-    go calcSquares(number, sqrch)
-    go calcCubes(number, cubech)
-    squares, cubes := <-sqrch, <-cubech
+    ch_square := make(chan int)
+    ch_cube := make(chan int)
+    go calcSquares(number, ch_square)
+    go calcCubes(number, ch_cube)
+    squares, cubes := <-ch_square, <-ch_cube
     fmt.Println("Final ouput", squares+cubes)
 }

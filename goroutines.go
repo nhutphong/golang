@@ -5,6 +5,9 @@ import (
     "time"
 )
 
+// goroutines giong voi async def myfunc python
+// 
+
 func numbers() {
     for i := 1; i <= 5; i++ {
         time.Sleep(250 * time.Millisecond)
@@ -20,7 +23,7 @@ func alphabets() {
 }
 
 func main() {
-    go numbers()
+    go numbers() // run 1 goroutines
     go alphabets()
     time.Sleep(3000 * time.Millisecond)
     fmt.Println("main terminated")

@@ -1,0 +1,14 @@
+mkdir {project}
+cd project
+
+project>go mod init rootname
+create go.mod -> quan trong
+
+import (
+    "rootname/page"
+    "rootname/product"
+)
+
+func main() chi danh cho file run programm nhu main.go
+vi khi cac module.go defind main() se co nhieu hon 1 main()
+GO se error

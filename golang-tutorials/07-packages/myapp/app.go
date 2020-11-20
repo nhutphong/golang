@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/callicoder/golang-tutorials/07-packages/numbers"
-	"github.com/callicoder/golang-tutorials/07-packages/strings"	
-	"github.com/callicoder/golang-tutorials/07-packages/strings/greeting" // Importing a nested package
-	str "strings"	// Package Alias
+	"rootpath/numbers"
+	"rootpath/strings"
+	"rootpath/strings/greeting"
+	str "strings" // Package Alias
 )
 
 func main() {

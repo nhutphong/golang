@@ -9,20 +9,16 @@ func main() {
 	var myFloat float64 = 45.12
 	fmt.Println(myStr, myInt, myFloat)
 
-
 	//================================
-
 
 	// Multiple Declarations
 	var (
-		employeeId int = 5
+		employeeId          int    = 5
 		firstName, lastName string = "Satoshi", "Nakamoto"
 	)
 	fmt.Println(employeeId, firstName, lastName)
 
-
 	//================================
-
 
 	// Short variable declaration syntax
 	name := "Rajeev Singh"

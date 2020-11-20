@@ -5,10 +5,12 @@ import "fmt"
 func main() {
 	/*
 		The length of the slice is the number of elements in the slice.
-		The capacity is the number of elements in the underlying array starting from the first element in the slice.
+		slice=cap la do dai tu start_index den end cua array no tham tri=value
 	*/
-	a := [6]int{10, 20, 30, 40, 50, 60}
-	s := a[1:4]
+	a := []int{10, 20, 30, 40, 50, 60, 80, 100, 120, 130, 150}
+	s := a[1:6]
+	last := s[2:]
 
 	fmt.Printf("s = %v, len = %d, cap = %d\n", s, len(s), cap(s))
+	fmt.Printf("s = %v, len = %d, cap = %d\n", last, len(last), cap(last))
 }

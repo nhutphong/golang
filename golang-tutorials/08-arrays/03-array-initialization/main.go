@@ -16,7 +16,7 @@ func main() {
 	c := [5]int{2}
 	fmt.Println(c)
 
-	// Letting Go compiler infer the length of the array
-	d := [...]int{3, 5, 7, 9, 11, 13, 17}
+	// do dai array tuy y
+	d := [...]int{3, 5, 7, 9, 11, 13, 17, 19, 22, 50}
 	fmt.Println(d)
 }

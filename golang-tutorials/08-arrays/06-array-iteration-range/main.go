@@ -3,6 +3,23 @@ package main
 import "fmt"
 
 func main() {
+	// Type=struc=class
+
+	// dung make() create array
+	// array := make([]int, 10
+
+	// default for cho array
+	// for index := range array
+
+	// for index, value := range array
+	// for index, value in enumerate(array, 1)  == python
+
+	// ignoze value dung underscore
+	// for i, _ := range array
+
+	// ignoze index dung underscore
+	// for _, value := range array
+
 	// Iterating over an array using range form of for loop
 	daysOfWeek := [7]string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}
 

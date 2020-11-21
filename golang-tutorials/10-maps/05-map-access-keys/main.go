@@ -1,4 +1,5 @@
 package main
+
 import "fmt"
 
 func main() {
@@ -8,7 +9,7 @@ func main() {
 		"David": "+44-9462834443",
 	}
 
-	var mobileNo = personMobileNo["Steve"]
+	mobileNo := personMobileNo["Steve"]
 	fmt.Println("Steve's Mobile No : ", mobileNo)
 
 	// If a key doesn't exist in the map, we get the zero value of the value type

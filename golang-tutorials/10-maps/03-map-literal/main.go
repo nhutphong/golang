@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 func main() {
+	// co keys va values
 	var m = map[string]int{
 		"one":   1,
 		"two":   2,

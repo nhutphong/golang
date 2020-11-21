@@ -4,8 +4,8 @@ import "fmt"
 
 func main() {
 	/*
-		Maps are reference types. When you assign a map to another variable, they both refer to the same underlying data structure.
-		Therefore changes done by one variable will be visible to the other
+		chi co array la value type = tham tri
+		map[typekey]typevalue reference type = tham chieu giong python
 	*/
 	var m1 = map[string]int{
 		"one":   1,

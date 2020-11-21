@@ -9,8 +9,8 @@ func main() {
 		"Sarah":  29,
 	}
 
-	for name, age := range personAge {
-		fmt.Println(name, age)
+	for key, value := range personAge {
+		fmt.Println(key, value)
 	}
 
 }

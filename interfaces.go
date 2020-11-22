@@ -14,18 +14,19 @@ type Human struct {
 	age  int
 }
 
-// syntax method for Human
+// implement interface
 func (self Human) get_name() string {
 	return self.name
 }
 
-// syntax method for Human
+// implement interface
 func (self Human) get_age() int {
 	return self.age
 }
 
 // var human *Human = &Human{name: "dung", age:28} //cach2
 // var human        = &Human{name: "dung", age:28} //default cach1
+
 func change_age_human(human *Human, age int) int {
 	human.age = age
 	return human.get_age()
@@ -34,7 +35,7 @@ func change_age_human(human *Human, age int) int {
 // Hàm describe có tham số truyền vào là một empty interface
 // do đó khi thực thi ta có thể truyền vào kiểu dữ liệu nào cũng được
 func describe(auto interface{}) {
-	fmt.Printf("(value: %v, type: %T)\n", auto, auto)
+	fmt.Printf("value: %v, type: %T\n", auto, auto)
 }
 
 func main() {

@@ -46,6 +46,8 @@ func (r Rectangle) Perimeter() float64 {
 // ==================================================================================
 // Generic function to calculate the total area of multiple shapes of different types
 func CalculateTotalArea(shapes ...Shape) float64 {
+	// (shapes ...Shape) = (*args) python
+
 	totalArea := 0.0
 	for _, s := range shapes {
 		totalArea += s.Area()

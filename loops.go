@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-//import "folder/to/folder1" 
+//import "folder/to/folder1"
 // folder1.class1, folder1.func1, ..., truy cap duoc tat ca cac class, func cua tat ca cac files trong folder1
 // ko can phai thong qua file_name, chi can folder_name.
 
@@ -23,14 +23,13 @@ func swap(a, b string) (string, string) {
 func split(sum int) (y, x int) {
 	x = sum * 4 / 9
 	y = sum - x
-    // return y, x 
+	// return y, x
 	return //nen ghi ro rang
 }
 
 func forloop1(stop int) int {
 	sum := 0
 	// for i,j := 0,1; i < 10 && j < 10_; i,j = i+1, j+1  {
-		
 	// }
 	for i := 0; i < stop; i++ {
 		sum += i
@@ -50,15 +49,14 @@ func forloop2(total int) int {
 	// }
 }
 
-func forever(){
-    for {
+func forever() {
+	for {
 
-    }
-    // for {
-    // vo tan ko co dk dung
-    // }
+	}
+	// for {
+	// vo tan ko co dk dung
+	// }
 }
-
 
 func pownhut(x, n, lim float64) float64 {
 	if v := math.Pow(x, n); v < lim {
@@ -124,11 +122,11 @@ func deferNhut(stop int) {
 func point() {
 	i, j := 42, 2701
 
-	p := &i         // point to i
+	p := &i                             // point to i
 	fmt.Println("*p =", *p, "=> value") // read i through the pointer
 	fmt.Println("p =", p, "=> id=memory")
-	*p = 21         // set i through the pointer
-	fmt.Println(i)  // see the new value of i
+	*p = 21        // set i through the pointer
+	fmt.Println(i) // see the new value of i
 
 	p = &j         // point to j
 	*p = *p / 37   // divide j through the pointer

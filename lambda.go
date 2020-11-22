@@ -22,13 +22,12 @@ func filter(students []Student, f func(Student) bool) []Student {
 }
 
 // simple() return func(a, b int) int
-func simple() func(a, b int) int {  
-    add := func(a, b int) int {
-        return a + b
-    }
-    return add
+func simple() func(a, b int) int {
+	add := func(a, b int) int {
+		return a + b
+	}
+	return add
 }
-
 
 func main() {
 	s1 := Student{
@@ -56,13 +55,11 @@ func main() {
 	})
 	fmt.Println(f)
 
-
 	add := simple()
-    fmt.Println(add(60, 7))
+	fmt.Println(add(60, 7))
 
-
-    my_name := "Cr7"
-    func(name string) {
-        fmt.Println("name =", my_name)
-    }(my_name)
+	my_name := "Cr7"
+	func(name string) {
+		fmt.Println("name =", my_name)
+	}(my_name)
 }

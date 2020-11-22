@@ -26,10 +26,14 @@ func main() {
 	fmt.Println("Point p = ", p)
 
 	// Calling a Method with Pointer receiver
-	p.Translate(2, 6)    // Valid
+	p.Translate(2, 6) // Valid
+	fmt.Println("one : ", p)
 	ptr.Translate(5, 10) // Valid
+	fmt.Println("two", p)
 
 	// Calling a Function with a Pointer argument
 	TranslateFunc(ptr, 20, 30) // Valid
-	// TranslateFunc(p, 20, 30)   // Not Valid
+	//TranslateFunc(p, 20, 30) // Not Valid
+
+	fmt.Println("three: ", p)
 }

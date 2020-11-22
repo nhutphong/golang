@@ -7,8 +7,17 @@ create go.mod -> quan trong
 import (
     "rootname/page"
     "rootname/product"
+    "fullpath tu github ko can go.mod"
 )
 
 func main() chi danh cho file run programm nhu main.go
 vi khi cac module.go defind main() se co nhieu hon 1 main()
 GO se error
+
+voi name la ko viet Hoa chu cai dau tu func, method, struct, struct field=attr
+chi dung dc trong package=folder chua cac files.go cung cap.
+folder khac khi import se KO dung duoc
+
+viet Hoa chua cai dau se dung dc o bat ky package nao
+
+

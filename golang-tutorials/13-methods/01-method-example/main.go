@@ -19,5 +19,5 @@ func main() {
 
 	fmt.Println("Point : ", p)
 
-	fmt.Println("Is Point p located above the line y = 1.0 ? : ", p.IsAbove(1))
+	fmt.Println("Is Point p located above the line y = 1.0 ? : ", p.IsAbove(2))
 }

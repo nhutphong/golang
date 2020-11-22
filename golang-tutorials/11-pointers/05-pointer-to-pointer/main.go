@@ -8,12 +8,12 @@ func main() {
 	var pp = &p
 
 	fmt.Println("a = ", a)
-	fmt.Println("address of a = ", &a)
+	fmt.Println("ID &a = ", &a)
 
 	fmt.Println("p = ", p)
-	fmt.Println("address of p = ", &p)
+	fmt.Println("ID &p = ", &p)
 
-	fmt.Println("pp = ", pp)
+	fmt.Println("pp = &p = ", pp)
 
 	// Dereferencing a pointer to pointer
 	fmt.Println("*pp = ", *pp)

@@ -5,6 +5,7 @@ import "fmt"
 func main() {
 	var a = 100
 	var p = &a
+	// &a == id(a) python
 
 	fmt.Println("a = ", a)
 	fmt.Println("p = ", p)

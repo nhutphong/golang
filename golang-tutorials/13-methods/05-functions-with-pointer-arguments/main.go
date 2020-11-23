@@ -8,7 +8,7 @@ type Point struct {
 	X, Y float64
 }
 
-//func update field for Point struct
+//func update field=attrs for Point struct
 func TranslateFunc(p *Point, dx, dy float64) {
 	p.X = p.X + dx
 	p.Y = p.Y + dy

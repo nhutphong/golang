@@ -14,7 +14,7 @@ import (
 // number := <- kenh               tuc la number := 25 nhan tu KENH
 
 // KENH <- 25      gan data cho KENH
-// data := <- KENH    nhan data ut KENH
+// data := <- KENH    nhan data tu KENH
 
 // value, ok := channel == maps
 

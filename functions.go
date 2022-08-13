@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	str "strings" // alias
+	"math"
+	"errors"
 )
 
 //func functionname(parametername type) returntype {
@@ -44,7 +46,44 @@ func GFG(lambda func(args ...string) string, args ...string) {
 	lambda = func(args ...interface{}) returntype {
 				statement........
 			}
+
+	#golang
+	func aciton(args ...string) args ...string {
+		return args
+	}
+
+	#python
+	def action(*args):
+		return args
+
 */
+
+func avg(x float64, y float64) float64 {
+	return (x + y) / 2
+}
+
+func getStockPriceChange(prevPrice, currentPrice float64) (float64, float64) {
+	change := currentPrice - prevPrice
+	percentChange := (change / prevPrice) * 100
+	return change, percentChange
+}
+
+func getStockPriceChangeWithError(prevPrice, currentPrice float64) (float64, float64, error) {
+	if prevPrice == 0 {
+		err := errors.New("Previous price cannot be zero")
+		return 0, 0, err
+	}
+	change := currentPrice - prevPrice
+	percentChange := (change / prevPrice) * 100
+	return change, percentChange, nil
+}
+
+func getNamedStockPriceChange(prevPrice, currentPrice float64) (change, percentChange float64) {
+	change = currentPrice - prevPrice
+	percentChange = (change / prevPrice) * 100
+	return change, percentChange
+}
+
 
 func main() {
 	// _ underscore se duoc ignoze di
@@ -57,4 +96,40 @@ func main() {
 		fmt.Println("len(args) = ", len(args))
 		return str.Join(args, " = ")
 	}, "thanh dung", "chi thong", "tan heo", "trau cho")
+
+
+	x := 5.75
+	y := 6.25
+
+	result := avg(x, y)
+
+	fmt.Printf("Average of %.2f and %.2f = %.2f\n", x, y, result)
+
+
+	prevStockPrice := 0.0
+	currentStockPrice := 100000.0
+
+	change, percentChange := getStockPriceChange(prevStockPrice, currentStockPrice)
+
+	if change < 0 {
+		fmt.Printf("The Stock Price decreased by $%.2f which is %.2f%% of the prev price\n", math.Abs(change), math.Abs(percentChange))
+	} else {
+		fmt.Printf("The Stock Price increased by $%.2f which is %.2f%% of the prev price\n", change, percentChange)
+	}
+
+
+	prevStockPriceOne := 0.0
+	currentStockPriceOne := 100000.0
+
+	change, percentChange, err := getStockPriceChangeWithError(prevStockPriceOne, currentStockPriceOne)
+
+	if err != nil {
+		fmt.Println("Sorry! There was an error: ", err)
+	} else {
+		if change < 0 {
+			fmt.Printf("The Stock Price decreased by $%.2f which is %.2f%% of the prev price\n", math.Abs(change), math.Abs(percentChange))
+		} else {
+			fmt.Printf("The Stock Price increased by $%.2f which is %.2f%% of the prev price\n", change, percentChange)
+		}
+	}
 }

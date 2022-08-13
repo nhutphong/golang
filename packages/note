@@ -1,23 +1,28 @@
 mkdir {project}
 cd project
 
-project>go mod init rootname
+project>go mod init my_project
 create go.mod -> quan trong
 
+run:
+packages> go run main.go    // phai dung ngay folder packages/ moi run duoc
+
 import (
-    "rootname/page"
-    "rootname/product"
+    "my_project/page"
+    "my_project/product"
     "fullpath tu github ko can go.mod"
+
+    pro "my_project/product" // alias
 )
 
 func main() chi danh cho file run programm nhu main.go
 vi khi cac module.go defind main() se co nhieu hon 1 main()
 GO se error
 
-voi name la ko viet Hoa chu cai dau tu func, method, struct, struct field=attr
+voi name KHONG VIET HOA chu cai dau tu func, method, struct, struct field=attr
 chi dung dc trong package=folder chua cac files.go cung cap.
 folder khac khi import se KO dung duoc
 
-viet Hoa chua cai dau se dung dc o bat ky package nao
+VIET HOA chua cai dau se dung dc o bat ky packages nao
 
 

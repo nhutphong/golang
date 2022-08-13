@@ -2,6 +2,7 @@ package page
 
 import (
 	"fmt"
+	pro "my_project/product"
 )
 
 func init() {
@@ -10,4 +11,5 @@ func init() {
 
 func Sport() {
 	fmt.Println("tao func Sport()")
+	pro.Tea("page")
 }

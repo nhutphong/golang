@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 /*
@@ -34,6 +35,23 @@ type Point struct {
 	Y float64
 }
 
+// non-struct
+type MyFloat float64
+
+func (f MyFloat) Abs() float64 {
+	if f < 0 {
+		return float64(-f)
+	}
+	return float64(f)
+}
+/*
+	// call: dung (ngoac tron, f is 1 argument, voi type=float64), ko phai la receiver=self gi
+	// f := -math.Sqrt2
+	my_float := MyFloat(-math.Sqrt2)
+	fmt.Println(my_float.Abs())
+
+*/
+
 func format() {
 	fmt.Println()
 	fmt.Println("--------------------------------------------------------------------------------")
@@ -42,11 +60,11 @@ func format() {
 
 
 func main() {
-	// Declaring a variable of a `struct` type
+	// call struct empty
 	var p Person
 	fmt.Println(p)
 
-	// Declaring and initializing a struct using a struct literal
+	// call struct co 3 fields dung {ngoac nhon}
 	p1 := Person{"Rajeev", "Singh", 26}
 	fmt.Println("Person1: ", p1)
 
@@ -88,9 +106,9 @@ func main() {
 	ps := &s
 	fmt.Println("ps: ",ps)
 
-	// Accessing struct fields via pointer
+	
 	fmt.Println("(*ps).name is ", (*ps).Name)
-	fmt.Println("ps.name is ",ps.Name) // Same as above: No need to explicitly dereference the pointer
+	fmt.Println("ps.name is ",ps.Name)
 
 	ps.RollNumber = 31
 	fmt.Println(ps)
@@ -128,4 +146,10 @@ func main() {
 	} else {
 		fmt.Println("Point p6 and p7 are not equal.")
 	}
+
+	format()
+
+	// call non-struct dung (ngoặc tròn)
+	f := MyFloat(-math.Sqrt2)
+	fmt.Println(f.Abs())
 }

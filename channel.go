@@ -4,19 +4,17 @@ import (
 	"fmt"
 )
 
-// channels nhu pipe = 1 var nhan va gui data cho goroutines dung no
-// default main() la goroutines 1
+/*
+	channels nhu pipe = 1 var nhan va gui data cho goroutines dung no
+	default main() la goroutines 1
 
-// KENH := make(chan int)
+	KENH := make(chan int, 10) // nhận, send data 10 lần 
 
-// go func_name(name, kenh) =>  goroutines 2 ,...
-// trong func_name se gan data cho KENH CD:              KENH <- 25
-// number := <- kenh               tuc la number := 25 nhan tu KENH
+	KENH <- 25      gan data cho KENH
+	data := <- KENH    nhan data tu KENH
 
-// KENH <- 25      gan data cho KENH
-// data := <- KENH    nhan data tu KENH
-
-// value, ok := channel == maps
+	value, ok := channel == maps
+*/
 
 func digits(number int, ch_digit chan int) {
 	for number != 0 {

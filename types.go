@@ -6,6 +6,10 @@ import (
 )
 
 func main() {
+
+	// nil == None python
+	// khi declared name_var dung = thi pha co: var name string = 'thong'
+	// name := 'thong' // := thi khong can keyword var
 	var myInt8 int8 = 97
 
 	/*

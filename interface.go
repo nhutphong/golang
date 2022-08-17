@@ -3,9 +3,11 @@ package main
 import "fmt"
 
 // Định nghĩa interface I với 1 method là M() và N()
+// interface noi chua cac methods
 type AbstractHuman interface {
 	get_name() string
 	get_age() int
+	// get_city(city string) string // co (arg_city) return string
 }
 
 // Định nghĩa struct T = class

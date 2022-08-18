@@ -8,6 +8,21 @@ import (
 /*
 	struc chi chua fields = attributes
 	interface chua methods
+
+	// anonymous struct
+	emp3 := struct {
+        firstName string
+        lastName  string
+        age       int
+        salary    int
+    }{
+        firstName: "Andreah",
+        lastName:  "Nikola",
+        age:       31,
+        salary:    5000,
+    }
+
+    fmt.Println("Employee 3", emp3)
 */
 type Person struct {
 	FirstName string
@@ -44,6 +59,13 @@ func (f MyFloat) Abs() float64 {
 	}
 	return float64(f)
 }
+
+type myInt int
+
+func (a myInt) add(b myInt) myInt {
+	return a + b
+}
+
 /*
 	// call: dung (ngoac tron, f is 1 argument, voi type=float64), ko phai la receiver=self gi
 	// f := -math.Sqrt2
@@ -51,6 +73,24 @@ func (f MyFloat) Abs() float64 {
 	fmt.Println(my_float.Abs())
 
 */
+
+
+type Address struct {  
+    city  string
+    state string
+}
+
+type Human struct {
+	// <name_fields> <type_field>
+	
+    name    string
+    age     int
+    address Address // nested struct
+    /* Address 	// khi declared chi co Address=Type
+    ngam hieu Address Address
+
+    */
+}
 
 func format() {
 	fmt.Println()
@@ -152,4 +192,47 @@ func main() {
 	// call non-struct dung (ngoặc tròn)
 	f := MyFloat(-math.Sqrt2)
 	fmt.Println(f.Abs())
+
+	format()
+
+	// type myInt int
+	num1 := myInt(5)
+    num2 := myInt(10)
+    sum := num1.add(num2)
+    fmt.Println("Sum is", sum)
+
+    format()
+
+    /*
+
+    	// anonymous fields
+		type Person struct {  
+		    string
+		    int
+		}	
+
+	    person := Person{
+	        string: "naveen",
+	        int:    50,
+	    }
+	    fmt.Println(person.string)
+	    fmt.Println(person.int)
+    */
+
+    format()
+
+    //
+    human := Human{
+        name: "Naveen",
+        age:  50,
+        address: Address{
+            city:  "Chicago",
+            state: "Illinois",
+        },
+    }
+
+    fmt.Println("Name:", human.name)
+    fmt.Println("Age:", human.age)
+    fmt.Println("City:", human.address.city)
+    fmt.Println("State:", human.address.state)
 }

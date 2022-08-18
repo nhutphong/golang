@@ -6,6 +6,12 @@ import (
     "os"
 )
 
+func format() {
+    fmt.Println()
+    fmt.Println("--------------------------------------------------------------------------------")
+    fmt.Println()
+}
+
 type point struct {
     x, y int
 }
@@ -80,4 +86,18 @@ func main() {
     fmt.Fprintf(os.Stderr, "io: an %s\n", "error")
 
     fmt.Printf("%40s\n", "phong")
+
+    format()
+
+    byteSlice := []byte{0x43, 0x61, 0x66, 0xC3, 0xA9}
+    str := string(byteSlice) // convert and join ve string
+    fmt.Println("string(byteSlice) = ", str)
+
+    // byteSlice := []byte{67, 97, 102, 195, 169} //decimal equivalent of {'\x43', '\x61', '\x66', '\xC3', '\xA9'}
+    
+    format()
+
+    runeSlice := []rune{0x0053, 0x0065, 0x00f1, 0x006f, 0x0072}
+    str_two := string(runeSlice)
+    fmt.Println("string(runeSlice) = ", str_two)
 }

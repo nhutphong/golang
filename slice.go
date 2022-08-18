@@ -3,6 +3,11 @@ package main
 import "fmt"
 
 func main() {
+	/*
+		array := []int{10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
+		slice = array[2:7] // REF-TYPE
+		
+	*/
 
 	var four = []int{3, 5, 7, 9, 11, 13, 17} // Creates an array, and returns a slice reference to the array
 

@@ -2,7 +2,9 @@ mkdir {project}
 cd project
 
 project>go mod init my_project
-create go.mod -> quan trong
+go mod tidy
+go build
+go vendor
 
 run:
 packages> go run main.go    // phai dung ngay folder packages/ moi run duoc

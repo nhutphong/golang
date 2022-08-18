@@ -1,8 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"golang/tricks"
+)
 
 func main() {
+	//  assign( = , := ) cua array la VALUE TYPE = tham tri
+
 	var x [5]int // An array of 5 integers
 	fmt.Println(x)
 
@@ -21,6 +26,7 @@ func main() {
 	b := [5]int{2, 4, 6, 8, 10}
 	fmt.Println(b)
 
+	tricks.Format()
 	// You don't need to initialize all the elements of the array.
 	// The un-initialized elements will be assigned the zero value of the corresponding array type
 	c := [5]int{2}

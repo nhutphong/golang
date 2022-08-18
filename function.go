@@ -7,9 +7,23 @@ import (
 	"errors"
 )
 
-//func functionname(parametername type) returntype {
-//function body
-//}
+/*
+	// variadic arguments
+	func hello(a int, args ...int) {  
+		// syntax ok
+	}
+
+	func hello(args ...int, b int) {  
+		// syntax error
+	}
+
+*/
+
+func format() {
+    fmt.Println()
+    fmt.Println("--------------------------------------------------------------------------------")
+    fmt.Println()
+}
 
 func calculateBillA(price int, no int) int {
 	var totalPrice = price * no

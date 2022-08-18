@@ -1,0 +1,10 @@
+github.com/Arafatk/glot v0.0.0-20180312013246-79d5219000f0 h1:buG0FAUZtOwl9c+RdnQo3cfZhTnY2OY24J3t+jpeb9Y=
+github.com/Arafatk/glot v0.0.0-20180312013246-79d5219000f0/go.mod h1:o0O8gFiTfVp4g5QcQJ1iMLw6ROiy9BITaiBbEiwz9h8=
+github.com/iovisor/gobpf v0.2.0 h1:34xkQxft+35GagXBk3n23eqhm0v7q0ejeVirb8sqEOQ=
+github.com/iovisor/gobpf v0.2.0/go.mod h1:WSY9Jj5RhdgC3ci1QaacvbFdQ8cbrEjrpiZbLHLt2s4=
+github.com/mactsouk/go v0.0.0-20180603081621-6a282087f7bd h1:TqJGx/jAxlJ3RNL7pS7XZQlvtH8rL/dUsA8wPe9W4y0=
+github.com/mactsouk/go v0.0.0-20180603081621-6a282087f7bd/go.mod h1:TRtlPc1xi1zOQdbA/cIxGdS+fCaIZDQUpMrFlET5dbI=
+github.com/mattn/go-sqlite3 v1.14.15 h1:vfoHhTN1af61xCRSWzFIWzx2YskyMTwHLrExkBOjvxI=
+github.com/mattn/go-sqlite3 v1.14.15/go.mod h1:2eHXhiwb8IkHr+BDWZGa96P6+rkvnG63S2DGjv9HUNg=
+github.com/pkg/profile v1.6.0 h1:hUDfIISABYI59DyeB3OTay/HxSRwTQ8rB/H83k6r5dM=
+github.com/pkg/profile v1.6.0/go.mod h1:qBsxPvzyUincmltOk6iyRVxHYg4adc0OFOv72ZdLa18=

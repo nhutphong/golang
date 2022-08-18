@@ -5,7 +5,29 @@ import (
 	"math"
 )
 
+func format() {
+    fmt.Println()
+    fmt.Println("--------------------------------------------------------------------------------")
+    fmt.Println()
+}
+
 func main() {
+	/*
+
+		type any = interface{}
+		type error interface {
+			Error() string
+		}
+
+		For slices, maps and channels: use make()
+		For arrays, structs and all value types: use new()
+
+	*/
+
+	var my_number any = 100
+	var my_str any = "thong dung"
+
+	fmt.Println("my_number =",my_number, "\tmy_str =", my_str)
 
 	// nil == None python
 	// khi declared name_var dung = thi pha co: var name string = 'thong'
@@ -141,4 +163,7 @@ func main() {
 	const typedStr string = "Hi"
 
 	fmt.Println(myFavLanguage, sunRisesInTheEast, country, code, employeeId, salary, typedInt, typedStr)
+
+
+
 }

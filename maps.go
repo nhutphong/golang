@@ -5,9 +5,14 @@ import (
 )
 
 func main() {
-	// var demoMap map[string]int //cach1 
-	// khong the add, del, change key value in map
-	// syntax thuong dung la argument cho func
+	/* 
+		var demoMap map[string]int //cach1 
+		khong the add del, change key value in map
+		syntax thuong dung la argument cho func
+
+		// use make()
+		dict := make(map[string]int) //cach2 co the add dell change key value in map
+	*/
 
 	dict := make(map[string]int) //cach2
 

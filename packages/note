@@ -16,10 +16,17 @@ import (
 
     pro "my_project/product" // alias
 )
+IMPORTANT:
+           modules.go duoc import
+           packages/page/modules.go
+           packages/product/modules_two.go
 
-func main() chi danh cho file run programm nhu main.go
-vi khi cac module.go defind main() se co nhieu hon 1 main()
-GO se error
+           files run
+           packages/files.go                      
+           packages/files_two.go
+
+cac files.go run, se nam cung cap voi folder /page, /product
+cac modules.go duoc import bat buoc phai nam trong /page /product /more...
 
 voi name KHONG VIET HOA chu cai dau tu func, method, struct, struct field=attr
 chi dung dc trong package=folder chua cac files.go cung cap.

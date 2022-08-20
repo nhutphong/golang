@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"phong/tricks"
 )
+
 
 type Student struct {
 	firstName string
@@ -47,19 +49,22 @@ func main() {
 	//  code blabla
 	// }
 	students := []Student{s1, s2}
-	f := filter(students, func(student Student) bool {
+	students_filter := filter(students, func(student Student) bool {
 		if student.grade == "B" {
 			return true
 		}
 		return false
 	})
-	fmt.Println(f)
+	fmt.Println(students_filter)
 
 	add := simple()
 	fmt.Println(add(60, 7))
 
+	tricks.Format()
+
+	// anonymous function = lambda
 	my_name := "Cr7"
 	func(name string) {
 		fmt.Println("name =", my_name)
-	}(my_name)
+	}(my_name) // run lun
 }

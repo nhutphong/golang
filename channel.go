@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"time"
+	"phong/tricks"
 )
 
 /*
@@ -49,6 +51,19 @@ func calcCubes(number int, ch_cube chan int) {
 	fmt.Println("func calcCubes() end")
 }
 
+func process(ch chan string) {
+	time.Sleep(5000 * time.Millisecond)
+	ch <- "process successful"
+}
+
+func server1(ch chan string) {  
+    ch <- "from server1"
+}
+func server2(ch chan string) {  
+    ch <- "from server2"
+
+}
+
 func main() {
 	number := 589
 	ch_square := make(chan int)
@@ -65,11 +80,58 @@ func main() {
 	// read data <- ch_square
 
 	fmt.Println("end goroutines channel")
-	fmt.Println("end goroutines channel")
-	fmt.Println("end goroutines channel")
 
 	squares, cubes := <-ch_square, <-ch_cube
 	fmt.Println("squares: ", squares)
 	fmt.Println("cubes: ", cubes)
 	fmt.Println("Final ouput", squares+cubes)
+
+	tricks.Format()
+
+	/*
+		select { case expression } == match case python
+		thuong dung voi goroutine channel
+	*/
+
+	/* Deadlock and default case
+
+		func main() {  
+		    ch := make(chan string)
+		    select {
+			case <-ch:
+			default:
+				fmt.Println("co default se ko co deadlock")
+		    }
+
+		    select {} // chi co 1 minh select cung deadlock
+		}
+	*/
+
+	output1 := make(chan string)
+    output2 := make(chan string)
+    go server1(output1)
+    go server2(output2)
+    time.Sleep(1 * time.Second)
+    select {
+    case s1 := <-output1:
+        fmt.Println(s1)
+    case s2 := <-output2:
+        fmt.Println(s2)
+    }
+
+    tricks.Format()
+
+    ch := make(chan string)
+	go process(ch)
+	for {
+		time.Sleep(500 * time.Millisecond)
+		select {
+		case v := <-ch:
+			fmt.Println("received value: ", v)
+			return
+		default:
+			fmt.Println("no value received")
+		}
+	}
+
 }

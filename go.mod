@@ -1,4 +1,4 @@
-module golang
+module phong
 
 go 1.18
 

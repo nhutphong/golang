@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"phong/tricks"
 )
 
 /*
@@ -38,11 +39,6 @@ type Car struct {
 type Student struct {
 	RollNumber int
 	Name       string
-}
-
-type Employee struct {
-	Id   int
-	Name string
 }
 
 type Point struct {
@@ -100,6 +96,8 @@ func format() {
 
 
 func main() {
+
+
 	// call struct empty
 	var p Person
 	fmt.Println(p)
@@ -153,16 +151,6 @@ func main() {
 	ps.RollNumber = 31
 	fmt.Println(ps)
 	//
-
-	format()
-
-	pEmp := new(Employee)
-
-	pEmp.Id = 1000
-	pEmp.Name = "Sachin"
-
-	fmt.Println(pEmp)
-
 
 	format()
 	// Structs are value types.

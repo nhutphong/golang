@@ -32,33 +32,30 @@ func defer_test(end int) {
 }
 
 func main() {
-	// If Statement
+	tricks.Format("if")
 	var x = 25
 	if x%5 == 0 {
 		fmt.Printf("%d is a multiple of 5\n", x)
 	}
 
-	tricks.Format()
-	// Parentheses are Optional
+	
 	var y = -1
 	if y < 0 {
 		fmt.Printf("%d is negative\n", y)
 	}
 
-	tricks.Format()
-	// If with a condition consisting of short circuit operators
 	var age = 21
 	if age >= 17 && age <= 30 {
 		fmt.Println("My Age is between 17 and 30")
 	}
 
-	tricks.Format()
+	tricks.Format("if n := 10; n%2 == 0 {}")
 	// If with a short statement
 	if n := 10; n%2 == 0 {
 		fmt.Printf("%d is even\n", n)
 	}
 
-	tricks.Format()
+	tricks.Format("if {} else {}")
 	var old = 18
 	if old >= 18 {
 		fmt.Println("You're eligible to vote!")
@@ -66,7 +63,7 @@ func main() {
 		fmt.Println("You're not eligible to vote!")
 	}
 
-	tricks.Format()
+	tricks.Format("if {} else if {} else {}")
 	var BMI = 21.0
 	if BMI < 18.5 {
 		fmt.Println("You are underweight")
@@ -78,7 +75,8 @@ func main() {
 		fmt.Println("You're obese")
 	}
 
-	tricks.Format()
+	// switch-case golang, khong can keyword break in moi case:
+	tricks.Format("switch expression { case : } ")
 	var dayOfWeek = 6
 	switch dayOfWeek {
 	case 1:
@@ -105,7 +103,8 @@ func main() {
 		fmt.Println("Invalid day")
 	}
 
-	tricks.Format()
+
+	tricks.Format("switch case")
 	switch day_of_week := 5; day_of_week {
 	case 1, 2, 3, 4, 5:
 		fmt.Println("Weekday")
@@ -115,31 +114,39 @@ func main() {
 		fmt.Println("Invalid Day")
 	}
 
-	tricks.Format()
+
+	tricks.Format("switch case")
 	var AMD = 21.0
 	switch {
 	case AMD < 18.5:
 		fmt.Println("You're underweight")
 	case AMD >= 18.5 && AMD < 25.0:
 		fmt.Println("Your weight is normal")
+		//fallthrough //run them 1 case ben duoi khong qua tam dieu kien
 	case AMD >= 25.0 && AMD < 30.0:
 		fmt.Println("You're overweight")
 	default:
 		fmt.Println("You're obese")
 	}
 
-	tricks.Format()
+	tricks.Format("for one := 0; one < 10; one++")
 	for one := 0; one < 10; one++ {
+		if one == 4 {
+			continue
+		} else if one >= 8 {
+			break
+		}
+
 		fmt.Printf("%d ", one)
 	}
 
-	tricks.Format()
+	tricks.Format("for ; two <= 10; two += 2 {}")
 	two := 2
 	for ; two <= 10; two += 2 {
 		fmt.Printf("%d ", two)
 	}
 
-	tricks.Format()
+	tricks.Format("for three <= 20 {}")
 	three := 2
 	for three <= 20 {
 		// giong nhu while
@@ -148,7 +155,7 @@ func main() {
 	}
 
 
-	tricks.Format()
+	tricks.Format("*")
 	for num := 1; num <= 100; num++ {
 		if num%3 == 0 && num%5 == 0 {
 			fmt.Printf("First positive number divisible by both 3 and 5 is %d\n", num)
@@ -156,7 +163,7 @@ func main() {
 		}
 	}
 
-	tricks.Format()
+	tricks.Format("*")
 	for num := 1; num <= 10; num++ {
 		if num%2 == 0 {
 			continue
@@ -164,17 +171,17 @@ func main() {
 		fmt.Printf("%d ", num)
 	}
 
-	tricks.Format()
+	tricks.Format("*")
 
 	findType("Naveen")
     findType(77)
     findType(89.98)
 
-    tricks.Format()
+    tricks.Format("defer")
 
     defer_test(10)
 
-    tricks.Format()
+    tricks.Format("for index, char := range name {}")
 
     name:="chi thong"
 	for index, char := range name {
@@ -183,6 +190,5 @@ func main() {
 		*/
 		fmt.Printf("index %d char %c\n", index, char)
 	}
-
-	tricks.Format()
+	tricks.Format("*")
 }

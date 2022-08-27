@@ -10,8 +10,10 @@ func format() {
     fmt.Println()
 }
 
-func Format() {
+func Format(title string) {
+
+    first := "----------------------------------------"
     fmt.Println()
-    fmt.Println("--------------------------------------------------------------------------------")
+    fmt.Printf("%s%s\n", first,title)
     fmt.Println()
 }

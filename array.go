@@ -11,6 +11,12 @@ func main() {
 	var x [5]int // An array of 5 integers
 	fmt.Println(x)
 
+	tricks.Format("slice")
+	var slice []int
+	fmt.Printf("type is %T", slice)
+
+
+	tricks.Format("*")
 	var y [8]string // An array of 8 strings
 	fmt.Println(y)
 
@@ -26,7 +32,7 @@ func main() {
 	b := [5]int{2, 4, 6, 8, 10}
 	fmt.Println(b)
 
-	tricks.Format()
+	tricks.Format("[...]int{3, 5, 7, 9}  3dot length tuy y")
 	// You don't need to initialize all the elements of the array.
 	// The un-initialized elements will be assigned the zero value of the corresponding array type
 	c := [5]int{2}
@@ -66,14 +72,15 @@ func main() {
 	// ignoze index dung underscore
 	// for _, value := range array {}
 
-	// Iterating over an array using range form of for loop
+	tricks.Format("for index, value := range array {}")
 	daysOfWeek := [7]string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}
 
 	for index, value := range daysOfWeek {
 		fmt.Printf("Day %d of week = %s\n", index, value)
 	}
 
-	// Finding the sum of an array
+
+	tricks.Format("for _, value := range array {}")
 	one := [4]float64{3.5, 7.2, 4.8, 9.5}
 	total := float64(0)
 
@@ -84,6 +91,7 @@ func main() {
 	fmt.Printf("total of all the elements in array %v = %f\n", a, total)
 
 
+	tricks.Format("array 2 chieu")
 	// 1 parent array chua 2 child array chua 3 item=int
 	// child array co the co item it hon len=qui dinh, nhung ko dc > hon
 	two := [2][3]int{

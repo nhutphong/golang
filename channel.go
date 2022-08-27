@@ -121,6 +121,9 @@ func main() {
 
     tricks.Format()
 
+
+    tricks.Format()
+
     ch := make(chan string)
 	go process(ch)
 	for {
@@ -128,7 +131,7 @@ func main() {
 		select {
 		case v := <-ch:
 			fmt.Println("received value: ", v)
-			return
+			return // end forever loop
 		default:
 			fmt.Println("no value received")
 		}

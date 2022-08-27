@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"phong/tricks"
 )
 
 func format() {
@@ -18,17 +19,21 @@ func main() {
 		type error interface {
 			Error() string
 		}
+		declared any thi variable co the nhan bat ky kieu du lieu nao
 
 		For slices, maps and channels: use make()
 		For arrays, structs and all value types: use new()
 
 	*/
-
+	tricks.Format("type any")
 	var my_number any = 100
-	var my_str any = "thong dung"
+	var my_any any = "thong dung"
+	my_any = [...]int{1,2,3,4,5} // vi type la any nen co the assign type khac
 
-	fmt.Println("my_number =",my_number, "\tmy_str =", my_str)
+	fmt.Println("my_number =",my_number, "\tmy_any =", my_any)
 
+
+	tricks.Format("int")
 	// nil == None python
 	// khi declared name_var dung = thi pha co: var name string = 'thong'
 	// name := 'thong' // := thi khong can keyword var
@@ -51,6 +56,7 @@ func main() {
 	fmt.Printf("%d, %d, %d, %#x, %#o %f %f\n", myInt8, myInt, myUint, myHexNumber, myOctalNumber, myFloat32, myFloat)
 
 
+	tricks.Format("byte rune")
 	var myByte byte = 'a'
 	var myRune rune = '♥'
 
@@ -71,7 +77,7 @@ func main() {
 
 	fmt.Printf("res1 : %v, res2 : %v, res3 : %v\n", res1, res2, res3)
 
-
+	tricks.Format("so sanh")
 	var myBoolean bool = true
 	var anotherBoolean = false // Inferred type
 
@@ -84,7 +90,7 @@ func main() {
 
 	fmt.Println(myBoolean, anotherBoolean, truth, falsehood, res4, res5)
 
-
+	tricks.Format("complex64")
 	// === Creating complex numbers ====
 	/*
 		complex64: both real and imaginary parts are of float32 type.
@@ -114,6 +120,7 @@ func main() {
 	fmt.Println(res9, res6, res7, res8)
 
 
+	tricks.Format("back-tics `raw string not render format`")
 	// Normal String (Can not contain newlines, and can have escape characters like `\n`, `\t` etc)
 	var website = "\thttps://www.callicoder.com\t\n"
 
@@ -125,6 +132,7 @@ func main() {
 	fmt.Println(website, siteDescription)
 
 
+	tricks.Format("type Conversion")
 	// Type Conversion
 	var a3 int64 = 4
 	var b1 int = int(a3) // Explicit Type Conversion
@@ -146,6 +154,7 @@ func main() {
 	fmt.Println(my_Int, my_Uint, my_Float)
 
 
+	tricks.Format("keywork const")
 	// Untyped Constant
 	const myFavLanguage = "Python"
 	const sunRisesInTheEast = true

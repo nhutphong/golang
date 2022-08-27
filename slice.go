@@ -1,14 +1,21 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"phong/tricks"
+)
 
 func main() {
 	/*
 		array := []int{10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
 		slice = array[2:7] // REF-TYPE
+
+		arr1 := [5]int{1:10,2:40} // [0, 10, 40, 0, 0]
+		// index1 = 10, index2 = 40
 		
 	*/
 
+	tricks.Format("slice REF-TYPE to array dung: array[:]")
 	var four = []int{3, 5, 7, 9, 11, 13, 17} // Creates an array, and returns a slice reference to the array
 
 	// Short hand declaration
@@ -17,7 +24,7 @@ func main() {
 	fmt.Println("s = ", four)
 	fmt.Println("t = ", t)
 
-
+	tricks.Format("*")
 	cities := []string{"New York", "London", "Chicago", "Beijing", "Delhi", "Mumbai", "Bangalore", "Hyderabad", "Hong Kong"}
 
 	asianCities := cities[3:]
@@ -27,7 +34,7 @@ func main() {
 	fmt.Println("asianCities = ", asianCities)
 	fmt.Println("indianCities = ", indianCities)
 
-
+	tricks.Format("*")
 	a := [7]string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}
 
 	// syntax slice gan la tham chieu= REF_TYPE, tuc slice1 or slice2 thay doi thi a cung thay doi
@@ -55,8 +62,6 @@ func main() {
 	fmt.Println("slice1 = ", slice1)
 	fmt.Println("slice2 = ", slice2)
 
-
-	fmt.Println()
 	/*
 		The length of the slice is the number of elements in the slice.
 		slice=cap la do dai tu start_index den end cua array no tham tri=value
@@ -69,6 +74,7 @@ func main() {
 	//cap(s1) = 10(tuc la tinh tu index=1 cua a1 toi het a1) REF_TYPE to a1
 	//cap(last) = 8(tuc la tinh tu index=2 cua s1 toi het a1) REF_TYPE to a1
 
+	tricks.Format("*")
 	space := ""
 
 	fmt.Printf("a1 = %v, len = %d, cap = %d\n", a1, len(a1), cap(a1))
@@ -92,8 +98,8 @@ func main() {
 	fmt.Println("\nAfter dropping the first two elements s[2:]")
 	fmt.Printf("s = %v, len = %d, cap = %d\n", s, len(s), cap(s))
 
-	fmt.Println()
 
+	tricks.Format("make([]int, lenght, cap)")
 	// make([]int, lenght, cap)
 	slice := make([]int, 5, 10)
 	fmt.Printf("slice = %v, len = %d, cap = %d\n", slice, len(slice), cap(slice))
@@ -106,7 +112,7 @@ func main() {
 	fmt.Printf("s1 = %v, len = %d, cap = %d\n", s3, len(s3), cap(s3))
 
 
-	fmt.Println()
+	tricks.Format("nil")
 	// The zero value of a slice is nil. A nil slice doesn’t have any underlying array, and has a length and capacity of 0
 	var six []int // = nil = None python
 	fmt.Printf("six = %v, len = %d, cap = %d\n", six, len(six), cap(six))
@@ -115,7 +121,8 @@ func main() {
 		fmt.Println("six is nil")
 	}
 
-	fmt.Println()
+	
+	tricks.Format("numElementsCopied := copy(dest, src)")
 	/*
 		The copy() function copies elements from one slice to another
 		func copy(dst, src []T) int
@@ -130,7 +137,8 @@ func main() {
 	fmt.Println("dest = ", dest)
 	fmt.Println("Number of elements copied from src to dest = ", numElementsCopied)
 
-	fmt.Println()
+
+	tricks.Format(`new_slice := append(slice3, "Python", "Ruby", "Go")`)
 
 	slice3 := []string{"C", "C++", "Java"}
 	// slice5 va slice3 rieng biet khong REF_TYPE nhau
@@ -156,7 +164,7 @@ func main() {
 	// unpackae array... 3dot
 	// slice3 := append(slice1, slice2...)
 
-
+	tricks.Format("array 2 chieu")
 	two_chieu := [][]string{
 		{"India", "China"},
 		{"USA", "Canada"},
@@ -167,8 +175,8 @@ func main() {
 	fmt.Println("length = ", len(two_chieu))
 	fmt.Println("capacity = ", cap(two_chieu))
 
-	fmt.Println()
 
+	tricks.Format("for index, value := range array {}")
 
 	primeNumbers := []int{2, 3, 5, 7, 11, 13, 17, 19, 23, 29}
 

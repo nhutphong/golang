@@ -24,10 +24,15 @@ func (a Author) fullName() string {
 	return fmt.Sprintf("%s %s", a.firstName, a.lastName)
 }
 
+// chú ý đoạn code embed struct
 type BlogPost struct {
 	title   string
 	content string
-	Author //embed struct Author == class BlogPost(Author)
+	Author //phải code như vậy mới là embed struct Author == class BlogPost(Author)
+	/*
+		author Author //NOT inheritance, phải access qua blog.author.<field_name>
+		Author Author //NOT inheritance, phải access qua blog.Author.<field_name>
+	*/
 
 	/*
 		khi nhúng Author vào làm field của BlogPost , thì tức la BlogPost đã inheritance Author 
@@ -71,6 +76,8 @@ func (w WebSite) contents() {
 
 
 func main() {
+
+	tricks.Format("embed struct")
 	Author1 := Author{
 		"Naveen",
 		"Ramanathan",

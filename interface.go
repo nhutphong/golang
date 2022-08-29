@@ -1,71 +1,131 @@
 package main
 
-import "fmt"
+import (  
+    "fmt"
+    "log"
+    "phong/tricks"
+)
+/*
+	interface nơi chứa methods
+	khi các struct implement= tức là code các methods trùng tên với methods co trong interface
+	thì khi đó các struct đều có type la interface đó 
 
-// Định nghĩa interface I với 1 method là M() và N()
-// interface noi chua cac methods
-type AbstractHuman interface {
-	get_name() string
-	get_age() int
-	// get_city(city string) string // co (arg_city) return string
+	ứng dụng: khi Human, Dog đều implement interface Animal
+	có human1 human2, dog1, dog2 đều có type Animal 
+	arr = []Animal{human1, human2, dog1, dog2} //ok 
+
+
+*/
+
+type SalaryCalculator interface {  
+    CalculateSalary() int
 }
 
-// Định nghĩa struct T = class
-type Human struct {
-	name string
-	age  int
+type Permanent struct {  
+    empId    int
+    basicpay int
+    pf       int
 }
 
-// implement interface
-func (self Human) get_name() string {
-	return self.name
+type Contract struct {  
+    empId  int
+    basicpay int
 }
 
-// implement interface
-func (self Human) get_age() int {
-	return self.age
+//tiền lương của nhân viên permanent bằng tổng của basic pay và pf
+// implement SalaryCalculator interface  (ngầm, tức tụ hiểu)
+func (p Permanent) CalculateSalary() int {  
+    return p.basicpay + p.pf
 }
 
-// var human *Human = &Human{name: "dung", age:28} //cach2
-// var human        = &Human{name: "dung", age:28} //default cach1
-
-func change_age_human(human *Human, age int) int {
-	human.age = age
-	return human.get_age()
+//tiền lương của nhân viên contract chỉ là basic pay
+func (c Contract) CalculateSalary() int {  
+    return c.basicpay
 }
 
-// Hàm describe có tham số truyền vào là một empty interface
-// do đó khi thực thi ta có thể truyền vào kiểu dữ liệu nào cũng được
-func describe(auto interface{}) {
-	fmt.Printf("value: %v, type: %T\n", auto, auto)
+/*
+tổng chi phí được tính bằng cách duyệt qua từng phần tử của slice SalaryCalculator
+và tính tổng mức lương của từng nhân viên
+*/
+func totalExpense(list []SalaryCalculator) {  
+    expense := 0
+    for _, v := range list {
+        expense = expense + v.CalculateSalary()
+    }
+    fmt.Printf("Total Expense Per Month $%d", expense)
 }
 
-func main() {
-	// var human Human = Human{name: "dung", age:28}
-	// var abstract AbstractHuman = Human{name: "dung", age:28}
 
-	var human = &Human{name: "dung", age: 28}
-	fmt.Println(human.get_name())
-	fmt.Println(human.get_age())
-	fmt.Println("change_age_human: ", change_age_human(human, 35))
+type Tester interface {  
+    Test()
+}
 
-	fmt.Println(human.age)
+// non-struct
+/*
+	one := MyFloat(80.5)
+	suy ra: m=80.5
+	one.Test() // run method print ra 80.5
+*/
+type MyFloat float64
 
-	var auto interface{} // auto la value tuy y -> int string array slice map
-	describe(auto)
+func (m MyFloat) Test() {  
+    fmt.Println(m)
+}
 
-	auto = 27
-	describe(auto)
+func describe(t Tester) {  
+    log.Printf("Interface type %T value %v\n", t, t)
+}
 
-	auto = "chithong"
-	describe(auto)
 
-	auto = [...]int{}
-	describe(auto)
+type Describer interface {  
+    Describe()
+}
+type Person struct {  
+    name string
+    age  int
+}
 
-	auto = make([]int, 5)
-	describe(auto)
+func (p Person) Describe() {  
+    fmt.Printf("%s is %d years old", p.name, p.age)
+}
 
-	auto = make(map[string]Human)
-	describe(auto)
+//go1.18, (i any) == (i interface{}) 
+func findType(i interface{}) {  
+    switch v := i.(type) {
+    case Describer:
+        v.Describe()
+    default:
+        fmt.Printf("unknown type\n")
+    }
+}
+
+
+func main() {  
+
+	tricks.Format("interface")
+    pemp1 := Permanent{1, 5000, 20}
+    pemp2 := Permanent{2, 6000, 30}
+    cemp1 := Contract{3, 3000}
+    // 
+    employees := []SalaryCalculator{pemp1, pemp2, cemp1}
+    totalExpense(employees)
+
+
+    tricks.Format("non-struct")
+    var t Tester
+    f := MyFloat(89.7) //m=89.7 
+    t = f
+    describe(t)
+    t.Test()
+
+
+    tricks.Format("varName.(type)")
+   	findType("Naveen")
+
+    p := Person{
+        name: "Naveen R",
+        age:  25,
+    }
+    findType(p)
+
 }

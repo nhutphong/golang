@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math"
 	"phong/tricks"
 )
@@ -56,6 +57,7 @@ func (f MyFloat) Abs() float64 {
 	return float64(f)
 }
 
+// non-struct
 type myInt int
 
 func (a myInt) add(b myInt) myInt {
@@ -81,7 +83,7 @@ type Human struct {
 	
     name    string
     age     int
-    address Address // nested struct
+    Address // embed struct xem thêm tại inheritance.go
     /* Address 	// khi declared chi co Address=Type
     ngam hieu Address Address
 
@@ -118,41 +120,26 @@ func main() {
 	p3 := Person{FirstName: "Robert"}
 	fmt.Println("Person3: ", p3)
 
-	format()
 
-	c := Car{
-		Name:       "Ferrari",
-		Model:      "GTC4",
-		Color:      "Red",
-		WeightInKg: 1920,
-	}
-
-	// Accessing struct fields using the dot operator
-	fmt.Println("Car Name: ", c.Name)
-	fmt.Println("Car Color: ", c.Color)
-
-	// Assigning a new value to a struct field
-	c.Color = "Black"
-	fmt.Println("Car: ", c)
-
-
-	format()
+	tricks.Format("&pointer")
 	// instance of student struct type
 	s := Student{11, "Jack"}
 
 	// Pointer to the student struct
 	ps := &s
-	fmt.Println("ps: ",ps)
+	fmt.Println("ps: ", ps)
+	fmt.Println("*ps: ", *ps)
 
 	
 	fmt.Println("(*ps).name is ", (*ps).Name)
 	fmt.Println("ps.name is ",ps.Name)
 
 	ps.RollNumber = 31
-	fmt.Println(ps)
+	fmt.Println("ps:", ps)
+	fmt.Println("*ps:", *ps)
 	//
 
-	format()
+	tricks.Format("NOT pointer")
 	// Structs are value types.
 	p5 := Point{10, 20}
 	p4 := p5 // A copy of the struct `p1` is assigned to `p2`
@@ -164,24 +151,21 @@ func main() {
 	fmt.Println("p5 = ", p5)
 	fmt.Println("p4 = ", p4)
 
-	format()
-	
+
+	tricks.Format("so sánh pointer")
 	p6 := Point{3.4, 5.2}
 	p7 := Point{3.4, 5.2}
-
 	if p6 == p7 {
-		fmt.Println("Point p6 and p7 are equal.")
+		fmt.Println("Point p6 == p7 are equal.")
 	} else {
 		fmt.Println("Point p6 and p7 are not equal.")
 	}
 
-	format()
 
+	tricks.Format("non-struct")
 	// call non-struct dung (ngoặc tròn)
 	f := MyFloat(-math.Sqrt2)
 	fmt.Println(f.Abs())
-
-	format()
 
 	// type myInt int
 	num1 := myInt(5)
@@ -189,11 +173,9 @@ func main() {
     sum := num1.add(num2)
     fmt.Println("Sum is", sum)
 
-    format()
-
     /*
 
-    	// anonymous fields
+    	// anonymous fields == embed struct == inheritance
 		type Person struct {  
 		    string
 		    int
@@ -207,20 +189,23 @@ func main() {
 	    fmt.Println(person.int)
     */
 
-    format()
-
     //
+    tricks.Format("embed struct into struct = inheritance")
     human := Human{
         name: "Naveen",
         age:  50,
-        address: Address{
+        Address: Address{
             city:  "Chicago",
             state: "Illinois",
         },
     }
 
-    fmt.Println("Name:", human.name)
-    fmt.Println("Age:", human.age)
-    fmt.Println("City:", human.address.city)
-    fmt.Println("State:", human.address.state)
+    fmt.Println("human.name:", human.name)
+    fmt.Println("human.age:", human.age)
+    fmt.Println("human.Address.city:", human.Address.city)
+    fmt.Println("human.Address.state:", human.Address.state)
+	log.Println("vì embed struct nên có thể access fields=attributes")
+    fmt.Println("human.city:", human.city)
+    fmt.Println("human.state:", human.state)
+
 }

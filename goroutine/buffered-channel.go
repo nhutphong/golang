@@ -56,11 +56,11 @@ func goroutine(buffer chan int) {
 }
 
 
-
+// STEP 1
 func main() {
 	fmt.Println()
 	// unbuffer := make(chan int, 0)
-	buffer := make(chan int, 5)
+	buffer := make(chan int, 5) // STEP 2
 
 	// go goroutine(buffer)
 

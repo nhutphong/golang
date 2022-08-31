@@ -3,28 +3,86 @@ package main
 import (
 	"fmt"
 	"math"
+	"reflect"
 	"phong/tricks"
 )
 
-func format() {
-    fmt.Println()
-    fmt.Println("--------------------------------------------------------------------------------")
-    fmt.Println()
-}
 
 func main() {
 	/*
 
-		type any = interface{}
+		Arithmetic Operators: + - * / % ++ --
+		Assignment Operators: = += -= *= /= %= 
+		Comparison Operators: == != < <= > >=
+		Logical Operators:	: && || ! 				
+		vd: !(x == y && x > z) có thể hiểu: (x != y || x < z)
+
+		Bitwise Operators	: & | ^ << >> 			AND OR XOR
+
+
+		CHECK TYPE:
+
+		value, ok := nameAny.(type)
+		value, ok := ageInt.(int)
+		value, ok := nameString.(string)
+		value, ok := salaryFloat.(float64)
+
+
+		bool
+
+		string
+
+		int int8 int16 int32 int64
+		uint uint8 uint16 uint32 uint64 uintptr
+
+		byte // alias for uint8
+
+		rune // alias for int32
+		     // represents a Unicode code point
+
+		float32 float64
+
+		complex64 complex128
+
+		any error interface{}
+		comparable: chưa nên dùng
+
+		type varName any | interface{} // chỉ đẻ get value, không dùng được operations: + - *, ... != ,...
+
+
+		type any = interface{} // alias
 		type error interface {
 			Error() string
 		}
 		declared any thi variable co the nhan bat ky kieu du lieu nao
 
-		For slices, maps and channels: use make()
-		For arrays, structs and all value types: use new()
+		// make() new()
+		For slice, map and channel: use make()
+		For arrays, struct and all value types: use new()
 
 	*/
+	tricks.Format("check type: nameVar.(type) ")
+	var haha interface{} = 2.3
+	switch v := haha.(type) {
+	case int:
+	    fmt.Println("int:", v)
+	case float64:
+	    fmt.Println("float64:", v)
+	default:
+	    fmt.Println("unknown")
+	    fmt.Println()
+	}
+
+
+	tricks.Format("check type: use packages reflect")
+	var xyz interface{} = []int{1, 2, 3}
+	xType := reflect.TypeOf(xyz)
+	xValue := reflect.ValueOf(xyz)
+	fmt.Println("reflect.TypeOf(xyz) is",xType) // []int
+	fmt.Println("reflect.ValueOf(xyz) is",xValue) // [1 2 3]
+
+
+
 	tricks.Format("type any")
 	var my_number any = 100
 	var my_any any = "thong dung"
@@ -56,7 +114,8 @@ func main() {
 	fmt.Printf("%d, %d, %d, %#x, %#o %f %f\n", myInt8, myInt, myUint, myHexNumber, myOctalNumber, myFloat32, myFloat)
 
 
-	tricks.Format("byte rune")
+	// type rune byte chỉ là 1 char, sẽ được convert to hexa
+	tricks.Format(`byte rune: dùng format: %c=string %U=unicode`)
 	var myByte byte = 'a'
 	var myRune rune = '♥'
 

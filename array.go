@@ -6,8 +6,13 @@ import (
 )
 
 func main() {
-	//  assign( = , := ) cua array la VALUE TYPE = tham tri
+	/*
+	 	assign( = , := ) cua array la VALUE TYPE = tham tri
 
+	 	var array [5]int // co len=5 nên là array
+	 	var slice []int // ko có len = để trống, nên là slice
+
+	*/
 	var x [5]int // An array of 5 integers
 	fmt.Println(x)
 

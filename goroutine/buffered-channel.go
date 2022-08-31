@@ -52,7 +52,7 @@ func goroutine(buffer chan int) {
 		for i:=0; i<10; i++ {
 			fmt.Println(<-buffer)
 		}
-	}()
+	}() // () declared va run lun
 }
 
 

@@ -4,6 +4,10 @@ import (
 	"fmt"
 )
 
+func init() {
+    fmt.Println("file formating.go thuoc package /tricks")
+}
+
 func format() {
     fmt.Println()
     fmt.Println("--------------------------------------------------------------------------------")

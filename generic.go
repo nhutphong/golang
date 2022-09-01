@@ -2,13 +2,18 @@ package main
 
 import (
 	"fmt"
+	"math"
+	"golang.org/x/exp/constraints"
+
 	"phong/tricks"
 )
+// chưa nên xài
 // dùng generic code sẽ ngắn ngọn dễ đọc hơn khi declare type cho arguments trong func
+// các types dùng generic, để get value là chính, chưa được hỗ trợ mạnh các operators: + - * /, < ==. ...
+// phải convert về type của argument mà mình dùng đến 
 
 
 // thiết lập Constraint = hạn chế
-// nên dung GOOD GOOD 
 type Number interface {
  	int | int8 | int16 | int32 | int64 | float64
 }
@@ -20,7 +25,7 @@ type Number interface {
 	[T Number] = thiết lặp type dùng chung cho arguments trong func
 	T in (int | int8 | int16 | int32 | int64 | float64)
 
-	vi gán type ís any, không thể thực hiện các opertors như:  + - * / , == <=. && || !=, ...
+	vi gán type ís any or comparable , không thể thực hiện các opertors như:  + - * / , == <=. && || !=, ...
 
 */
 func Smallest[T Number](slice []T) T {
@@ -84,12 +89,21 @@ func SumIntsOrFloats[K comparable, V int64 | float64](m map[K]V) V {
 
 // SumNumbers sums the values of map m. Its supports both integers
 // and floats as map values.
-func SumNumbers[K comparable, V Number](m map[K]V) V {
-	var s V
-	for _, v := range m {
-		s += v
+func SumNumbers[K comparable, V Number](dict map[K]V) V {
+	var total V
+	for _, value := range dict {
+		total += value
 	}
-	return s
+	return total
+}
+
+type NumberOne interface {
+    constraints.Integer | constraints.Float
+}
+
+//
+func test[T NumberOne](a,b T) float64 {
+	return math.Pow(float64(a), float64(b))
 }
 
 

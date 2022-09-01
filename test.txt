@@ -1,0 +1,5 @@
+Please run this program from your local environment as it's not possible to read files in the playground.
+Line no. 9 of the program above reads the file and returns a byte slice which is stored in contents. In line no.
+14 we convert contents to a string and display the contents of the file.
+
+The reason is Go is a compiled language. What go install does is, it creates a binary from the source code. The binary is independent of the source code and it can be run from any location. Since test.txt is not found in the location from which the binary is run, the program complains that it cannot find the file specified.

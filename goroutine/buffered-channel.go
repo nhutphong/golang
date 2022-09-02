@@ -2,13 +2,36 @@ package main
 
 import (
 	"fmt"
-	"log"
-	// "time"
+	"time"
+	// "log"
+	// "runtime"
 
 	"phong/tricks"
 )
 
 /*
+	SUPER GOROUTINE MAIN() OR PARENT GOROUTINE nên code: defer time.Sleep(time.Second) ở đầu, để chờ CHILD
+	GOROUTINE
+
+	các WRITE GOROUTINE nên code: defer close(buffer) or defer close(unbuffer) ở đầu, để tránh
+	READ GOROUTINE read buffer empty sẽ gây ra error DEADLOCK 
+*/
+
+/*
+	
+	goroutines READ bị block(JUMPTO) nếu trong channel không có dữ liệu.
+	goroutines WRITE bị block(JUMPTO) nếu không còn khoảng trống trong channel;
+	vd: buffer có sức chứa là 2
+		nếu chúng ta READ trước thì sẽ JUMPTO to goroutine chứa WRITE để run
+		trong goroutine sẽ WRITE liên tục 3 lần =FULL, vì lần đâu tiên trả cho read
+		còn lại 2=full, nếu WRITE thêm nữa sẽ jumpto goroutine read
+
+
+	non-block: code run tiếp không dừng 
+	  go myFunc
+	  buffered channel(write || read)
+
+
 	write <-:
 		channel <- "write data vào channel"
 	<- read:
@@ -16,95 +39,98 @@ import (
 
 	Buffrered channel có từ 1 khoảng trống trở lên để chứa dữ liệu, 
 	không yêu cầu cả 2 goroutines gửi và nhận cùng phải sẵn sàng cùng lúc. 
-	Luồng xử lý chỉ bị block nếu: goroutines write bị block nếu không còn khoảng trống trong channel; 
-	goroutines read bị block nếu trong channel không có dữ liệu.
+	
 
 
 	NOTE buffered channel : có thể write , read cùng 1 goroutine
-	goroutine Parent nên là <-read ;
-	goroutine Child thì write-<
-
-
-
-func main() {
-	fmt.Println()
-	// unbuffer := make(chan int, 0)
-	buffer := make(chan int, 2)
-
-	buffer <- 1
-	buffer <- 2
-
-	buffer <- 3 // deadlock / chi write 2 lan vao channel
-
-	log.Println(<-buffer)
-	log.Println(<-buffer)
-	
-
-	log.Println("end main()")
-}
-	
-
-
+	goroutine PARENT nên là <-read ;
+	goroutine CHILD thì write-<
 */
 
 
 /*
 	
 */
-func goroutineTemp(buffer chan int) {
-	defer close(buffer)
 
-	buffer <- 1
-	buffer <- 2
-	buffer <- 3
-	buffer <- 4
-	buffer <- 5
+func writeGoroutine(buffer chan int) {
+	defer close(buffer)
 	//run goroutine thu 2
 	go func() { 
 		for i:=0; i<10; i++ {
 			fmt.Println(<-buffer)
 		}
 	}() // () declared va run lun
+	buffer <- 1
+	buffer <- 2
+	buffer <- 3
+	buffer <- 4
+	buffer <- 5
 }
 
-func goroutine(buffer chan int) {
-	defer close(buffer)
-	//run goroutine thu 2
-	go func() { 
-		for i:=0; i<10; i++ {
-			fmt.Println(<-buffer)
-		}
-	}() // () declared va run lun
-	buffer <- 1
-	buffer <- 2
-	buffer <- 3
-	buffer <- 4
-	buffer <- 5
+
+func write(buffer chan int) {
+	for i := 1; i < 5; i++ {
+		tricks.FormatTwo("WRITE FOR START", i)
+		buffer <- i
+		// i = 4, buffer[2 3] đã đầy nên jumpto goroutine nó connect để READ 
+		// i = 1, write=1 lần đầu đã trả cho READ, nên còn lại [2 3]
+
+		tricks.FormatTwo("WRITE FOR END", i)
+	}
+	fmt.Println("FUNC write start")
+	close(buffer)
+	fmt.Println("FUNC write end")
+}
+
+func read(buffer chan int) {
+	for i := 1; i < 8; i++ {
+		tricks.FormatTwo("READ FOR START", i)
+		fmt.Println("read value", <-buffer, "from ch")
+		tricks.FormatTwo("READ FOR END", i)
+	}
+	fmt.Println("FUNC READ start")
+	fmt.Println("FUNC READ end")
+}
+
+func readBufferUseRange(buffer chan int) {
+	for item := range buffer {
+		fmt.Println("read value", item, " for _ := range buffer")
+	}
+	fmt.Println("FUNC readBufferUseRange end")
+
 }
 
 
 // STEP 1
 func main() {
-	fmt.Println()
+	// defer time.Sleep(time.Second)
+
+	tricks.Format("buffered-channel")
+	tricks.Format("START GOROUTINE MAIN()")
+
 	// unbuffer := make(chan int, 0)
 	buffer := make(chan int, 5) // STEP 2
 
-	// go goroutine(buffer)
+	// go writeGoroutine(buffer)
+
+
+	write(buffer)
+	readBufferUseRange(buffer)
 
 
 
-	buffer <- 1 
-	buffer <- 2
-	buffer <- 3
-	buffer <- 4
-	buffer <- 5
-	go func() {
-		for i:=0; i<10; i++ {
-			tricks.FormatTwo("FOR READ START", i)
-			fmt.Println(<-buffer)
-			tricks.FormatTwo("FOR READ END", i)
-		}
-	}()
+	// buffer <- 1 
+	// buffer <- 2
+	// buffer <- 3
+	// buffer <- 4
+	// buffer <- 5
+	// go func() {
+	// 	for i:=1; i<10; i++ {
+	// 		tricks.FormatTwo("FOR READ START", i)
+	// 		fmt.Println(<-buffer) // JUMPTO GOROUTINE MAIN() nen khong DEADLOCK
+	// 		tricks.FormatTwo("FOR READ END", i)
+	// 	}
+	// }()
 
 
 	// write<-,  <-read trên cùng goroutine main()
@@ -133,8 +159,7 @@ func main() {
 	// }()
 
 	
-	// log.Println(<-buffer)
-	// log.Println(<-buffer)
-
-	log.Println("end main()")
+	//
+	time.Sleep(time.Second)
+	tricks.Format("END GOROUTINE MAIN()")
 }

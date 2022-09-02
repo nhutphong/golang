@@ -2,10 +2,33 @@ package main
 
 import (
 	"fmt"
-	"log"
+	// "log"
+	"time"
+	
 	"phong/tricks"
 )
+
 /*
+	SUPER GOROUTINE MAIN() OR PARENT GOROUTINE nên code: defer time.Sleep(time.Second) ở đầu, để chờ CHILD
+	GOROUTINE
+
+	các WRITE GOROUTINE nên code: defer close(buffer) or defer close(unbuffer) ở đầu, để tránh
+	READ GOROUTINE read buffer empty sẽ gây ra error DEADLOCK 
+*/
+
+/*
+	chu kỳ chạy của 1 unbuffered-channel: write vs read, or read vs write, tức la có 2 bước:
+	vd: gọi là START(write or read) + END(write or read) là 1 chu kỳ 
+	khi START sẽ jumpto to END, hết 1 chu kỳ code chạy tiếp, nếu gặp START thì JUMPTO to END 
+
+	tức la gặp SỐ LẺ(START 1 KỲ) THÌ JUMPTO = NHẢY tới goroutine chứa SỐ CHẴN(END 1 CHU KỲ) TIẾP THEO
+	gặp SỐ CHẴN(END 1 CHU KỲ) THÌ CỨ RUN QUA NÓ, NẾU GẶP LẠI SỐ LẼ THÌ JUMPTO = NHẢY TIẾP
+
+
+
+	block: chờ case or write quá số lần unbuffered sẽ deadlock 
+	  select { case }
+	  unbuffered channel(write || read)
 
 	Unbuffered channel không có khoảng trống để chứa dữ liệu,
 	NOTE: yêu cầu cả 2 goroutines gửi và nhận đều sẵn sàng cùng lúc.
@@ -42,12 +65,7 @@ import (
 
 
 
-	chu kỳ chạy của 1 channel: write read, or read write, tức la có 2 bước; giả xử gọi nó 1 và 2
-	nếu có nhiều quá trình writes reads từ channel; nó sẽ run như sau
-	bắt đầu run gặp 1 jumto goroutine chứa 2 run qua 2, chạy tiếp chừng nào gặp 3 jumpto tiếp
-
-	tức la gặp SỐ LẺ THÌ JUMPTO = NHẢY tới goroutine chứa SỐ CHẴN TIẾP THEO
-	gặp SỐ CHẴN THÌ CỨ RUN QUA NÓ, RUN TIẾP TỤC, NẾU GẶP LẠI SỐ LẼ THÌ JUMPTO = NHẢY TIẾP
+	
 
 
 */
@@ -69,13 +87,15 @@ func goroutine(unbuffer chan int) {
 }
 
 func goDeadlock(unbuffer chan int) {
-	// defer close(unbuffer)
+	defer close(unbuffer)
+
 	unbuffer <- 1 
 	unbuffer <- 2
 	unbuffer <- 3
 	unbuffer <- 4
-	unbuffer <- 5
-	unbuffer <- 6
+	// unbuffer <- 5
+	// unbuffer <- 6
+	// unbuffer <- 7
 
 	//run goroutine thu 2
 	// go func() { 
@@ -86,6 +106,7 @@ func goDeadlock(unbuffer chan int) {
 }
 
 func goWrite(unbuffer chan int) {
+	defer close(unbuffer)
 
 	fmt.Println("write start 1")
 	unbuffer <- 1
@@ -104,31 +125,71 @@ func goWrite(unbuffer chan int) {
 	fmt.Println("write end 5")
 
 	// 
-	close(unbuffer)
+	// close(unbuffer)
 }
+
+
+func unWrite(unbuffer chan int) {
+	// defer close(unbuffer)
+
+	for i := 1; i < 5; i++ {
+		tricks.FormatTwo("WRITE FOR START", i)
+		unbuffer <- i
+		tricks.FormatTwo("WRITE FOR END", i)
+	}
+	fmt.Println("FUNC write start")
+	close(unbuffer)
+	fmt.Println("FUNC write end")
+}
+
+func unRead(unbuffer chan int) {
+	for i := 1; i < 5; i++ {
+		tricks.FormatTwo("UNREAD FOR START", i)
+		fmt.Println("unread value", <-unbuffer, "from ch")
+		tricks.FormatTwo("UNREAD FOR END", i)
+	}
+	fmt.Println("FUNC UNREAD start")
+	fmt.Println("FUNC UNREAD end")
+}
+
+func readUnBufferUseRange(unbuffer chan int) {
+	for item := range unbuffer {
+		fmt.Println("read value", item, " for item := range unbuffer")
+	}
+}
+
 
 //STEP 1
 func main() {
+	// defer time.Sleep(time.Second)
+
 	//hien tai co goroutine main
 	tricks.Format("unbuffered-channel")
+	tricks.Format("START GOROUTINE MAIN()")
+
 	unbuffer := make(chan int) // STEP 2
 
-
-	// go goDeadlock(unbuffer)
-	// fmt.Println(<-unbuffer)
-	// fmt.Println(<-unbuffer)
-	// fmt.Println(<-unbuffer)
-	// fmt.Println(<-unbuffer)
-	// fmt.Println(<-unbuffer)
+	go unWrite(unbuffer)
+	go readUnBufferUseRange(unbuffer)
 
 
-	go goWrite(unbuffer) // STEP 3
-	// STEP 4
-	for i:=1; i<=5; i++ {
-		tricks.FormatTwo("FOR READ START", i)
-		fmt.Println("for: ", <-unbuffer)
-		tricks.FormatTwo("FOR READ END", i)
-	}
+	// go goDeadlock(unbuffer) // write=4; có close(unbuffer)
+	// fmt.Println(<-unbuffer)
+	// fmt.Println(<-unbuffer)
+	// fmt.Println(<-unbuffer)
+	// fmt.Println(<-unbuffer)
+	// fmt.Println(<-unbuffer) // read=5; NOT DEADLOCK
+	// fmt.Println(<-unbuffer) // read=6; 
+	// fmt.Println(<-unbuffer) // read=7; 
+
+
+	// go goWrite(unbuffer) // STEP 3
+	// // STEP 4
+	// for i:=1; i<=7; i++ {
+	// 	tricks.FormatTwo("FOR READ START", i)
+	// 	fmt.Println("for: ", <-unbuffer)
+	// 	tricks.FormatTwo("FOR READ END", i)
+	// }
 
 
 	// goroutine Child đã sẵn sàng
@@ -141,24 +202,6 @@ func main() {
 	// 	}
 	// }()
 
-	// // STEP 4
-	// fmt.Println("write start 1")
-	// unbuffer <- 1
-	// fmt.Println("write end 1")
-	// fmt.Println("write start 2")
-	// unbuffer <- 2
-	// fmt.Println("write end 2")
-	// fmt.Println("write start 3")
-	// unbuffer <- 3
-	// fmt.Println("write end 3")
-	// fmt.Println("write start 4")
-	// unbuffer <- 4
-	// fmt.Println("write end 4")
-	// fmt.Println("write start 5")
-	// unbuffer <- 5
-	// fmt.Println("write end 5")
-
-
 
 	// run goroutine thu 2
 	// go func(){
@@ -170,6 +213,6 @@ func main() {
 	// value, ok := <-unbuffer
 	// log.Println("value: ", value, "ok: ", ok)
 
-
-	log.Println("end main()")
+	defer time.Sleep(time.Second)
+	tricks.Format("END GOROUTINE MAIN()")
 }

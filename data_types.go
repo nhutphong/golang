@@ -21,8 +21,8 @@ func main() {
 
 
 		CHECK TYPE:
+		var name is type =  any | interface{}, moi dung duoc value, ok := 
 
-		value, ok := nameAny.(type)
 		value, ok := ageInt.(int)
 		value, ok := nameString.(string)
 		value, ok := salaryFloat.(float64)

@@ -11,6 +11,8 @@ import (
 	struc chi chua fields = attributes
 	interface chua methods
 
+	human := struct{}{} // empty struct
+
 	// anonymous struct
 	emp3 := struct {
         firstName string

@@ -11,6 +11,14 @@ import (
 	"phong/tricks"
 )
 /*
+
+	result = new(int)  // result is pointer of &int
+
+	var temp int   // declare an int type variable
+	var result *int //  declare a pointer to int
+	result = &temp 
+
+
 	func main() khong the declared them 1 func voi syntax basic:
 		func change(){ //statement }
 

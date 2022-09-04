@@ -12,18 +12,72 @@ import (
 // các types dùng generic, để get value là chính, chưa được hỗ trợ mạnh các operators: + - * /, < ==. ...
 // phải convert về type của argument mà mình dùng đến 
 
+/*
+	syntax new: ~
+	// tilde forms
+	~int
+	~[]byte
+	~map[int]string
+	~chan struct{}
+	~struct{x int}
 
-// thiết lập Constraint = hạn chế
-type Number interface {
- 	int | int8 | int16 | int32 | int64 | float64
+	// unions of terms
+	uint8 | uint16 | uint32 | uint64
+	~[]byte | ~string
+	map[int]int | []int | [16]int | any
+	chan struct{} | ~struct{x int}
+
+
+	comparable: only embed in interface{}, NOT use declared var and argument func
+
+	type _ interface {
+		int | ~int // error
+	}
+
+	type _ interface {
+		interface{int} | interface{~int} // okay
+	}
+
+	type _ interface {
+		int | interface{~int} // okay
+	}
+
+*/
+
+
+// Integer is made up of all the int types
+type Integer interface {
+        ~int | ~int8 | ~int16 | ~int32 | ~int64
 }
-// nếu func() dùng generic thì các types của arguments sẽ thuộc 1 trong các types chúng ta định nghĩa 
-// trong interface
+
+// Float is made up of all the float type
+type Float interface {
+        ~float32 | ~float64
+}
+
+type Number interface {
+	Integer | Float
+}
+
+type Ordered interface {
+	~int | ~uint | ~int8 | ~uint8 | ~int16 | ~uint16 |
+	~int32 | ~uint32 | ~int64 | ~uint64 | ~uintptr |
+	~float32 | ~float64 | ~string
+}
+
+
+// use package: constraints
+func min[T constraints.Ordered](x, y T) T {
+    if x > y {
+        return x
+    } else {
+        return y
+    }
+}
+
 
 
 /*
-	[T Number] = thiết lặp type dùng chung cho arguments trong func
-	T in (int | int8 | int16 | int32 | int64 | float64)
 
 	vi gán type ís any or comparable , không thể thực hiện các opertors như:  + - * / , == <=. && || !=, ...
 
@@ -39,30 +93,10 @@ func Smallest[T Number](slice []T) T {
 }
 
 
-// generic cho struct
-type Vector[T any] []T
-
-type LinkedList[T any] struct {
-	next *LinkedList[T]
-	val  T
-}
-
-type Pair[T1, T2 any] struct {
-	v1 T1
-	v2 T2
-}
-
-type Tuple[T1, T2, T3 any] struct {
-	v1 T1
-	v2 T2
-	v3 T3
-}
-
-
-func Map[K, V any](slice []K, transform func(K) V) []V {
-	new_slice := make([]V, len(slice))
+func Map[key, value any](slice []key , callback func(item key) value) []value {
+	new_slice := make([]value, len(slice))
 	for index, item := range slice {
-		new_slice[index] = transform(item)
+		new_slice[index] = callback(item)
 	}
 	return new_slice
 }
@@ -78,32 +112,40 @@ func genericFunc[T any](slice ...T) {
 
 // SumIntsOrFloats sums the values of map m. It supports both floats and integers
 // as map values.
-func SumIntsOrFloats[K comparable, V int64 | float64](m map[K]V) V {
-	var s V
-	for _, v := range m {
-		s += v
+func SumIntsOrFloats[key comparable, value int64 | float64](dict map[key]value) value {
+	var total value
+	for _, val := range dict {
+		total += val
 	}
-	return s
+	return total
 }
 
 
-// SumNumbers sums the values of map m. Its supports both integers
-// and floats as map values.
-func SumNumbers[K comparable, V Number](dict map[K]V) V {
-	var total V
+// use generic voi map [key comparable], NOT [key any]
+func SumNumbers[key comparable, value Number](dict map[key]value) value {
+	var total value
 	for _, value := range dict {
 		total += value
 	}
 	return total
 }
 
-type NumberOne interface {
-    constraints.Integer | constraints.Float
+//
+func test[T Number](a,b T) float64 {
+	return math.Pow(float64(a), float64(b))
 }
 
-//
-func test[T NumberOne](a,b T) float64 {
-	return math.Pow(float64(a), float64(b))
+func luk[val any](obj struct{name val}) {}
+func kit[val any](slice []val) {} 
+func wet[val any](callback func() val) {}
+
+
+func sumNumbers[num Number](slice []num) num {
+    var total num
+    for _, num := range slice {
+        total += num
+    }
+    return total
 }
 
 
@@ -145,4 +187,18 @@ func main() {
 		SumNumbers(ints),
 		SumNumbers(floats))
 
+	fmt.Println("test: ", test(2,10))
+
+	luk(struct{name string}{name:"chi thong"})        // okay
+	kit([]string{"go", "c"})       // okay
+	wet(func() bool {return true}) // okay
+
+
+	intxxx := []int64{32, 64, 96, 128}    
+    floatxxx := []float64{32.0, 64.0, 96.1, 128.2}
+    bytes := []int8{8, 16, 24, 32}  
+
+    fmt.Println(sumNumbers(intxxx))
+    fmt.Println(sumNumbers(floatxxx))    
+    fmt.Println(sumNumbers(bytes))
 }

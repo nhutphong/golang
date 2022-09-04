@@ -1,5 +1,4 @@
-Please run this program from your local environment as it's not possible to read files in the playground.
-Line no. 9 of the program above reads the file and returns a byte slice which is stored in contents. In line no.
-14 we convert contents to a string and display the contents of the file.
-
-The reason is Go is a compiled language. What go install does is, it creates a binary from the source code. The binary is independent of the source code and it can be run from any location. Since test.txt is not found in the location from which the binary is run, the program complains that it cannot find the file specified.
+Kinh doanhHàng hóaChủ nhật, 4/9/2022, 06:00 (GMT+7)
+Giá xăng ngày mai có thể tăng trở lại
+Mỗi lít xăng sẽ tăng 300-700 đồng, dầu tăng 1.800-2.000 đồng vào kỳ điều hành ngày mai 5/9 nếu nhà chức trách không sử dụng Quỹ bình ổn.
+Kỳ điều hành tới dự kiến vào ngày mai thay vì ngày 1/9 do rơi vào kỳ nghỉ lễ Quốc khánh. Dữ liệu từ Bộ Công Thương cho thấy, giá xăng bình quân trên thị trường Singapore đến ngày 31/8 tăng so với kỳ điều hành trước đó (với RON 92 là 107,7 USD một thùng, RON 95 là 111 USD). Riêng giá dầu tăng "sốc" quanh mốc 139-150 USD một thùng.

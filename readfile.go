@@ -5,8 +5,9 @@ import (
     "os"
     "time"
     // "log"
-    // "strings"
-    "bufio"
+    "strings"
+    // "bufio"
+    "reflect"
 
     "phong/tricks"
 )
@@ -31,42 +32,56 @@ func ReadFile(name string) {
     // os.Stdout.Write(slice) // write on terminal
 }
 
+// return phai la (lines []string) ; NOT []string
+func arrLine(name string) (lines []string) {
+    slice, err := os.ReadFile(name)
+    if isError(err) {
+        return
+    }
 
+    content := string(slice)
+    // lines da declared named value
+    lines = strings.Split(content, "\n")
+    return lines
+}
 
 
 func main() {  
     fmt.Println()
+    time.Sleep(time.Second)
+
     tricks.Format(`contents, err := os.ReadFile("test.txt")`)
     file_name := "test.txt"
-    // content := ReadFileConvertToContent(file_name)
-    // fmt.Println(content)
 
     slice := []byte("thong")
     fmt.Println(slice)
     fmt.Println(string(slice))
 
+    slice, err := os.ReadFile(file_name)
+    fmt.Println(`reflect.TypeOf(slice) `, reflect.TypeOf(slice))
+    fmt.Println(`reflect.TypeOf(slice) `, reflect.TypeOf(err))
 
-    // filePath := os.Args[1]
-    readFile, err := os.Open(file_name)
-  
-    if err != nil {
-        fmt.Println(err)
+    content := string(slice)
+    fmt.Println("reflect.TypeOf(content) ", reflect.TypeOf(content))
+
+    // lines := strings.Split(content, "\n")
+    // fmt.Println("reflect.TypeOf(lines) ", reflect.TypeOf(lines))
+    // // fmt.Println("lines ; ", lines)
+    // fmt.Println("len(lines) ; ", len(lines))
+
+    // for _, line := range lines {
+    //     fmt.Println(line)
+    //     time.Sleep(time.Second)
+    // }
+
+
+    for index, line := range arrLine(file_name) {
+        fmt.Println("index ", index, " ", line)
+        time.Sleep(time.Second)
     }
-    fileScanner := bufio.NewScanner(readFile)
-    fileScanner.Split(bufio.ScanLines)
-    var fileLines []string
-  
-    for fileScanner.Scan() {
-        fileLines = append(fileLines, fileScanner.Text())
-    }
-  
-    readFile.Close()
-  
-    for _, line := range fileLines {
-        fmt.Println(line)
-    }
-     
-    fmt.Println(fileLines)
+
+
+
 
 
     tricks.Format(`contents, err := os.ReadFile("test.txt")`)

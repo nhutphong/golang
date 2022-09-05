@@ -4,24 +4,18 @@ package main
 
 import (
 	"fmt"
-	"reflect"
+	// "reflect"
+	"strings"
 )
 
 type Human struct{} 
 type myInt int
 
 func main() {
-	var name any = "chi thong"
-	var age int = 30
-	var obj Human = struct{}{}
-	obj2 := struct{}{}
-
-	fmt.Println(name, age, obj, obj2)
+	fmt.Println( 100 - 'a')
 	fmt.Println()
 
-	val, ok := name.(string)
-	fmt.Println(val, ok)
-	fmt.Println(reflect.TypeOf(obj))
-	fmt.Println()
-	fmt.Println()
+	fmt.Println(strings.Compare("abc", "acb"))
+	fmt.Println(12/5.0)
+	
 }

@@ -60,6 +60,8 @@ func main() {
 		For slice, map and channel: use make()
 		For arrays, struct and all value types: use new()
 
+		byte rune: number or 1 char (chứa in quote ''): 'a', 'b', ; NOT double "a" "b" "A"
+
 	*/
 	tricks.Format("check type: nameVar.(type) ")
 	var haha interface{} = 2.3

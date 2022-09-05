@@ -33,14 +33,6 @@ func changeSlice(slice ...string) {
 	slice[0] = "GOGO"
 }
 
-type Number interface {
- 	int | int8 | int16 | int32 | int64 | float64
-}
-
-func genericFunc[OK tricks.SuperNumber](x, y OK) OK {
-	return x + y
-}
-
 
 type Student struct {
 	firstName string
@@ -79,9 +71,11 @@ func factorial (num int) int {
    }
 }
 
-func test(a, b any) any {
-	return math.Pow(a,b)
-}
+// error vi Pow(float64, float64)
+// func test(a, b any) any {
+// 	return math.Pow(a,b)
+// }
+
 
 /*
 	anonymous function; type interface{} == type any
@@ -173,6 +167,14 @@ func test(a, b any) any {
 
 */
 
+// declared: var varName string == (varName := "")
+// assign(=) dung de gan value cho varName da declared
+// underscore da duoc declared nen dung (=)
+func namedReturn(a,b int) (result int, ok bool) {
+	_ = a+b
+	// passed result=0,ok=false to return 
+	return 
+}
 
 
 func main() {
@@ -201,8 +203,6 @@ func main() {
   	value()
 
 
-  	fmt.Println(genericFunc(1.2,15.0))
-  	fmt.Println()
 
   	tricks.Format("anonymous func")
 
@@ -234,7 +234,7 @@ func main() {
 	add := simple()
 	fmt.Println(add(60, 7))
 
-	tricks.Format()
+	tricks.Format("anonymous func()")
 
 	// anonymous function = lambda
 	my_name := "Cr7"
@@ -246,6 +246,8 @@ func main() {
 	tricks.Format("fibonacci func")
 	fmt.Println("The factorial: ", factorial(5))
 
-	fmt.Println("test(): ", test(5,8))
+
+	tricks.Format("namedReturn")
+	fmt.Println(namedReturn(4,5))
 	
 }

@@ -10,9 +10,21 @@ import (
 	khi các struct implement= tức là code các methods trùng tên với methods co trong interface
 	thì khi đó các struct đều có type la interface đó 
 
-	ứng dụng: khi Human, Dog đều implement interface Animal
+	ứng dụng: interface type Animal là type đại diện cho các structs đã implement nó, hay dùng làm
+    type arguments cho func, hay khi declared varName
+    khi Human, Dog đều implement interface Animal
 	có human1 human2, dog1, dog2 đều có type Animal 
-	arr = []Animal{human1, human2, dog1, dog2} //ok 
+	arr = []Animal{human1, human2, dog1, dog2} //ok
+
+    var meo Animal
+    meo = Cat("pass args vao") //OK
+    var cho Anamal
+    cho = Dog("pass args vao") //OK
+
+
+    func action(meo, cho Animal) {} //
+
+    action(meo, cho) //OK
 
 
 */

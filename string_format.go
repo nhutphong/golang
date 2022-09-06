@@ -57,7 +57,9 @@ func main() {
 
     fmt.Printf("bin: %b\n", 14)
 
-    fmt.Printf("char: %c\n", 33)
+    tricks.Format(`%c %q %U %#U`)
+    char := 'p'
+    fmt.Printf("%c - %q - %U - %#U\n", char, char, char, char)
 
     fmt.Printf("hex: %x\n", 456)
 

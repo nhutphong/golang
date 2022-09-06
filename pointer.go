@@ -11,8 +11,41 @@ import (
 	"phong/tricks"
 )
 /*
+	var varName int float64 string struct , ... khi declared không gán value, thì value default = 0 ""
+	empty của type đó
 
-	result = new(int)  // result is pointer of &int
+	type Human struct { 
+		name string
+		age int
+	}
+
+	var (
+		myint int
+		myfloat64 float64
+		mystring string
+	)
+	fmt.Println(myint)				// 0
+	fmt.Println(myfloat64)		// 0.0
+	fmt.Println(mystring)			// ""
+	fmt.Println(human)			// {"": 0}
+
+
+	var varNameP *int *string, *struct ..., nếu không gán &varNameNaoDo đó, thì default = nil
+
+	var (
+		myint *int
+		myfloat64 *float64
+		mystring *string
+		myStruct *Human
+	)
+
+	fmt.Println(myint)				// nil
+	fmt.Println(myfloat64)		// nil
+	fmt.Println(mystring)			// nil
+	fmt.Println(human)			// nil
+
+
+	result = new(int)  // result is pointer of &int (da result=nil)
 
 	var temp int   // declare an int type variable
 	var result *int //  declare a pointer to int
@@ -77,17 +110,6 @@ func display() *string {
   result := display() 
   fmt.Println("Welcome to", *result)
 */
-
-
-
-// Ordered is a type constraint that matches any ordered type.
-// An ordered type is one that supports the <, <=, >, and >= operators.
-// type Ordered interface {
-// 	type int, int8, int16, int32, int64,
-// 		uint, uint8, uint16, uint32, uint64, uintptr,
-// 		float32, float64,
-// 		string
-// } 
 
 
 type Number interface {

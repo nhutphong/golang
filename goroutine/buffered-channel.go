@@ -69,6 +69,8 @@ func writeGoroutine(buffer chan int) {
 
 
 func write(buffer chan int) {
+	fmt.Println("FUNC write() START")
+
 	for i := 1; i < 5; i++ {
 		tricks.FormatTwo("WRITE FOR START", i)
 		buffer <- i
@@ -77,26 +79,32 @@ func write(buffer chan int) {
 
 		tricks.FormatTwo("WRITE FOR END", i)
 	}
-	fmt.Println("FUNC write start")
+
 	close(buffer)
-	fmt.Println("FUNC write end")
+	fmt.Println("FUNC write END")
+	fmt.Println()
 }
 
 func read(buffer chan int) {
-	for i := 1; i < 8; i++ {
+	fmt.Println("FUNC read START")
+
+	for i := 1; i < 5; i++ {
 		tricks.FormatTwo("READ FOR START", i)
 		fmt.Println("read value", <-buffer, "from ch")
 		tricks.FormatTwo("READ FOR END", i)
 	}
-	fmt.Println("FUNC READ start")
-	fmt.Println("FUNC READ end")
+
+	fmt.Println("FUNC read END")
 }
 
 func readBufferUseRange(buffer chan int) {
+	fmt.Println("FUNC readBufferUseRange START")
+
 	for item := range buffer {
 		fmt.Println("read value", item, " for _ := range buffer")
 	}
-	fmt.Println("FUNC readBufferUseRange end")
+
+	fmt.Println("FUNC readBufferUseRange END")
 
 }
 
@@ -109,13 +117,14 @@ func main() {
 	tricks.Format("START GOROUTINE MAIN()")
 
 	// unbuffer := make(chan int, 0)
-	buffer := make(chan int, 5) // STEP 2
+	buffer := make(chan int, 2) // STEP 2
 
 	// go writeGoroutine(buffer)
 
 
-	write(buffer)
-	readBufferUseRange(buffer)
+	go write(buffer)
+	go read(buffer)
+	// go readBufferUseRange(buffer)
 
 
 

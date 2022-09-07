@@ -1,11 +1,16 @@
 package main
 
 import (
-	// "fmt"
-	// "strings"
+	"fmt"
+	"strings"
 	// "unicode"
 )
 
+func main() {
+	stringsRepeat := strings.Repeat("*", 80)
+	fmt.Println(stringsRepeat)
+
+}
 
 /*
 

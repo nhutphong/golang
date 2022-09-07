@@ -2,6 +2,7 @@ package tricks
 
 import (
 	"fmt"
+    "strings"
 )
 
 func init() {
@@ -16,7 +17,7 @@ func format() {
 
 func Format(title string) {
 
-    first := "----------------------------------------"
+    first := fmt.Sprint(strings.Repeat("-", 25)) // "*" * 25
     fmt.Println()
     fmt.Printf("%s%s\n", first,title)
     fmt.Println()

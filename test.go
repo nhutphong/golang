@@ -5,7 +5,57 @@ import (
     "time"
 )
 
+
+
 func main() {
+
+	animal := Animal{"dog", 35}
+	dog := Dog{animal, "red"}
+
+	fmt.Println(animal)
+	fmt.Printf("%#v\n", dog)
+	fmt.Println(dog.Name, dog.age, dog.Color)
+
+	var dict map[bool]bool
+    fmt.Print("Default Zero Value of a map: ")
+    fmt.Println(dict)
+
+    var channel chan int 
+    fmt.Print("Default Zero Value of a channel: ")
+    fmt.Println(channel)
+
+    var face interface{}
+    fmt.Print("Default Zero Value of a interface: ")
+    fmt.Println(face)
+
+    var slice []int
+    fmt.Println("slice == nil", slice == nil)
+    fmt.Print("Default Zero Value of a slice: ")
+    fmt.Println(slice)
+
+    var f func()
+    fmt.Print("Default Zero Value of a func: ")
+    fmt.Println(f)
+
+    var pointer *int
+    fmt.Print("Default Zero Value of a pointer: ")
+    fmt.Println(pointer)
+
+
+}
+
+type Animal struct {
+	Name string
+	age int
+}
+
+type Dog struct {
+	Animal
+	Color string
+}
+
+
+func Ticker () {
 
     ticker := time.NewTicker(500 * time.Millisecond)
     unbuffer := make(chan bool)

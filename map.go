@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"phong/tricks"
 )
 
 func main() {
@@ -14,6 +15,7 @@ func main() {
 		dict := make(map[string]int) //cach2 co the add dell change key value in map
 	*/
 
+	tricks.Format("dict := make(map[string]int)")
 	dict := make(map[string]int) //cach2
 
 	dict["old"] = 27
@@ -23,25 +25,10 @@ func main() {
 	delete(dict, "old")
 	fmt.Println(dict["old"])
 
-	// Tiếp theo ví dụ trên
+	// get value, type assertions: k = true || false
 	v, k := dict["old"]
 	fmt.Println("Giá trị của phần tử là: ", v)
 	fmt.Println("Kiểm tra phần tử có tồn tại hay không: ", k)
-
-	fmt.Println()
-
-	var personMobileNo = map[string]string{
-		"John":  "+33-8273658526",
-		"Steve": "+1-8579822345",
-		"David": "+44-9462834443",
-	}
-
-	mobileNo := personMobileNo["Steve"]
-	fmt.Println("Steve's Mobile No : ", mobileNo)
-
-	// If a key doesn't exist in the map, we get the zero value of the value type
-	mobileNo = personMobileNo["Jack"]
-	fmt.Printf("\nJack's PhoneNo : %v, type = %T", mobileNo, mobileNo)
 
 	fmt.Println()
 
@@ -58,31 +45,12 @@ func main() {
 		fmt.Println("EmployeeId 1002 found")
 	}
 
-	fmt.Println()
 
-	var fileExtensions = map[string]string{
-		"Python": ".py",
-		"C++":    ".cpp",
-		"Java":   ".java",
-		"Golang": ".go",
-		"Kotlin": ".kt",
-	}
-
-	fmt.Println(fileExtensions)
-
-	delete(fileExtensions, "Kotlin")
-
-	// delete function doesn't do anything if the key doesn't exist
-	delete(fileExtensions, "Javascript")
-
-	fmt.Println(fileExtensions)
-
-
-	fmt.Println()
 	/*
 		chi co array la value type = tham tri
 		slice, map[typekey]typevalue reference type = tham chieu giong python
 	*/
+	tricks.Format("REFERENCE TYPE: m2 := m1")
 	var m1 = map[string]int{
 		"one":   1,
 		"two":   2,
@@ -91,6 +59,7 @@ func main() {
 		"five":  5,
 	}
 
+	// m2 := m1
 	var m2 = m1
 	fmt.Println("m1 = ", m1)
 	fmt.Println("m2 = ", m2)

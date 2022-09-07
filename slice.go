@@ -15,6 +15,15 @@ func main() {
 		
 	*/
 
+	w := []byte("ba")
+
+	z1 := append(w, 'd')
+	z2 := append(w, 'g')
+
+	fmt.Println(string(z1)) // bag
+	fmt.Println(string(z2)) // bag
+
+
 	tricks.Format("slice REF-TYPE to array dung: array[:]")
 	var four = []int{3, 5, 7, 9, 11, 13, 17} // Creates an array, and returns a slice reference to the array
 
@@ -23,16 +32,6 @@ func main() {
 
 	fmt.Println("s = ", four)
 	fmt.Println("t = ", t)
-
-	tricks.Format("*")
-	cities := []string{"New York", "London", "Chicago", "Beijing", "Delhi", "Mumbai", "Bangalore", "Hyderabad", "Hong Kong"}
-
-	asianCities := cities[3:]
-	indianCities := asianCities[1:5]
-
-	fmt.Println("cities = ", cities)
-	fmt.Println("asianCities = ", asianCities)
-	fmt.Println("indianCities = ", indianCities)
 
 	tricks.Format("*")
 	a := [7]string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}
@@ -62,6 +61,7 @@ func main() {
 	fmt.Println("slice1 = ", slice1)
 	fmt.Println("slice2 = ", slice2)
 
+
 	/*
 		The length of the slice is the number of elements in the slice.
 		slice=cap la do dai tu start_index den end cua array no tham tri=value
@@ -74,9 +74,9 @@ func main() {
 	//cap(s1) = 10(tuc la tinh tu index=1 cua a1 toi het a1) REF_TYPE to a1
 	//cap(last) = 8(tuc la tinh tu index=2 cua s1 toi het a1) REF_TYPE to a1
 
+
 	tricks.Format("*")
 	space := ""
-
 	fmt.Printf("a1 = %v, len = %d, cap = %d\n", a1, len(a1), cap(a1))
 	fmt.Printf("s1 = %v, %20s, len = %d, cap = %d\n", s1, space, len(s1), cap(s1))
 	fmt.Printf("last = %v, %24s, len = %d, cap = %d\n", last, space, len(last), cap(last))
@@ -104,6 +104,7 @@ func main() {
 	slice := make([]int, 5, 10)
 	fmt.Printf("slice = %v, len = %d, cap = %d\n", slice, len(slice), cap(slice))
 
+
 	/*
 		The capacity parameter in the make() function is optional. When omitted, it defaults to the specified length
 	*/
@@ -127,7 +128,6 @@ func main() {
 		The copy() function copies elements from one slice to another
 		func copy(dst, src []T) int
 	*/
-
 	src := []string{"Sublime", "VSCode", "IntelliJ", "Eclipse"}
 	dest := make([]string, 2)
 
@@ -139,20 +139,32 @@ func main() {
 
 
 	tricks.Format(`new_slice := append(slice3, "Python", "Ruby", "Go")`)
-
 	slice3 := []string{"C", "C++", "Java"}
 	// slice5 va slice3 rieng biet khong REF_TYPE nhau
 	slice5 := append(slice3, "Python", "Ruby", "Go")
 
-	fmt.Printf("slice3 = %v, len = %d, cap = %d\n", slice3, len(slice3), cap(slice3))
-	fmt.Printf("slice5 = %v, len = %d, cap = %d\n", slice5, len(slice5), cap(slice5))
+	fmt.Printf("slice3 = %v, \t\t\tlen = %d, cap = %d\n", slice3, len(slice3), cap(slice3))
+	fmt.Printf("slice5 = %v, \tlen = %d, cap = %d\n", slice5, len(slice5), cap(slice5))
 
-	slice3[0] = "C#"
+	slice3[0] = "HoHo"
 	fmt.Println("\nslice3 = ", slice3)
 	fmt.Println("slice5 = ", slice5)
 
-	fmt.Println()
 
+	tricks.Format("add item to last || first for slice")
+	sliceInt := []int{4,5,6,7}
+	item := 10
+	fmt.Println("add item to last of slice", append(sliceInt, item))
+	fmt.Println("add item to first of slice", append([]int{item}, sliceInt...))
+	fmt.Println("test", append(sliceInt[:2], 8,9,10))
+	fmt.Println("test", append(sliceInt[:2], sliceInt[3:]...))
+
+
+	// syntax 3dot: "strings"... append vao []byte("old ")
+	tricks.Format(`sliceByte := append([]byte("old "), "falcon"...) `)
+	bytes := append([]byte("old "), "falcon"...)
+    fmt.Println(bytes)
+    fmt.Println(string(bytes))
 
 	// slice1 := make([]string, 3, 10)
 	// count := copy(slice1, []string{"C", "C++", "Java"})
@@ -160,9 +172,9 @@ func main() {
 
 	// slice1 := []string{"Jack", "John", "Peter"}
 	// slice2 := []string{"Bill", "Mark", "Steve"}
-
 	// unpackae array... 3dot
 	// slice3 := append(slice1, slice2...)
+
 
 	tricks.Format("array 2 chieu")
 	two_chieu := [][]string{
@@ -177,21 +189,47 @@ func main() {
 
 
 	tricks.Format("for index, value := range array {}")
-
 	primeNumbers := []int{2, 3, 5, 7, 11, 13, 17, 19, 23, 29}
 
 	for index, number := range primeNumbers {
 		fmt.Printf("PrimeNumber(%d) = %d\n", index+1, number)
 	}
 
-	fmt.Println()
 
+	tricks.Format("*")
 	numbers := []float64{3.5, 7.4, 9.2, 5.4}
-
 	sum := 0.0
 	for _, number := range numbers {
 		sum += number
 	}
 
 	fmt.Printf("Total Sum = %.2f\n", sum)
+}
+
+
+func insert(orig []int, index int, value int) ([]int, error) {
+    if index < 0 {
+        return nil, errors.New("Index cannot be less than 0")
+    }
+
+    if index >= len(orig) {
+        return append(orig, value), nil
+    }
+
+    //  orig[1 2 3 4 5] ; index=2; [1 2 3] + [3 4 5] = [1 2 3 3 4 5]
+    orig = append(orig[:index+1], orig[index:]...)
+    // orid[2] = 10 ; // [1 2 10 3 4 5]
+    orig[index] = value
+
+    return orig, nil
+}
+
+func delete(orig []int, index int) ([]int, error) {
+    if index < 0 || index >= len(orig) {
+        return nil, errors.New("Index cannot be less than 0")
+    }
+
+    orig = append(orig[:index], orig[index+1:]...)
+
+    return orig, nil
 }

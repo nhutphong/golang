@@ -11,6 +11,14 @@ import (
 	"phong/tricks"
 )
 /*
+	NOT update , thuộc nhóm này có thể la immutable 
+	arr := [5]int{1,2,3,4,5}  == tuple(1,2,3,4,5)
+
+	update OK , các types thuộc nhóm default value được gán sau = nil, rất có thể la mutable 
+	slice := []int{1,2,3,4,5}  == list(1,2,3,4,5)
+	Map := make(map[string]string)  == dict(name="thong", city="long an")
+
+
 	var varName int float64 string struct , ... khi declared không gán value, thì value default = 0 ""
 	empty của type đó
 
@@ -30,6 +38,7 @@ import (
 	fmt.Println(human)			// {"": 0}
 
 
+	các types default = nil khi không gán value: map channel interface{} slices pointer function
 	var varNameP *int *string, *struct ..., nếu không gán &varNameNaoDo đó, thì default = nil
 
 	var (
@@ -45,7 +54,7 @@ import (
 	fmt.Println(human)			// nil
 
 
-	result = new(int)  // result is pointer of &int (da result=nil)
+	result = new(int)  // result is pointer of &int
 
 	var temp int   // declare an int type variable
 	var result *int //  declare a pointer to int

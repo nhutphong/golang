@@ -1,82 +1,41 @@
 package main
-
+ 
 import (
     "fmt"
+    "math/rand"
     "time"
 )
-
-
-
+ 
+func CalculateValue(c chan int, num int) {
+    value := rand.Intn(10)
+    fmt.Println("Calculated Random Value:%d - %d", value, num)
+    time.Sleep(1000 * time.Millisecond)
+    c <- value
+    fmt.Println("This executes regardless as the send is now non-blocking")
+}
+ 
 func main() {
-
-	animal := Animal{"dog", 35}
-	dog := Dog{animal, "red"}
-
-	fmt.Println(animal)
-	fmt.Printf("%#v\n", dog)
-	fmt.Println(dog.Name, dog.age, dog.Color)
-
-	var dict map[bool]bool
-    fmt.Print("Default Zero Value of a map: ")
-    fmt.Println(dict)
-
-    var channel chan int 
-    fmt.Print("Default Zero Value of a channel: ")
-    fmt.Println(channel)
-
-    var face interface{}
-    fmt.Print("Default Zero Value of a interface: ")
-    fmt.Println(face)
-
-    var slice []int
-    fmt.Println("slice == nil", slice == nil)
-    fmt.Print("Default Zero Value of a slice: ")
-    fmt.Println(slice)
-
-    var f func()
-    fmt.Print("Default Zero Value of a func: ")
-    fmt.Println(f)
-
-    var pointer *int
-    fmt.Print("Default Zero Value of a pointer: ")
-    fmt.Println(pointer)
-
-
-}
-
-type Animal struct {
-	Name string
-	age int
-}
-
-type Dog struct {
-	Animal
-	Color string
-}
-
-
-func Ticker () {
-
-    ticker := time.NewTicker(500 * time.Millisecond)
-    unbuffer := make(chan bool)
-
-    go func() {
-        for {
-            select {
-            case <-unbuffer:
-            	fmt.Println("end timer")
-                return
-            case t := <-ticker.C:
-                fmt.Println("Tick at", t)
-            }
-        }
-    }()
-
-    fmt.Println("one")
-    time.Sleep(1600 * time.Millisecond)
-    fmt.Println("two")
-    ticker.Stop()
-    fmt.Println("three")
-    unbuffer <- true
-    fmt.Println("Ticker stopped")
+    fmt.Println("Go Channel Tutorial")
+ 
+    valueChannel := make(chan int, 3)
+    defer close(valueChannel)
+ 
+    go CalculateValue(valueChannel,1)
+    go CalculateValue(valueChannel,2)
+    go CalculateValue(valueChannel,3)
+    go CalculateValue(valueChannel,4)
+    go CalculateValue(valueChannel,5)
+ 
+    one := <-valueChannel
+    fmt.Println("main", one)
+    two := <-valueChannel
+    fmt.Println("main", two)
+    // three := <-valueChannel
+    // fmt.Println("main", three)
+    // four := <-valueChannel
+    // fmt.Println("main", four)
+    // five := <-valueChannel
+    // fmt.Println("main", five)
+ 
+    time.Sleep(time.Second)
 }

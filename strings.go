@@ -12,10 +12,12 @@ func main() {
 
 }
 
-/*
+const NOTE string = `
+
+// substr khớp cả cụm word mới OK 
+// chars khớp bất kỳ char nào cũng OK 
 
 func Clone(s string) string
-
 
 
 func Compare(a, b string) int
@@ -30,7 +32,7 @@ func EqualFold(s, t string) bool
 }
 
 func Contains(s, substr string) bool
-	// chứa substr = chars 
+	// chứa substr
 	fmt.Println(strings.Contains("seafood", "")) // true 
 	fmt.Println(strings.Contains("", ""))		 // true 
 
@@ -192,4 +194,4 @@ func TrimRightFunc(s string, f func(rune) bool) string
 func TrimPrefix(s, prefix string) string
 func TrimSuffix(s, suffix string) string
 
-*/
+`

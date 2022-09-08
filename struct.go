@@ -34,6 +34,31 @@ type Person struct {
 	Age       int
 }
 
+/*
+	thông thường muốn update value cho struct field, có thể access trực tiếp, NOT USE vì tính bảo mật,
+	vì thế thể phải dùng func or method, bắt buộc phải pass pointer *struct vào để update value cho field
+
+	func va method: p.FieldName = "update"  // rieng struct, ngâm hiểu có *
+	cac types builtin in go: *int *string *float64, phai *varName = "value" // phai co * truoc varName
+*/
+func (p *Person) update(first, last string, age int) {
+	p.FirstName = first
+	p.LastName = last
+	p.Age = age
+}
+
+// chi get value, NOT update field vì không pass pointer *Person 
+func(p Person) info() {
+	fmt.Println(p.FirstName, p.LastName, p.Age)
+}
+
+func update(p *Person, first, last string, age int) {
+	p.FirstName = first
+	p.LastName = last
+	p.Age = age
+}
+
+
 type Car struct {
 	Name, Model, Color string
 	WeightInKg         float64
@@ -117,28 +142,23 @@ func main() {
 		Age:       45,
 	}
 	fmt.Println("Person2: ", p2)
+	fmt.Printf("Person2: %#v\n", p2)
 
 	// Uninitialized fields are set to their corresponding zero-value
 	p3 := Person{FirstName: "Robert"}
 	fmt.Println("Person3: ", p3)
 
+	person := Person{
+		FirstName: "John",
+		LastName:  "Snow",
+		Age:       45,
+	}
+	fmt.Println(person)
+	person.update("dung", "thong", 35)
+	fmt.Printf("%#v\n", person)
 
-	tricks.Format("&pointer")
-	// instance of student struct type
-	s := Student{11, "Jack"}
-
-	// Pointer to the student struct
-	ps := &s
-	fmt.Println("ps: ", ps)
-	fmt.Println("*ps: ", *ps)
-
-	
-	fmt.Println("(*ps).name is ", (*ps).Name)
-	fmt.Println("ps.name is ",ps.Name)
-
-	ps.RollNumber = 31
-	fmt.Println("ps:", ps)
-	fmt.Println("*ps:", *ps)
+	update(&person, "Dog", "Cat", 100)
+	fmt.Printf("%#v\n", person)
 	//
 
 	tricks.Format("NOT pointer")

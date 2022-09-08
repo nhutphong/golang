@@ -4,7 +4,7 @@ import (
     "fmt"
 )
 
-func recovery() {  
+func catch() {  
     if r := recover(); r != nil {
         fmt.Println("recovered:", r)
     }
@@ -12,13 +12,13 @@ func recovery() {
 }
 
 func sum(a int, b int) {  
-    defer recovery() //syntax: defer nameFunc() lun o tren cac func cua the xay ra panic, de bat no
+    defer catch() //syntax: defer nameFunc() lun o tren cac func cua the xay ra panic, de bat no
 
     fmt.Printf("%d + %d = %d\n", a, b, a+b)
 
     done := make(chan bool)
     // go divide(a, b, done)
-    divide(a, b, done) // error=panic ; jumpto func recovery()
+    divide(a, b, done) // error=panic ; jumpto func catch()
     <-done
 }
 

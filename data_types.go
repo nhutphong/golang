@@ -45,8 +45,12 @@ func main() {
 
 		complex64 complex128
 
-		any error interface{}
+		error
+
+		any interface{}
 		comparable: chưa nên dùng
+
+		var myNil error = nil // nil thuoc error
 
 		type varName any | interface{} // chỉ đẻ get value, không dùng được operations: + - *, ... != ,...
 

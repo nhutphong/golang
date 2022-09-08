@@ -19,6 +19,9 @@ type point struct {
 
 func main() {
 
+    // use: "%#v" xem đầy đủ fieldName of struct và argumentName của func lun
+    // use: "%c" cho loop for []rune("thong")  ; quote `char`
+    // "%d" cho int, "%s" cho string
     name := "falcon"
     number := 122
     float := 455.67

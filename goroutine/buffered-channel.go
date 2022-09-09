@@ -68,10 +68,10 @@ func writeGoroutine(buffer chan int) {
 }
 
 
-func write(buffer chan int) {
-	fmt.Println("FUNC write() START")
+func write(buffer chan int, total int, name string) {
+	fmt.Printf("GOROUTINE write() START %s\n", name)
 
-	for i := 1; i < 5; i++ {
+	for i := 1; i <= total; i++ {
 		tricks.FormatTwo("WRITE FOR START", i)
 		buffer <- i
 		// i = 4, buffer[2 3] đã đầy nên jumpto goroutine nó connect để READ 
@@ -80,51 +80,116 @@ func write(buffer chan int) {
 		tricks.FormatTwo("WRITE FOR END", i)
 	}
 
-	close(buffer)
-	fmt.Println("FUNC write END")
+	// close(buffer)
+	fmt.Printf("GOROUTINE write() END %s\n", name)
 	fmt.Println()
 }
 
-func read(buffer chan int) {
-	fmt.Println("FUNC read START")
+func read(buffer chan int, total int, name string) {
+	fmt.Printf("GOROUTINE read() START %s\n", name)
 
-	for i := 1; i < 5; i++ {
+	for i := 1; i <= total; i++ {
 		tricks.FormatTwo("READ FOR START", i)
 		fmt.Println("read value", <-buffer, "from ch")
 		tricks.FormatTwo("READ FOR END", i)
 	}
 
-	fmt.Println("FUNC read END")
+	fmt.Printf("GOROUTINE read() END %s\n", name)
 }
 
 func readBufferUseRange(buffer chan int) {
-	fmt.Println("FUNC readBufferUseRange START")
+	fmt.Println("GOROUTINE readBufferUseRange START")
 
 	for item := range buffer {
 		fmt.Println("read value", item, " for _ := range buffer")
 	}
 
-	fmt.Println("FUNC readBufferUseRange END")
+	fmt.Println("GOROUTINE readBufferUseRange END")
 
+}
+
+func SuperGoroutineControl() {
+	/*
+		buffered channel: code theo pattern dưới; 5 goroutine write với 1 goroutine read
+		read+cap(channel) = write=15 (trên channel) ; mới đảm bảo 6 goroutine sẽ run xong, sau đó
+		mới tới SuperGoroutineControl()
+		read > write: vd read=17, thì tràn ra ngoài main() read 16 17 ko cần cộng thêm cap=3
+
+
+		các SuperGoroutineControl(): nên chứa:
+			buffer := make(chan int, 3) // STEP 2
+			defer close(buffer)
+			defer fmt.Println("SuperGoroutineControl() END")
+			defer time.Sleep(time.Second)
+
+		còn main() chỉ:
+			defer time.Sleep(time.Second)
+	*/
+	
+	// cap(channel)=3
+	buffer := make(chan int, 3) // STEP 2
+	defer close(buffer)
+	defer fmt.Println("SuperGoroutineControl() END")
+	defer time.Sleep(time.Second)
+
+
+	go write(buffer, 3, "ONE")
+	go write(buffer, 3, "TWO")	
+	go write(buffer, 3, "THREE")
+	go write(buffer, 3, "FOUR")
+	go write(buffer, 3, "FIVE")
+
+	go read(buffer, 12, "ONE") //12+3=15 ; đủ điều kiện 6 goroutine run xong; sau đó toi SuperGoruotineControl()
+
+	// go read(buffer, 10, "ONE")
+	// go read(buffer, 5, "ONE")
+
+	// go read(buffer, 5, "ONE")
+	// go read(buffer, 5, "ONE")
+	// go read(buffer, 5, "ONE")
+
+
+
+	// time.Sleep(time.Second) // phai co de jumpto goroutine CHILD
+	// fmt.Println("SuperGoroutineControl() END")
+	// close(buffer)
 }
 
 
 // STEP 1
 func main() {
-	// defer time.Sleep(time.Second)
 
 	tricks.Format("buffered-channel")
 	tricks.Format("START GOROUTINE MAIN()")
 
+	SuperGoroutineControl()
+
 	// unbuffer := make(chan int, 0)
-	buffer := make(chan int, 2) // STEP 2
 
-	// go writeGoroutine(buffer)
+	// buffer := make(chan int, 1) // STEP 2
+	// buffer := make(chan int, 4) // STEP 2
+	// // defer close(buffer)
+	// // defer time.Sleep(time.Second)
+
+	// // go writeGoroutine(buffer)
 
 
-	go write(buffer)
-	go read(buffer)
+	// go write(buffer, 3, "ONE")
+	// go write(buffer, 3, "TWO")
+	// go write(buffer, 3, "THREE")
+	// go write(buffer, 3, "FOUR")
+	// go write(buffer, 3, "FIVE")
+
+	// go read(buffer, 10, "ONE")
+	// go read(buffer, 1, "TWO")
+	// go read(buffer, 5, "THREE")
 	// go readBufferUseRange(buffer)
+
+
+	// DEADLOCK
+	// for item := range buffer {
+	// 	fmt.Println("read value", item, " for _ := range buffer")
+	// }
 
 
 
@@ -170,5 +235,6 @@ func main() {
 	
 	//
 	time.Sleep(time.Second)
-	tricks.Format("END GOROUTINE MAIN()")
+	tricks.Format("GOROUTINE MAIN() END")
+	// close(buffer)
 }

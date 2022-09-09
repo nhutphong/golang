@@ -128,49 +128,132 @@ func goWrite(unbuffer chan int) {
 	// close(unbuffer)
 }
 
+func write(unbuffer chan int, total int, name string) {
+	fmt.Printf("GOROUTINE write() START %s\n", name)
 
-func unWrite(unbuffer chan int) {
-	// defer close(unbuffer)
-
-	for i := 1; i < 5; i++ {
+	for i := 1; i <= total; i++ {
 		tricks.FormatTwo("WRITE FOR START", i)
 		unbuffer <- i
+		// i = 4, unbuffer[2 3] đã đầy nên jumpto goroutine nó connect để READ 
+		// i = 1, write=1 lần đầu đã trả cho READ, nên còn lại [2 3]
+
 		tricks.FormatTwo("WRITE FOR END", i)
 	}
-	fmt.Println("FUNC write start")
-	close(unbuffer)
-	fmt.Println("FUNC write end")
+
+	// close(unbuffer)
+	fmt.Printf("GOROUTINE write() END %s\n", name)
+	fmt.Println()
 }
 
-func unRead(unbuffer chan int) {
-	for i := 1; i < 5; i++ {
-		tricks.FormatTwo("UNREAD FOR START", i)
-		fmt.Println("unread value", <-unbuffer, "from ch")
-		tricks.FormatTwo("UNREAD FOR END", i)
+func read(unbuffer chan int, total int, name string) {
+	fmt.Printf("GOROUTINE read() START %s\n", name)
+
+	for i := 1; i <= total; i++ {
+		tricks.FormatTwo("READ FOR START", i)
+		fmt.Println("read value", <-unbuffer, "from ch")
+		tricks.FormatTwo("READ FOR END", i)
 	}
-	fmt.Println("FUNC UNREAD start")
-	fmt.Println("FUNC UNREAD end")
+
+	fmt.Printf("GOROUTINE read() END %s\n", name)
 }
+
 
 func readUnBufferUseRange(unbuffer chan int) {
+	fmt.Println("GOROUTINE readUnBufferUseRange START")
+
 	for item := range unbuffer {
 		fmt.Println("read value", item, " for item := range unbuffer")
 	}
+
+	fmt.Println("GOROUTINE readUnBufferUseRange END")
+}
+
+func f(c chan int) {
+    for {
+        c <- time.Now().Second()
+        time.Sleep(time.Second)
+    }
+}
+
+func SuperGoroutineControl() {
+	/*
+		unbuffered channel: code theo pattern dưới; 5 goroutine write với 1 goroutine read
+		read = write=15 (trên channel) ; mới đảm bảo 6 goroutine sẽ run xong, sau đó
+		mới tới SuperGoroutineControl()
+		read > write: vd read=20, thì tràn ra ngoài main() read tới 20 
+
+
+		các SuperGoroutineControl(): nên chứa:
+			buffer := make(chan int, 3) // STEP 2
+			defer close(buffer)
+			defer fmt.Println("SuperGoroutineControl() END")
+			defer time.Sleep(time.Second)
+
+		còn main() chỉ:
+			defer time.Sleep(time.Second)
+	*/
+
+	
+	unbuffer := make(chan int) // STEP 2
+	// defer close(unbuffer)
+	// defer fmt.Println("SuperGoroutineControl() END")
+	// defer time.Sleep(time.Second)
+
+	go write(unbuffer, 3, "ONE")
+	go write(unbuffer, 3, "TWO")
+	go write(unbuffer, 3, "THREE")
+	go write(unbuffer, 3, "FOUR")
+	go write(unbuffer, 3, "FIVE")
+
+	go read(unbuffer, 30, "ONE")
+
+
+	// go read(unbuffer, 10, "ONE")
+	// go read(unbuffer, 5, "ONE")
+
+	// go read(unbuffer, 5, "ONE")
+	// go read(unbuffer, 5, "ONE")
+	// go read(unbuffer, 5, "ONE")
+
+
+	time.Sleep(time.Second) // phai co de jumpto goroutine read || write, ; se end sau cung  
+	fmt.Println("SuperGoroutineControl() END")
+	close(unbuffer)
 }
 
 
 //STEP 1
 func main() {
-	// defer time.Sleep(time.Second)
+
 
 	//hien tai co goroutine main
 	tricks.Format("unbuffered-channel")
 	tricks.Format("START GOROUTINE MAIN()")
 
-	unbuffer := make(chan int) // STEP 2
+	// unbuffer := make(chan int) // STEP 2
+	// // defer close(unbuffer)
+	// // defer time.Sleep(time.Second)
 
-	go unWrite(unbuffer)
-	go readUnBufferUseRange(unbuffer)
+	// go write(unbuffer, 3, "ONE")
+	// go write(unbuffer, 3, "TWO")
+	// go write(unbuffer, 3, "THREE")
+	// go write(unbuffer, 3, "FOUR")
+	// go write(unbuffer, 3, "FIVE")
+
+	// go read(unbuffer, 15, "ONE")
+
+	// go read(unbuffer, 5, "TWO")
+	// go read(unbuffer, 5, "THREE")
+
+	// go readUnBufferUseRange(unbuffer)
+
+	SuperGoroutineControl()
+
+
+	// DEADLOCK
+	// for item := range unbuffer {
+	// 	fmt.Println("read value", item, " for item := range unbuffer")
+	// }
 
 
 	// go goDeadlock(unbuffer) // write=4; có close(unbuffer)
@@ -213,6 +296,7 @@ func main() {
 	// value, ok := <-unbuffer
 	// log.Println("value: ", value, "ok: ", ok)
 
-	defer time.Sleep(time.Second)
+	time.Sleep(time.Second)
 	tricks.Format("END GOROUTINE MAIN()")
+	// close(unbuffer)
 }

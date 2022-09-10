@@ -82,6 +82,21 @@ func main() {
 	    fmt.Println()
 	}
 
+	tricks.Format("iota = increase, only use for const varName = iota")
+	const (
+		// iota = 0
+		Failed = iota - 1 // == -1
+		Unknown           // == 0
+		Succeeded         // == 1
+	)
+
+	const (
+		Readable = 1 << iota // == 1 * 2^0 = 1
+		Writable             // == 1 * 2^1 = 2
+		Executable           // == 1 * 2^2 = 4
+	)
+	fmt.Println(Readable, Writable, Executable)
+
 	// chỉ declared, NOT assign value, thì default value = nil 
 	tricks.Format("nil is default values of: <slice map channel func interface{} pointer>")
 	var dict map[bool]bool
@@ -246,3 +261,36 @@ func main() {
 
 
 }
+
+const NOTE string = `
+	type (
+		MyInt int
+		Age   int
+		Text  string
+	)	
+
+	type IntPtr *int
+	type Book struct{author, title string; pages int}
+	type Convert func(in0 int, in1 bool)(out0 int, out1 string)
+	type StringArray [5]string
+	type StringSlice []string
+
+	// The underlying types of the following ones are both int.
+	type (
+		MyInt int
+		Age   MyInt
+	)
+
+	// The following new types have different underlying types.
+	type (
+		IntSlice   []int   // underlying type is []int
+		MyIntSlice []MyInt // underlying type is []MyInt
+		AgeSlice   []Age   // underlying type is []Age
+	)
+
+	// The underlying types of []Age, Ages, and AgeSlice
+	// are all the unnamed type []Age.
+	type Ages AgeSlice
+
+	
+`

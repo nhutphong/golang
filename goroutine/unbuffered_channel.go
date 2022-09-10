@@ -8,7 +8,7 @@ import (
 	"phong/tricks"
 )
 
-/*
+const NOTE string = `
 	SUPER GOROUTINE MAIN() OR PARENT GOROUTINE nên code: defer time.Sleep(time.Second) ở đầu, để chờ CHILD
 	GOROUTINE
 
@@ -47,7 +47,7 @@ import (
 
 	STEP 4. write and read: hiểu là đổ nước vào PIPE và lấy nước ra từ PIPE
 
-	5. LET` GO!!!
+	5. LET GO!!!
 
 	GO:
 	1 to 2 to 3 rồi tới 4  //OK 
@@ -64,12 +64,7 @@ import (
 			 CHILD nên la WRITE<-   send=gửi
 
 
-
-	
-
-
-*/
-
+`
 
 func goroutine(unbuffer chan int) {
 	//run goroutine thu 2
@@ -205,7 +200,7 @@ func SuperGoroutineControl() {
 	go write(unbuffer, 3, "FOUR")
 	go write(unbuffer, 3, "FIVE")
 
-	go read(unbuffer, 30, "ONE")
+	go read(unbuffer, 15, "ONE")
 
 
 	// go read(unbuffer, 10, "ONE")

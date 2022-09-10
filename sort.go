@@ -56,7 +56,7 @@ func main() {
 
 }
 
-/*
+const NOTE = `
 
 func Find(n int, cmp func(int) int) (i int, found bool)
 func SliceIsSorted(x any, less func(i, j int) bool) bool
@@ -143,6 +143,4 @@ func Stable(data Interface)
 	sort.Sort(sort.Reverse(sort.Float64Slice(s)))
 	sort.Sort(sort.Reverse(sort.StringSlice(s)))
 
-
-
-*/
+`

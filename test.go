@@ -3,6 +3,9 @@ package main
 import (
     "fmt"
     "time"
+    "os"
+    "syscall"
+    "signal"
 )
 
 func write(ch chan int) {
@@ -23,10 +26,10 @@ func read(channel chan int) {
         fmt.Println("read", v, "from channel")
         // time.Sleep(time.Second)
         // fmt.Printf("len %d  \n", len(channel))
-        if len(channel) == 0 {
-            time.Sleep(time.Second)
-            // break
-        }
+        // if len(channel) == 0 {
+        //     time.Sleep(time.Second)
+        // //     // break
+        // }
 
     }
 
@@ -35,11 +38,11 @@ func read(channel chan int) {
 
 
 func main() {
-    channel := make(chan int, 15)
+    channel := make(chan int)
 
     go write(channel)
-    go write(channel)
-    go write(channel)
+    // go write(channel)
+    // go write(channel)
     // go write(channel)
 
     go read(channel)
@@ -48,4 +51,5 @@ func main() {
     time.Sleep(time.Second)
     fmt.Printf("\t\tGOROUTINE main() END\n")
     close(channel)
+
 }

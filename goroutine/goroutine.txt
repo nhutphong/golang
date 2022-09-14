@@ -1,0 +1,9 @@
+Nếu phải lựa chọn giữa Mutex và Channel, hãy chọn cách nào dễ biểu đạt (code sáng) và code dễ nhất.
+
+Một lỗi thường thấy của lập trình Golang mới vào nghề là lạm dụng channels và goroutines bởi vì nó khả thi và đúng chất Golang. Đừng ngại sync.Mutex nếu nó phù hợp với hoàn cảnh bài toán của bạn. 
+
+Dùng Channels khi truyền, trao quyền sử dụng dữ liệu (passing ownership of data), phân phối một đầu việc (distributing units of work) và trao đổi kết quả bất đồng bộ (communicating async results).
+
+Dùng Mutex để quản lý việc truy xuất đồng bộ vào bộ đệm (cache) hay trạng thái (state).
+
+cache=map=dict

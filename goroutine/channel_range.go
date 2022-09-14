@@ -71,7 +71,27 @@ func read(ch chan string) {
 }
 
 const NOTE string =`
-	range channel: chỉ dùng 1 to 1, tức là 1 goroutine write với 1 func read, trên 1 channel(buffer với unbuffer 
-		cho kết quả như nhau)
+range channel: chỉ dùng 1 to 1, tức là 1 goroutine write với 1 func read, trên 1 channel(buffer với unbuffer 
+cho kết quả như nhau
+range channel: 
+
+
+for v := range aChannel {
+	// use v
+}
+
+//is equivalent to
+for {
+	v, ok = <-aChannel
+	if !ok {
+		break
+	}
+	// use v
+}
+
+
+
+
+
 
 `

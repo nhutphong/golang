@@ -59,12 +59,12 @@ func main() {
         }
 
         quit <- 0
-        fmt.Println("outside for {}")
+        fmt.Println("goroutine end")
 
     }()
 
     // go action(ch, quit)
 
-    tricks.Format("main()")
     fibonacci(ch, quit)
+    tricks.Format("main()")
 }

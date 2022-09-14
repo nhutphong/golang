@@ -81,24 +81,6 @@ func goroutine(unbuffer chan int) {
 	unbuffer <- 5
 }
 
-func goDeadlock(unbuffer chan int) {
-	defer close(unbuffer)
-
-	unbuffer <- 1 
-	unbuffer <- 2
-	unbuffer <- 3
-	unbuffer <- 4
-	// unbuffer <- 5
-	// unbuffer <- 6
-	// unbuffer <- 7
-
-	//run goroutine thu 2
-	// go func() { 
-	// 	for i:=0; i<10; i++ {
-	// 		fmt.Println(<-unbuffer)
-	// 	}
-	// }()
-}
 
 func goWrite(unbuffer chan int) {
 	defer close(unbuffer)
@@ -152,17 +134,6 @@ func read(unbuffer chan int, total int, name string) {
 	fmt.Printf("GOROUTINE read() END %s\n", name)
 }
 
-
-func readUnBufferUseRange(unbuffer chan int) {
-	fmt.Println("GOROUTINE readUnBufferUseRange START")
-
-	for item := range unbuffer {
-		fmt.Println("read value", item, " for item := range unbuffer")
-	}
-
-	fmt.Println("GOROUTINE readUnBufferUseRange END")
-}
-
 func f(c chan int) {
     for {
         c <- time.Now().Second()
@@ -172,10 +143,13 @@ func f(c chan int) {
 
 func SuperGoroutineControl() {
 	/*
+		unbuferred channel:read = write bắt buộc
 		unbuffered channel: code theo pattern dưới; 5 goroutine write với 1 goroutine read
-		read = write=15 (trên channel) ; mới đảm bảo 6 goroutine sẽ run xong, sau đó
+		read = write=15 (trên channel) bat buoc ; mới đảm bảo 6 goroutine sẽ run xong, sau đó
 		mới tới SuperGoroutineControl()
-		read > write: vd read=20, thì tràn ra ngoài main() read tới 20 
+		read < write: code bình thường vẫn được, nhưng check -race sẽ lỗi DATA RACE 
+		read > write : vd read=20, thì tràn ra ngoài main() read tới 20 (van con thg GOROUTINE PARENT de overflow)
+		read > write: neu main() la noi read thi se DEADLOCK, con goroutine nao nua dau ma overflow
 
 
 		các SuperGoroutineControl(): nên chứa:
@@ -249,16 +223,6 @@ func main() {
 	// for item := range unbuffer {
 	// 	fmt.Println("read value", item, " for item := range unbuffer")
 	// }
-
-
-	// go goDeadlock(unbuffer) // write=4; có close(unbuffer)
-	// fmt.Println(<-unbuffer)
-	// fmt.Println(<-unbuffer)
-	// fmt.Println(<-unbuffer)
-	// fmt.Println(<-unbuffer)
-	// fmt.Println(<-unbuffer) // read=5; NOT DEADLOCK
-	// fmt.Println(<-unbuffer) // read=6; 
-	// fmt.Println(<-unbuffer) // read=7; 
 
 
 	// go goWrite(unbuffer) // STEP 3

@@ -90,30 +90,26 @@ func read(buffer chan int, total int, name string) {
 
 	for i := 1; i <= total; i++ {
 		tricks.FormatTwo("READ FOR START", i)
-		fmt.Println("read value", <-buffer, "from ch")
+		fmt.Println("index",i,"read", <-buffer)
 		tricks.FormatTwo("READ FOR END", i)
 	}
 
 	fmt.Printf("GOROUTINE read() END %s\n", name)
 }
 
-func readBufferUseRange(buffer chan int) {
-	fmt.Println("GOROUTINE readBufferUseRange START")
-
-	for item := range buffer {
-		fmt.Println("read value", item, " for _ := range buffer")
-	}
-
-	fmt.Println("GOROUTINE readBufferUseRange END")
-
-}
 
 func SuperGoroutineControl() {
 	/*
+		buffer := make(chan int, 9) // cap=9
+		cho cap(buffer) = write cho dễ, lúc đó muốn read <= write bao nhiêu thì lấy,
+		không bị lỗi DATA RACE
+		or cap(buffer) + read = write 
+
 		buffered channel: code theo pattern dưới; 5 goroutine write với 1 goroutine read
 		read+cap(channel) = write=15 (trên channel) ; mới đảm bảo 6 goroutine sẽ run xong, sau đó
 		mới tới SuperGoroutineControl()
 		read > write: vd read=17, thì tràn ra ngoài main() read 16 17 ko cần cộng thêm cap=3
+		read > write: nếu read tại main() sẽ DEADLOCK, còn goroutine nào nữa đâu mà overflow ra 
 
 
 		các SuperGoroutineControl(): nên chứa:
@@ -127,19 +123,20 @@ func SuperGoroutineControl() {
 	*/
 	
 	// cap(channel)=3
-	buffer := make(chan int, 3) // STEP 2
+	buffer := make(chan int, 15) // STEP 2
 	defer close(buffer)
 	defer fmt.Println("SuperGoroutineControl() END")
 	defer time.Sleep(time.Second)
 
-
+	// write buffer = 15 = cap = 15 // đủ điều kiện end 6 goroutines trước SuperGoroutine()
 	go write(buffer, 3, "ONE")
 	go write(buffer, 3, "TWO")	
 	go write(buffer, 3, "THREE")
 	go write(buffer, 3, "FOUR")
 	go write(buffer, 3, "FIVE")
 
-	go read(buffer, 12, "ONE") //12+3=15 ; đủ điều kiện 6 goroutine run xong; sau đó toi SuperGoruotineControl()
+	// chỉ read 10 data 
+	go read(buffer, 10, "ONE") //; đủ điều kiện 6 goroutine run xong; sau đó toi SuperGoruotineControl()
 
 	// go read(buffer, 10, "ONE")
 	// go read(buffer, 5, "ONE")

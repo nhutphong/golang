@@ -7,7 +7,9 @@ import (
 
 const NOTE string  = ` 
  	sync.WaitGroup: đảm bảo các goroutines sẽ hoàn thành trước các SuperGoroutine() or sau main()
+ 	sync.Mutex{}: xử lý race condition và shared data giữa các goroutines
  `
+
 
 var x int64 = 0
 // Khai báo mutex

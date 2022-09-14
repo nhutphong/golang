@@ -10,6 +10,8 @@ import (
 )
 
 /*	
+
+
 	// variadic arguments is 1 slice 
 	// variadic arguments: phải được khai báo nằm ở sau cùng 
 	func hello(a int, args ...int) {  
@@ -41,6 +43,7 @@ type Student struct {
 	country   string
 }
 
+// named arguments da duoc declared: sutdents, callback; vi the dung =, not declared(:=)
 func filter(students []Student, callback func(Student) bool) []Student {
 	var students_list []Student
 	for _, student := range students {

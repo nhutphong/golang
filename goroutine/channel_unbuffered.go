@@ -66,44 +66,6 @@ const NOTE string = `
 
 `
 
-func goroutine(unbuffer chan int) {
-	//run goroutine thu 2
-	go func() { 
-		for i:=0; i<10; i++ {
-			fmt.Println(<-unbuffer)
-		}
-	}()
-
-	unbuffer <- 1
-	unbuffer <- 2
-	unbuffer <- 3
-	unbuffer <- 4
-	unbuffer <- 5
-}
-
-
-func goWrite(unbuffer chan int) {
-	defer close(unbuffer)
-
-	fmt.Println("write start 1")
-	unbuffer <- 1
-	fmt.Println("write end 1")
-	fmt.Println("write start 2")
-	unbuffer <- 2 // jumto 3
-	fmt.Println("write end 2")
-	fmt.Println("write start 3")
-	unbuffer <- 3
-	fmt.Println("write end 3")
-	fmt.Println("write start 4")
-	unbuffer <- 4 // jumto 7
-	fmt.Println("write end 4")
-	fmt.Println("write start 5")
-	unbuffer <- 5
-	fmt.Println("write end 5")
-
-	// 
-	// close(unbuffer)
-}
 
 func write(unbuffer chan int, total int, name string) {
 	fmt.Printf("GOROUTINE write() START %s\n", name)

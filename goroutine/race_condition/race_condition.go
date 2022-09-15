@@ -7,7 +7,8 @@ import (
 )
 
 var mutex = &sync.Mutex{}
-const LOOP = 15
+const LOOP = 5
+
 
 // race conditions: vì nhiều goroutines write cùng 1 lúc với var count nên phải dùng mutex
 func write(ch chan int) {
@@ -28,21 +29,20 @@ func write(ch chan int) {
     print("\tPARENT write end\n")
 }
 
-// use global variable
-var slice = []int{}
-func read(ch chan int, lock chan bool) {
-    // var list = []int{}
+
+func read(ch chan int, dataCh chan []int) {
+    var list = []int{}
     print("\tPARENT read start\n")
 
     for i := 0; i < LOOP; i++ {
         fmt.Printf("goroutine read start %d\n", i)
         val := <-ch
-        slice = append(slice, val)
+        list = append(list, val)
         fmt.Println(val)
         fmt.Printf("goroutine read end %d\n", i)
     }
-
-    lock <- true
+    
+    dataCh <- list
     print("\tPARENT read end\n")
 }
 
@@ -50,14 +50,18 @@ func main() {
     time.Sleep(time.Millisecond)
 
     ch := make(chan int)
-    lock := make(chan bool)
+    dataCh := make(chan []int)
 
     go write(ch)
+    go read(ch, dataCh)
 
-    go read(ch, lock)
-
-    <-lock //nếu ko có block chặn lại, thì dòng code dưới sẽ run trước 2 goroutines trên, slice=empty
-    fmt.Println("slice", slice)
+    
+    slice := <-dataCh
+    for _, val := range slice {
+        fmt.Println("val", val)
+    }
+    
     // fmt.Println("list", <-dataCh)
+    // time.Sleep(time.Second)
     print("\t\tgoroutine/ main end\n")
 }

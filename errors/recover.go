@@ -5,8 +5,8 @@ import (
 )
 
 func catch() {  
-    if r := recover(); r != nil {
-        fmt.Println("recovered:", r)
+    if err := recover(); err != nil {
+        fmt.Println("recovered:", err)
     }
     // jumpto main()
 }

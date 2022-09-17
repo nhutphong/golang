@@ -12,6 +12,11 @@ func main() {
 
 		arr1 := [5]int{1:10,2:40} // [0, 10, 40, 0, 0]
 		// index1 = 10, index2 = 40
+
+		var slice []int // slice nil; phải dùng append(slice, 1,2,3), thêm items vào 
+		slice := make([]int, 5, 10)
+		OR
+		var slice = []int{}
 		
 	*/
 

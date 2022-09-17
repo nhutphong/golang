@@ -7,12 +7,15 @@ import (
 
 func main() {
 	/* 
-		var demoMap map[string]int //cach1 
+		var demoMap map[string]int //cach1 ; NOT declared như này 
 		khong the add del, change key value in map
 		syntax thuong dung la argument cho func
 
 		// use make()
 		dict := make(map[string]int) //cach2 co the add dell change key value in map
+		OR
+		var mapEmpty = map[string]interface{}{} // gán thẳng map_empty
+		mapEmpty := map[string]interface{}{}    // gán thẳng map_empty
 	*/
 
 	tricks.Format("dict := make(map[string]int)")

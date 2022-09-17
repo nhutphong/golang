@@ -140,4 +140,36 @@ func main() {
     }
     findType(p)
 
+
+    tricks.Format("implement func Error() of interface error ")
+    h := NewHuman("Thong")
+    fmt.Println("h", h) // Human{Name:"Thong"} ; vi da pass pointer receiver 
+    fmt.Println("&h", &h) // Error() ; default cho ca 2: h va &h, neu ko pass pointer receiver methods()
+    fmt.Println(h.Show())
+    fmt.Println(h.Show1())
+
+}
+
+
+type Human struct {
+    Name string
+    Old int
+}
+
+// implement Error() ; phai pass pointer receiver (h *Human) ;
+// khi implement ; lun pass pointer receiver ; 
+func (h *Human) Error() string {
+    return "Human implemented Error() of error type"
+}
+
+func (h Human) Show() string {
+    return h.Name
+}
+
+func (h *Human) Show1() string {
+    return h.Name
+}
+
+func NewHuman(name string) Human {
+    return Human{Name:name}
 }

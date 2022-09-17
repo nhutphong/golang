@@ -2,69 +2,79 @@ package main
 
 import (
     "fmt"
+    "time"
     "phong/tricks"
 
 )
 
-func action (ch chan int, quit chan int) {
-    tricks.Format("anonymous func()")
+func action (ch chan int, quit chan bool) {
+    tricks.Format("action() start")
 
     for i := 0; i < 10; i++ {
         fmt.Println("go: ",<-ch)
     }
 
-    fmt.Println("outside for {}")
-    quit <- 0
+    fmt.Println("action() end")
+    quit <- true
 
 }
 
-func fibonacci(ch, quit chan int) {
+func fibonacci(ch chan int, quit chan bool, result chan int) {
     x, y, count := 0, 1 ,0
-    tricks.Format("fibonacci()")
+    fmt.Println("\tfibonacci() start")
 
     dem := 1
     for {
-        fmt.Printf("for fibonacci------------------------------------- start %v\n", dem)
+        fmt.Printf("for fib start %v\n", dem)
 
         select {
-        case ch <- x:
+        case ch <- y:
             x, y = y, x+y
             count++
             fmt.Println("case count: ", count)
 
         case <-quit:
             fmt.Println("quit")
+            fmt.Println("\tfibonacci() end")
+            result <- y
             return
         }
 
-        fmt.Printf("for fibonacci------------------------------------- end %v\n", dem)
+        fmt.Printf("for fib end %v\n", dem)
         dem++
     }
+
 }
 
+const (
+    LOOP int = 12
+)
 
 func main() {
     ch := make(chan int)
-    quit := make(chan int)
+    quit := make(chan bool)
+    result := make(chan int)
     go func() {
-        tricks.Format("anonymous func()")
+        fmt.Println("\tREAD START")
 
-        for i := 1; i < 20; i++ {
-            fmt.Printf("for %v -------------------------start\n", i)
+        for i := 1; i < LOOP; i++ {
+            fmt.Printf("for %v start\n", i)
 
             fmt.Println("go ch =  ",<-ch)
 
-            fmt.Printf("for %v--------------------------end\n", i)
+            fmt.Printf("for %v end\n", i)
             fmt.Println()
         }
 
-        quit <- 0
-        fmt.Println("goroutine end")
+        fmt.Println("\tREAD END")
+        quit <- true
 
     }()
 
     // go action(ch, quit)
+    go fibonacci(ch, quit, result)
 
-    fibonacci(ch, quit)
-    tricks.Format("main()")
+    fmt.Println("result", <-result)
+    time.Sleep(time.Second)
+    tricks.Format("main() end")
 }

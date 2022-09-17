@@ -4,31 +4,50 @@ import (
     "fmt"
 )
 
-func catch() {  
+
+func main() {
+    // defer func() {
+    //     fmt.Println(recover()) // 3
+    // }()
+
+    // anonymous := func() string {
+    //     return "anonymous"
+    // }
+    // fmt.Println(anonymous())
+
+
+    // panic(3) // will replace panic 2
+    // panic(2) // will replace panic 1
+    // panic(1) // will replace panic 0
+    // panic(0)
+
+    sum(5, 2)
+    fmt.Println("main() end")
+}
+
+const (
+    NOTE = `use keyword defer, recover() chi nằm trong func or anonymous func, chỉ bắt được func,
+        NOT goroutine  `
+)
+
+
+func catch() {
+    fmt.Println("catch() start")
     if err := recover(); err != nil {
-        fmt.Println("recovered:", err)
+        fmt.Println(err)
     }
-    // jumpto main()
+    fmt.Println("catch() end")
 }
 
 func sum(a int, b int) {  
     defer catch() //syntax: defer nameFunc() lun o tren cac func cua the xay ra panic, de bat no
 
     fmt.Printf("%d + %d = %d\n", a, b, a+b)
-
-    done := make(chan bool)
-    // go divide(a, b, done)
-    divide(a, b, done) // error=panic ; jumpto func catch()
-    <-done
+    divide(a, b) // error=panic ; jumpto func catch()
+    fmt.Println("sum() end")
 }
 
-func divide(a int, b int, done chan bool) {  
-    fmt.Printf("%d / %d = %d", a, b, a/b) // num / 0 ; error = panic
-    done <- true
-
-}
-
-func main() {  
-    sum(5, 0)
-    fmt.Println("normally returned from main")
+func divide(a int, b int) {  
+    fmt.Printf("%d / %d = %d\n", a, b, a/b) // num / 0 ; error = panic
+    fmt.Println("divide() end")
 }

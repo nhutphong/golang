@@ -4,6 +4,7 @@ Một lỗi thường thấy của lập trình Golang mới vào nghề là l�
 
 Dùng Channels khi truyền, trao quyền sử dụng dữ liệu (passing ownership of data), phân phối một đầu việc (distributing units of work) và trao đổi kết quả bất đồng bộ (communicating async results).
 
-Dùng Mutex để quản lý việc truy xuất đồng bộ vào bộ đệm (cache) hay trạng thái (state).
+Dùng Mutex để quản lý việc truy xuất đồng bộ vào bộ đệm (cache) hay trạng thái
+(state)=field=attribute
 
 cache=map=dict

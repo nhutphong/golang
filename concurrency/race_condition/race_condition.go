@@ -6,7 +6,8 @@ import (
     "sync"
 )
 
-var mutex = &sync.Mutex{}
+// var mutex = &sync.Mutex{}
+var mutex sync.Mutex
 const LOOP = 5
 
 

@@ -6,10 +6,16 @@ import (
     "sync"
 )
 
-var mutex = &sync.Mutex{}
-const LOOP = 15
+const NOTE = ` 
+    race conditions: vì nhiều goroutines khác như write cùng 1 lúc với var count nên phải dùng mutex
+    or duplicate goroutines go write(); go write(); go write();
+`
 
-// race conditions: vì nhiều goroutines write cùng 1 lúc với var count nên phải dùng mutex
+// var mutex = &sync.Mutex{}
+var mutex sync.Mutex
+const LOOP int = 10
+
+
 func write(ch chan int) {
     var count int = 1
     print("\tPARENT write start\n")

@@ -13,7 +13,7 @@ const NOTE string  = `
 
 var x int64 = 0
 // Khai báo mutex
-var mutex = &sync.Mutex{}
+var mutex sync.Mutex
 
 func write(wg *sync.WaitGroup) {
 	// defer wg.Done()

@@ -17,12 +17,15 @@ const NOTE string = `
 */
 
 /*
-	chu kỳ chạy của 1 unbuffered-channel: write vs read, or read vs write, tức la có 2 bước:
-	vd: gọi là START(write or read) + END(write or read) là 1 chu kỳ 
-	khi START sẽ jumpto to END, hết 1 chu kỳ code chạy tiếp, nếu gặp START thì JUMPTO to END 
+	Unbuffered channel sẽ block goroutine khi write channel 
+	Lấy dữ liệu từ empty unbuffered channel sẽ block goroutine
 
-	tức la gặp SỐ LẺ(START 1 KỲ) THÌ JUMPTO = NHẢY tới goroutine chứa SỐ CHẴN(END 1 CHU KỲ) TIẾP THEO
-	gặp SỐ CHẴN(END 1 CHU KỲ) THÌ CỨ RUN QUA NÓ, NẾU GẶP LẠI SỐ LẼ THÌ JUMPTO = NHẢY TIẾP
+	unbuffered := make(chan int)
+	unbuffered <- "hello" //send=write chi 1 lan, la BLOCK goroutine current;
+
+
+	unbuffered := make(chan int)
+	<-unbuffered // receive=read empty channel; BLOCK goroutine current
 
 
 
@@ -32,36 +35,6 @@ const NOTE string = `
 
 	Unbuffered channel không có khoảng trống để chứa dữ liệu,
 	NOTE: yêu cầu cả 2 goroutines gửi và nhận đều sẵn sàng cùng lúc.
-
-	Khi 1 goroutine gửi dữ liệu vào channel, 
-	luồng xử lý sẽ bị block lại cho tới khi có 1 goroutine đọc từ channel này ra.
-
-
-
-	unbuffered không có HỒ CHỨA như buffered, nên cho nó xuống CỐNG = (deadlock) 
-	NOTE: TIPS AND TRICKS
-	STEP 1. goroutine main() is super goroutine: 1 hòn đảo lớn
-	STEP 2. unbuffer: là 1 PIPE = 1 đường ống, or hiều là bridge= cây cầu cung được , đẻ nối 2 đảo 
-	STEP 3. goroutine ChildLand(): 1 hòn đảo mới mua thêm
-
-
-	STEP 4. write and read: hiểu là đổ nước vào PIPE và lấy nước ra từ PIPE
-
-	5. LET GO!!!
-
-	GO:
-	1 to 2 to 3 rồi tới 4  //OK 
-	tại hòn đảo lơn, nối PIPE tới hòn đảo mới mua, sau đó trao đổi nước giữa 2 đảo
-
-	nếu: 1 to 2 to 4:  //DEADLOCK 
-	tại hòn đảo lơn có đường ống=PIPE, khi đổ nước vào và lấy nước ra, là đang trao đổi với CỐNG
-	= DEADLOCK, vì PIPE có nối với đảo nào đâu (chưa mua đảo)
-
-
-
-	super goroutine main() và Child() thằng nào write or read đều được
-	tốt nhất super nên la <-READ    receive=nhận 
-			 CHILD nên la WRITE<-   send=gửi
 
 
 `

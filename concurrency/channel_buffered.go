@@ -17,10 +17,19 @@ import (
 	READ GOROUTINE read buffer empty sẽ gây ra error DEADLOCK 
 */
 
-/*
+const NOTE string = `
 	
-	goroutines READ bị block(JUMPTO) nếu trong channel không có dữ liệu.
-	goroutines WRITE bị block(JUMPTO) nếu không còn khoảng trống trong channel;
+	Buffered Channel sẽ block goroutine hiện tại nếu vượt sức chứa
+	Lấy dữ liệu từ empty buffered channel sẽ block goroutine
+	buffered := make(chan int,2)
+	buffered <- "hello"
+	buffered <- "world"
+	buffered <- "hello world" //write=3; block goroutine current; vuot qua suc chua
+
+
+	buffered := make(chan int,2)
+	<-buffered // read empty channel; block 
+
 	vd: buffer có sức chứa là 2
 		nếu chúng ta READ trước thì sẽ JUMPTO to goroutine chứa WRITE để run
 		trong goroutine sẽ WRITE liên tục 3 lần =FULL, vì lần đâu tiên trả cho read
@@ -37,15 +46,11 @@ import (
 	<- read:
 		content := <-channel
 
-	Buffrered channel có từ 1 khoảng trống trở lên để chứa dữ liệu, 
-	không yêu cầu cả 2 goroutines gửi và nhận cùng phải sẵn sàng cùng lúc. 
-	
-
 
 	NOTE buffered channel : có thể write , read cùng 1 goroutine
 	goroutine PARENT nên là <-read ;
 	goroutine CHILD thì write-<
-*/
+`
 
 
 /*

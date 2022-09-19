@@ -97,6 +97,4 @@ var _ = (func())(nil) == (func())(nil) //error
 
 const NOTE string = `
 nil thuoc types: pointer slice map func() interface{} chan
-
-
 `

@@ -8,28 +8,36 @@ import(
 )
 
 func main() {
-    var i interface{}
-    var ch chan int
-    var p *int
-    fmt.Println(i, ch, p)
+    var h interface{}
+    h = Human{Name:"Chi dung"}
+    fmt.Println(h)
 
-    fmt.Printf("interface{} = %#v\n",i)
-    fmt.Printf("interface{} = %T\n",i)
-    println("interface{} = ",i)
+    human, ok := h.(interface{two() string})
+    fmt.Println(human, ok)
 
-    fmt.Printf("ch = %#v\n",ch)
-    fmt.Printf("pointer = %#v\n",p)
+    // f := func(name string) string {return name}
+    var three = (func(name string) string)(func(name string) string {return name})
+    fmt.Println("three", three("chi thong"))
 
-    var f func()
-    var slice []int
-    var m map[string]string
-    fmt.Println(f, slice, m)
+    var Person = (interface{})(struct{name string; old int}{name:"thong", old:38})
+    fmt.Println(Person)
 
-    fmt.Printf("func() = %#v\n",f)
-    fmt.Printf("slice = %#v\n",slice)
-    fmt.Printf("map = %#v\n",m)
+    ck, yes := Person.(struct{name string; old int})
+    fmt.Println(ck, yes)
 
-    // ha := (func())(nil)
-    fmt.Println("(fun())(nil) == nil", (func())(nil) == nil)
+
 
 }
+
+type Human struct {
+    Name string
+}
+
+func(h Human) one() string{
+    return h.Name
+}
+
+func(h Human) two() string{
+    return h.Name
+}
+

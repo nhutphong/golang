@@ -8,7 +8,7 @@ import (
 )
 
 /*
-	struc chi chua fields = attributes
+	struc chi chua fields = attributes =states
 	interface chua methods
 
 	human := struct{}{} // empty struct

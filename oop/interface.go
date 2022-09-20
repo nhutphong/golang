@@ -2,7 +2,8 @@ package main
 
 import (  
     "fmt"
-    "log"
+    // "log"
+    "strings"
     "phong/tricks"
 )
 /*
@@ -68,37 +69,16 @@ func totalExpense(list []SalaryCalculator) {
 }
 
 
-type Tester interface {  
-    Test()
-}
-
-// non-struct
-/*
-	one := MyFloat(80.5)
-	suy ra: m=80.5
-	one.Test() // run method print ra 80.5
-*/
-type MyFloat float64
-
-func (m MyFloat) Test() {  
-    fmt.Println(m)
-}
-
-func describe(t Tester) {  
-    log.Printf("Interface type %T value %v\n", t, t)
-}
-
-
 type Describer interface {  
     Describe()
 }
-type Person struct {  
+type Person2 struct {  
     name string
     age  int
 }
 
-func (p Person) Describe() {  
-    fmt.Printf("%s is %d years old", p.name, p.age)
+func (p Person2) Describe() {  
+    fmt.Printf("%s is %d years old\n", p.name, p.age)
 }
 
 //go1.18, (i any) == (i interface{}) 
@@ -123,53 +103,100 @@ func main() {
     totalExpense(employees)
 
 
-    tricks.Format("non-struct")
-    var t Tester
-    f := MyFloat(89.7) //m=89.7 
-    t = f
-    describe(t)
-    t.Test()
-
-
     tricks.Format("varName.(type)")
    	findType("Naveen")
 
-    p := Person{
+    p := Person2{
         name: "Naveen R",
         age:  25,
     }
     findType(p)
 
+    var repeat = strings.Repeat("-", 15)
+    fmt.Println(repeat, "implement interface; use struct access", repeat)
 
-    tricks.Format("implement func Error() of interface error ")
-    h := NewHuman("Thong")
-    fmt.Println("h", h) // Human{Name:"Thong"} ; vi da pass pointer receiver 
-    fmt.Println("&h", &h) // Error() ; default cho ca 2: h va &h, neu ko pass pointer receiver methods()
-    fmt.Println(h.Show())
-    fmt.Println(h.Show1())
+    var x Animal
+    x = Animal{name: "Chi Thong"}
+ 
+    fmt.Println("x", x) // Output: Hello
+    fmt.Println("&x", &x)
+    fmt.Println("x.name", x.name) // Output: sam
+
+
+     var x2 Animal
+    x2 = Animal{name: "Chi Thong"}
+ 
+    fmt.Println("x2", x2) // Output: Hello
+    fmt.Println("&x2", &x2)
+    fmt.Println("x2.name", x2.name) // Output: sam
+
+
+
+
+    fmt.Println(repeat, "implement interface; use interface access co receiver pointer", repeat)
+    var str Stringer 
+    str = new(Animal) //use type Stringer access
+    fmt.Println(str)
+    fmt.Println(str.(*Animal).name)
+    str.(*Animal).GetName()
+
+    animal, ok := str.(*Animal)
+    fmt.Println(animal, ok)
+    animal.NewName("CHI THONG")
+    fmt.Println("animal", animal)
+    fmt.Println("animal.name", animal.name)
+
+
+    fmt.Println(repeat, "implement interface; use interface access, ko receiver pointer", repeat)
+    var human Human
+    human = &Person{name:"Thanh Dung"}
+    fmt.Println("human", human) // run String()
+    person := human.(*Person)
+    person.GetName()
+    person.NewName("ekekekekek")
+    person.GetName()
+
 
 }
 
 
-type Human struct {
-    Name string
-    Old int
+type Stringer interface {
+    String() string
 }
 
-// implement Error() ; phai pass pointer receiver (h *Human) ;
-// khi implement ; lun pass pointer receiver ; 
-func (h *Human) Error() string {
-    return "Human implemented Error() of error type"
+type Animal struct {
+    name string
+}
+// A implements Stringer interface
+func (*Animal) String() string {
+    return "Tao la Stringer"
 }
 
-func (h Human) Show() string {
-    return h.Name
+func(a Animal) GetName() {
+    fmt.Println(a.name)
 }
 
-func (h *Human) Show1() string {
-    return h.Name
+func(a *Animal) NewName(name string) {
+    a.name = name
 }
 
-func NewHuman(name string) Human {
-    return Human{Name:name}
+
+type Human interface {
+    String() string
+}
+
+type Person struct {
+    name string
+}
+// A implements Stringer interface
+func (*Person) String() string {
+    return "Tao la Human"
+}
+
+func(a Person) GetName() {
+    fmt.Println(a.name)
+}
+
+func(a *Person) NewName(name string) {
+    a.name = name
 }

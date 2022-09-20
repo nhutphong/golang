@@ -11,7 +11,7 @@ func main() {
 	_ = (*struct{})(nil)  // pointer
 	_ = []int(nil)
 	_ = map[int]bool(nil)
-	_ = chan string(nil)
+	_ = (chan string)(nil)
 	_ = (func())(nil)
 	_ = interface{}(nil)
 

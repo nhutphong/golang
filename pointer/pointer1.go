@@ -8,14 +8,14 @@ import (
 
 func main() {
 	fmt.Println("")
-	var f *float64
+	var f *float64 // nil
 	fmt.Println("\nf",f)
 	// fmt.Println(*f)
 
 
-	var i = new(int)
+	var i = new(int) // *i=0
 	fmt.Println(i)
-	fmt.Println(*i == 0)
+	fmt.Println(*i == 0) // true
 
 	var c = new(*float64)
 	fmt.Println("\nc", c == nil)

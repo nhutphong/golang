@@ -17,6 +17,31 @@ func main() {
     }
 
     fmt.Println("main() end")
+    fmt.Println("foo() :", foo())
+}
+
+func foo() (result string) {
+    defer func() {
+        result = "Change World" // last change named result of return 
+    }()
+    return "Hello World"
+}
+
+// close a file
+func CopyFile(dstName, srcName string) (written int64, err error) {
+    src, err := os.Open(srcName)
+    if err != nil {
+        return
+    }
+    defer src.Close()
+
+    dst, err := os.Create(dstName)
+    if err != nil {
+        return
+    }
+    defer dst.Close()
+
+    return io.Copy(dst, src)
 }
 
 const (

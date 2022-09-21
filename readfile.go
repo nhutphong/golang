@@ -32,7 +32,7 @@ func ReadFile(name string) {
     // os.Stdout.Write(slice) // write on terminal
 }
 
-// return phai la (lines []string) ; NOT []string
+// use named return la (lines []string) ; NOT []string
 func arrLine(name string) (lines []string) {
     slice, err := os.ReadFile(name)
     if isError(err) {
@@ -50,8 +50,8 @@ func main() {
     fmt.Println()
     time.Sleep(time.Second)
 
-    tricks.Format(`contents, err := os.ReadFile("test.txt")`)
-    file_name := "test.txt"
+    tricks.Format(`contents, err := os.ReadFile("words.txt")`)
+    file_name := "words.txt"
 
     slice := []byte("thong")
     fmt.Println(slice)
@@ -80,9 +80,5 @@ func main() {
         time.Sleep(time.Second)
     }
 
-
-
-
-
-    tricks.Format(`contents, err := os.ReadFile("test.txt")`)
+    tricks.Format(`contents, err := os.ReadFile("words.txt")`)
 }

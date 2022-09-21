@@ -14,8 +14,9 @@ func main() {
         defer fmt.Println("Go")
         func() {
             defer fmt.Println("C")
-            runtime.Goexit() // block cac defer nam tren no lai
+            runtime.Goexit() // stop programing
         }()
+        // not run
         fmt.Println("Java")
     }()
     <-c

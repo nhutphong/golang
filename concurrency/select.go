@@ -28,10 +28,10 @@ func fibonacci(ch chan int, quit chan bool, result chan int) {
         fmt.Printf("for fib start %v\n", dem)
 
         select {
-        case ch <- y:
+        case ch<- y:
             x, y = y, x+y
             count++
-            fmt.Println("case count: ", count)
+            fmt.Println("case write ch<- count: ", count)
 
         case <-quit:
             fmt.Println("quit")
@@ -47,33 +47,33 @@ func fibonacci(ch chan int, quit chan bool, result chan int) {
 }
 
 const (
-    LOOP int = 12
+    LOOP int = 5
 )
 
 func main() {
-    ch := make(chan int)
+    ch := make(chan int,1)
     quit := make(chan bool)
     result := make(chan int)
     go func() {
-        fmt.Println("\tREAD START")
+        fmt.Println("\tMAIN READ START")
 
         for i := 1; i < LOOP; i++ {
-            fmt.Printf("for %v start\n", i)
+            fmt.Printf("MAIN() for %v start\n", i)
 
             fmt.Println("go ch =  ",<-ch)
 
-            fmt.Printf("for %v end\n", i)
+            fmt.Printf("MAIN() for %v end\n", i)
             fmt.Println()
         }
 
-        fmt.Println("\tREAD END")
+        fmt.Println("\tMAIN READ END")
         quit <- true
-
     }()
 
     // go action(ch, quit)
     go fibonacci(ch, quit, result)
 
+    fmt.Println("main() middle")
     fmt.Println("result", <-result)
     time.Sleep(time.Second)
     tricks.Format("main() end")

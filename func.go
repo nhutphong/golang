@@ -254,3 +254,18 @@ func main() {
 	fmt.Println(namedReturn(4,5))
 	
 }
+
+func loop() float64 {
+	ketqua := 100.0
+	for i := 0; i < 5; i++ {
+		if i==4 {
+			return ketqua
+			// return //error, phai co named return, moi return kieu nay duoc
+		} else {
+			fmt.Println(i)
+		}
+	}
+
+	// end func return phai co, bat buoc, vi declared co return float64
+	return 500.0
+}

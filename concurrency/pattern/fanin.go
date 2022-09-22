@@ -44,7 +44,7 @@ func fanInSimple(cs ...<-chan string) <-chan string {
 
 		go func(cv <-chan string) { // cv is a channel value
 			for {
-				c <- <-cv
+				c<- <-cv
 			}
 		}(ci) // send each channel to
 

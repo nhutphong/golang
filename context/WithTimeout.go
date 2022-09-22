@@ -14,12 +14,12 @@ func doSomethingCool(ctx context.Context) {
 		
 		select {
 		case <-ctx.Done():
-			fmt.Println("timed out")
+			fmt.Println("run du 2s thoat thoi")
 			err := ctx.Err()
 			fmt.Println(err)
 			return
 		default:
-			fmt.Println("doing something cool")
+			fmt.Println("defalut select")
 		}
 
 		time.Sleep(500 * time.Millisecond)
@@ -28,6 +28,7 @@ func doSomethingCool(ctx context.Context) {
 
 func main() {
 	fmt.Println("Go Context Tutorial")
+	//ctx=event run 2s la thoat
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 
@@ -35,8 +36,13 @@ func main() {
 
 	select {
 	case <-ctx.Done():
-		fmt.Println("oh no, I've exceeded the deadline")
+		fmt.Println("\nctx.Done() main()\n")
 	}
 
+	fmt.Println("main end")
 	time.Sleep(3 * time.Second)
+
+	fmt.Println("main end2")
+	time.Sleep(1 * time.Second)
+	fmt.Println("main end3")
 }

@@ -6,11 +6,11 @@ import (
 )
 
 func main() {
-    d := 1 * time.Second
+    oneSecond := 1 * time.Second
     i := uint64(0)
     ch := make(chan struct{})
 
-    time.AfterFunc(d, func() {
+    time.AfterFunc(oneSecond, func() {
         close(ch)
     })
 

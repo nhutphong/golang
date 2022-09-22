@@ -7,7 +7,7 @@ import (
 )
 
 
-func boring(msg string) <-chan string {
+func generator(msg string) <-chan string {
 	ch := make(chan string)
 	
 	go func() {
@@ -24,8 +24,8 @@ func boring(msg string) <-chan string {
 
 func main() {
 
-	joe := boring("Joe")
-	ahn := boring("Ahn")
+	joe := generator("Joe")
+	ahn := generator("Ahn")
 
 	for i := 0; i < 15; i++ {
 		fmt.Println(<-joe)
@@ -36,6 +36,6 @@ func main() {
 	// for msg := range joe {
 	// 	fmt.Println(msg)
 	// }
-	fmt.Println("You're both boring. I'm leaving")
+	fmt.Println("You're both generator. I'm leaving")
 
 }

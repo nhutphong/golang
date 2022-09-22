@@ -27,6 +27,7 @@ func main() {
         c2 <- "result 2"
     }()
 
+    //block, den khi 1 case duoc chon
     select {
     case res := <-c2:
         fmt.Println(res)

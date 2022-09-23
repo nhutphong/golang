@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func doSomethingCool(ctx context.Context) {
+func parentSomeThing(ctx context.Context) {
 	var index int
 	for {
 		index++
@@ -17,7 +17,8 @@ func doSomethingCool(ctx context.Context) {
 			fmt.Println("run du 2s thoat thoi")
 			err := ctx.Err()
 			fmt.Println(err)
-			return
+			fmt.Println("\tparentSomeThing end")
+			return // end func
 		default:
 			fmt.Println("defalut select")
 		}
@@ -29,20 +30,16 @@ func doSomethingCool(ctx context.Context) {
 func main() {
 	fmt.Println("Go Context Tutorial")
 	//ctx=event run 2s la thoat
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
-	go doSomethingCool(ctx)
+	go parentSomeThing(ctx)
 
 	select {
 	case <-ctx.Done():
-		fmt.Println("\nctx.Done() main()\n")
+		fmt.Println("\nmain() ctx.Done()()\n")
 	}
 
-	fmt.Println("main end")
-	time.Sleep(3 * time.Second)
-
-	fmt.Println("main end2")
-	time.Sleep(1 * time.Second)
-	fmt.Println("main end3")
+	time.Sleep(time.Second) // jumpto <-ctx.Done() in parentSomeThing
+	fmt.Println("\t\tmain end")
 }

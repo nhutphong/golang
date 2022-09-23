@@ -8,24 +8,13 @@ import(
 )
 
 func main() {
-    var h interface{}
-    h = Human{Name:"Chi dung"}
-    fmt.Println(h)
+    p := Human{Name:"thong"}
+    fmt.Printf("%#v\n", p)
 
-    human, ok := h.(interface{two() string})
-    fmt.Println(human, ok)
-
-    // f := func(name string) string {return name}
-    var three = (func(name string) string)(func(name string) string {return name})
-    fmt.Println("three", three("chi thong"))
-
-    var Person = (interface{})(struct{name string; old int}{name:"thong", old:38})
-    fmt.Println(Person)
-
-    ck, yes := Person.(struct{name string; old int})
-    fmt.Println(ck, yes)
-
-
+    p2 := p.Pointer()
+    p2.Name = "Dung"
+    fmt.Printf("p2 %#v\n", p2)
+    fmt.Printf("p1 %#v\n", p)
 
 }
 
@@ -39,5 +28,9 @@ func(h Human) one() string{
 
 func(h Human) two() string{
     return h.Name
+}
+
+func (h *Human) Pointer() *Human {
+    return h
 }
 

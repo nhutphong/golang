@@ -69,8 +69,9 @@ func Cut(s, sep string) (before, after string, found bool)
 func Index(s, substr string) int
 	// -1 if NOT found
 
+// bat ky char nao trong chars, xuat hien som nhat
 func IndexAny(s, chars string) int
-	fmt.Println(strings.IndexAny("chicken", "aeiouy")) // 2 vi co 'e'
+	fmt.Println(strings.IndexAny("chicken", "aeiouy")) // index=2 la 'i', gan hon 'e'
 	fmt.Println(strings.IndexAny("crwth", "aeiouy")) // -1 not found
 
 func IndexByte(s string, c byte) int

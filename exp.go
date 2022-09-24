@@ -2,48 +2,28 @@ package main
 
 import (
     "fmt"
-    "sync"
     // "time"
 )
 
-type Data struct {
-    total int
+
+func main() {
+   h := Human{Name:"dung"}
+   run(h)
 }
 
-const (
-    LOOP int = 10
-)
-func main() {
-    c := 0
-    n := 50
+func run(ok OK) {
+    ok.Show()
+}
 
-    ch := make(chan struct{}, n)
-    chanWg := sync.WaitGroup{}
-    chanWg.Add(1)
-    go func() {
-        for temp := range ch {
-            c++
-            fmt.Print(temp)
-        }
-        fmt.Println("count end")
-        chanWg.Done()
-    }()
 
-    wg := sync.WaitGroup{}
-    wg.Add(n)
-    for i := 0; i < n; i++ {
-        go func(i int) {
-            ch <- struct{}{}
-            fmt.Println("channel end", i+1)
-            wg.Done()
-        }(i)
-    }
-    wg.Wait()
-    close(ch)
+type OK interface {
+    Show()
+}
 
-    chanWg.Wait()
+type Human struct {
+    Name string
+}
 
-    fmt.Println(c)
-
-    // 200 = OK
+func (h Human) Show() {
+    fmt.Println(h.Name)
 }

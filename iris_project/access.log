@@ -1,0 +1,17 @@
+2022-09-24 11:47:15|162.221µs|200|GET|/welcome|::1|0 B|12 B||
+2022-09-24 11:48:00|35.778µs|200|GET|/welcome|::1|lastname="thanhPhong"|0 B|24 B||
+2022-09-24 11:48:35|41.161µs|200|GET|/welcome|::1|firstname="vo"lastname="thanhPhong"|0 B|32 B||
+2022-09-24 11:49:18|1.200717ms|200|GET|/welcome|::1|firstname="vo" lastname="thanhPhong"|0 B|23 B||
+2022-09-24 11:49:40|72.583µs|200|GET|/welcome|::1|firstname=vo lastname=thanh phong|0 B|20 B||
+2022-09-24 11:56:10|81.333µs|404|GET|/post|::1|firstname=vo lastname=thanh phong|0 B|9 B||
+2022-09-24 11:56:36|114.08µs|404|GET|/post|::1|0 B|9 B||
+2022-09-24 11:56:39|74.198µs|404|GET|/post|::1|0 B|9 B||
+2022-09-24 11:57:57|68.54µs|404|GET|/post|::1|id=1234 message=this_is_great name=kataras page=1|0 B|9 B||
+2022-09-24 11:58:19|65.577µs|404|GET|/post|::1|id=1234 message=this_is_great name=kataras page=1|0 B|9 B||
+2022-09-24 11:58:30|121.602µs|404|GET|/post|::1|id=1234 message=this_is_great name=kataras page=1|0 B|9 B||
+2022-09-24 11:58:31|43.857µs|404|GET|/post|::1|id=1234 message=this_is_great name=kataras page=1|0 B|9 B||
+2022-09-24 11:58:33|47.689µs|404|GET|/post|::1|id=1234 message=this_is_great name=kataras page=1|0 B|9 B||
+2022-09-24 11:59:57|183.879µs|404|GET|/posts|::1|id=a,b,c name=john,doe,kataras|0 B|9 B||
+2022-09-24 12:00:00|58.737µs|404|GET|/posts|::1|id=a,b,c name=john,doe,kataras|0 B|9 B||
+2022-09-24 12:00:02|60.5µs|404|GET|/posts|::1|id=a,b,c name=john,doe,kataras|0 B|9 B||
+2022-09-24 12:06:50|500.828µs|200|GET|/|::1|0 B|221 B||

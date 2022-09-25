@@ -1,4 +1,4 @@
-module myapp
+module demo
 
 go 1.18
 

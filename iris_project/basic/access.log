@@ -1,0 +1,106 @@
+2022-09-24 11:47:15|162.221µs|200|GET|/welcome|::1|0 B|12 B||
+2022-09-24 11:48:00|35.778µs|200|GET|/welcome|::1|lastname="thanhPhong"|0 B|24 B||
+2022-09-24 11:48:35|41.161µs|200|GET|/welcome|::1|firstname="vo"lastname="thanhPhong"|0 B|32 B||
+2022-09-24 11:49:18|1.200717ms|200|GET|/welcome|::1|firstname="vo" lastname="thanhPhong"|0 B|23 B||
+2022-09-24 11:49:40|72.583µs|200|GET|/welcome|::1|firstname=vo lastname=thanh phong|0 B|20 B||
+2022-09-24 11:56:10|81.333µs|404|GET|/post|::1|firstname=vo lastname=thanh phong|0 B|9 B||
+2022-09-24 11:56:36|114.08µs|404|GET|/post|::1|0 B|9 B||
+2022-09-24 11:56:39|74.198µs|404|GET|/post|::1|0 B|9 B||
+2022-09-24 11:57:57|68.54µs|404|GET|/post|::1|id=1234 message=this_is_great name=kataras page=1|0 B|9 B||
+2022-09-24 11:58:19|65.577µs|404|GET|/post|::1|id=1234 message=this_is_great name=kataras page=1|0 B|9 B||
+2022-09-24 11:58:30|121.602µs|404|GET|/post|::1|id=1234 message=this_is_great name=kataras page=1|0 B|9 B||
+2022-09-24 11:58:31|43.857µs|404|GET|/post|::1|id=1234 message=this_is_great name=kataras page=1|0 B|9 B||
+2022-09-24 11:58:33|47.689µs|404|GET|/post|::1|id=1234 message=this_is_great name=kataras page=1|0 B|9 B||
+2022-09-24 11:59:57|183.879µs|404|GET|/posts|::1|id=a,b,c name=john,doe,kataras|0 B|9 B||
+2022-09-24 12:00:00|58.737µs|404|GET|/posts|::1|id=a,b,c name=john,doe,kataras|0 B|9 B||
+2022-09-24 12:00:02|60.5µs|404|GET|/posts|::1|id=a,b,c name=john,doe,kataras|0 B|9 B||
+2022-09-24 12:06:50|500.828µs|200|GET|/|::1|0 B|221 B||
+2022-09-28 08:01:52|311.643µs|200|GET|/|127.0.0.1|0 B|225 B||
+2022-09-28 08:01:53|35.008µs|404|GET|/favicon.ico|127.0.0.1|0 B|9 B||
+2022-09-28 08:01:58|68.029µs|200|GET|/welcome|127.0.0.1|0 B|12 B||
+2022-09-28 08:02:02|105.885µs|404|GET|/post|127.0.0.1|0 B|9 B||
+2022-09-28 08:02:05|32.042µs|404|GET|/posts|127.0.0.1|0 B|9 B||
+2022-09-28 08:07:26|112.214µs|200|GET|/welcome|127.0.0.1|0 B|12 B||
+2022-09-28 08:07:29|108.511µs|404|GET|/phong|127.0.0.1|0 B|9 B||
+2022-09-28 08:07:34|90.851µs|200|GET|/welcome|127.0.0.1|0 B|12 B||
+2022-09-28 08:09:15|223.489µs|404|GET|/welcome|127.0.0.1|0 B|9 B||
+2022-09-28 08:09:18|40.379µs|404|GET|/welcome|127.0.0.1|0 B|9 B||
+2022-09-28 08:09:21|32.332µs|200|GET|/welcome/phong|127.0.0.1|firstname=phong|0 B|12 B||
+2022-09-28 08:09:27|31.424µs|404|GET|/welcome|127.0.0.1|0 B|9 B||
+2022-09-28 08:09:53|358.933µs|404|GET|/welcome|127.0.0.1|0 B|9 B||
+2022-09-28 08:09:55|61.809µs|404|GET|/welcome|127.0.0.1|0 B|9 B||
+2022-09-28 08:09:55|28.51µs|404|GET|/welcome|127.0.0.1|0 B|9 B||
+2022-09-28 08:09:56|57.133µs|404|GET|/welcome|127.0.0.1|0 B|9 B||
+2022-09-28 08:10:00|64.089µs|200|GET|/welcome/phong|127.0.0.1|firstname=phong|0 B|12 B||
+2022-09-28 08:15:51|192.658µs|301|GET|/welcome/|127.0.0.1|0 B|43 B||
+2022-09-28 08:15:51|104.473µs|404|GET|/welcome|127.0.0.1|0 B|9 B||
+2022-09-28 08:16:03|172.603µs|200|GET|/welcome|127.0.0.1|0 B|12 B||
+2022-09-28 08:16:28|69.875µs|200|GET|/welcome|127.0.0.1|firstname=thanh phong lastname=vo|0 B|20 B||
+2022-09-28 08:17:05|108.783µs|200|GET|/welcome|127.0.0.1|firstname=vo lastname=thanh phong|0 B|20 B||
+2022-09-28 08:25:37|73.892µs|404|GET|/posts|127.0.0.1|?id=a id=b,c name=john,doe,kataras|0 B|9 B||
+2022-09-28 08:25:44|59.688µs|404|GET|/posts|127.0.0.1|id=a,b,c name=john,doe,kataras|0 B|9 B||
+2022-09-28 08:25:49|95.781µs|404|GET|/posts|127.0.0.1|id=a,b,c name=john,doe,kataras|0 B|9 B||
+2022-09-28 08:30:31|36.674µs|404|GET|/posts|127.0.0.1|0 B|9 B||
+2022-09-28 08:31:26|53.826µs|200|POST|/posts|127.0.0.1|119 B|18 B|POST /post?id=1234&page=1 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+name=kataras&message=this_is_great
+|
+2022-09-28 08:31:38|54.241µs|200|POST|/posts|127.0.0.1|118 B|18 B|POST /post?id=1234&page=1 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+name=kataras&message=this_is_great
+|
+2022-09-28 08:31:39|47.532µs|200|POST|/posts|127.0.0.1|118 B|18 B|POST /post?id=1234&page=1 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+name=kataras&message=this_is_great
+|
+2022-09-28 08:31:46|44.716µs|200|POST|/posts|127.0.0.1|118 B|18 B|POST /post?id=1234&page=1 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+name=kataras&message=this_is_great
+|
+2022-09-28 08:32:15|44.374µs|200|POST|/posts|127.0.0.1|118 B|18 B|POST /post?id=1234&page=1 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+name=kataras&message=this_is_great
+|
+2022-09-28 08:33:27|45.254µs|400|POST|/post|127.0.0.1|0 B|9 B|error(not found)|
+2022-09-28 08:33:30|45.474µs|400|POST|/post|127.0.0.1|0 B|9 B|error(not found)|
+2022-09-28 08:35:12|35.628µs|400|POST|/post|127.0.0.1|0 B|9 B|error(not found)|
+2022-09-28 08:35:15|39.892µs|400|POST|/post|127.0.0.1|0 B|9 B|error(not found)|
+2022-09-28 08:35:16|34.324µs|400|POST|/post|127.0.0.1|0 B|9 B|error(not found)|
+2022-09-28 08:35:17|38.106µs|400|POST|/post|127.0.0.1|0 B|9 B|error(not found)|
+2022-09-28 08:35:18|35.011µs|400|POST|/post|127.0.0.1|0 B|9 B|error(not found)|
+2022-09-28 08:35:19|39.745µs|400|POST|/post|127.0.0.1|0 B|9 B|error(not found)|
+2022-09-28 08:36:38|167.306µs|200|POST|/post|127.0.0.1|106 B|18 B|POST /post?id=a&id=b&id=c&name=john&name=doe&name=kataras
+Content-Type: application/x-www-form-urlencoded
+|
+2022-09-28 08:36:40|39.709µs|200|POST|/post|127.0.0.1|106 B|18 B|POST /post?id=a&id=b&id=c&name=john&name=doe&name=kataras
+Content-Type: application/x-www-form-urlencoded
+|
+2022-09-28 08:36:41|42.298µs|200|POST|/post|127.0.0.1|106 B|18 B|POST /post?id=a&id=b&id=c&name=john&name=doe&name=kataras
+Content-Type: application/x-www-form-urlencoded
+|
+2022-09-28 08:36:49|61.036µs|404|GET|/posts|127.0.0.1|id=a,b,c name=john,doe,kataras|0 B|9 B||
+2022-09-28 08:36:54|53.43µs|404|GET|/post|127.0.0.1|id=a,b,c name=john,doe,kataras|0 B|9 B||
+2022-09-28 08:36:58|39.369µs|404|GET|/post|127.0.0.1|id=a,b,c name=john,doe,kataras|0 B|9 B||
+2022-09-28 08:37:32|47.536µs|200|POST|/post|127.0.0.1|106 B|18 B|POST /post?id=a&id=b&id=c&name=john&name=doe&name=kataras
+Content-Type: application/x-www-form-urlencoded
+|
+2022-09-28 08:37:41|57.438µs|200|POST|/post|127.0.0.1|0 B|18 B||
+2022-09-28 08:40:40|112.351µs|200|POST|/post|127.0.0.1|0 B|34 B||
+2022-09-28 08:55:06|259.745µs|200|GET|/|127.0.0.1|0 B|7 B||
+2022-09-28 08:55:54|395.814µs|200|GET|/|127.0.0.1|address=dong nai name=thanh phong|0 B|7 B||
+2022-09-28 09:00:24|501.637µs|200|GET|/|127.0.0.1|address=dong nai name=thanh phong|0 B|29 B||
+2022-09-28 09:00:45|325.237µs|200|GET|/|127.0.0.1|address=dong nai name=thanh phong|0 B|58 B||
+2022-09-28 09:03:12|258.245µs|200|GET|/kataras/27/iris/web/framework|127.0.0.1|name=kataras age=27 tail=iris/web/framework|0 B|90 B||
+2022-09-28 09:08:48|300.587µs|200|GET|/|127.0.0.1|0 B|39 B||
+2022-09-28 09:09:32|42.797µs|404|GET|/header|127.0.0.1|0 B|9 B||
+2022-09-28 09:11:41|188.994µs|200|GET|/header|127.0.0.1|0 B|88 B||
+2022-09-28 09:19:05|263.271µs|200|GET|/|127.0.0.1|0 B|39 B||
+2022-09-28 09:19:09|186.583µs|200|GET|/form|127.0.0.1|0 B|414 B||
+2022-09-28 09:19:15|133.965µs|200|POST|/|127.0.0.1|53 B|39 B|colors%5B%5D=red&colors%5B%5D=green&colors%5B%5D=blue|
+2022-09-28 09:19:48|211.237µs|200|GET|/form|127.0.0.1|0 B|418 B||
+2022-09-28 09:20:03|286.554µs|200|POST|/form|127.0.0.1|0 B|34 B||
+2022-09-28 09:43:22|384.171µs|200|GET|/form|127.0.0.1|0 B|418 B||
+2022-09-28 09:43:24|189.352µs|200|POST|/form|127.0.0.1|0 B|21 B||
+2022-09-28 09:43:26|185.052µs|200|GET|/form|127.0.0.1|0 B|418 B||
+2022-09-28 09:47:18|185.401µs|200|POST|/form|127.0.0.1|0 B|28 B||

@@ -6,14 +6,14 @@ func main() {
     app := iris.Default()
     // defer app.Run(iris.Addr(":8080"))
 
-    // Load all templates from the "./views" folder
+    // Load all templates from the "./templates" folder
     // where extension is ".html" and parse them
     // using the standard `html/template` package.
-    app.RegisterView(iris.HTML("./views", ".html"))
+    app.RegisterView(iris.HTML("./templates", ".html"))
     app.Get("/", func(ctx iris.Context) {
         // Bind: {{.message}} with "Hello world!"
-        ctx.ViewData("message", "use views/hello.html!") // code ngoai html {{ .message }}
-        // Render template file: ./views/hello.html
+        ctx.ViewData("message", "use templates/hello.html!") // code ngoai html {{ .message }}
+        // Render template file: ./templates/hello.html
         ctx.View("hello.html")
     })
 
@@ -29,7 +29,8 @@ func main() {
     })
 
 
-     app.Get("/welcome", func(ctx iris.Context) {
+    //  QUERY /welcome?firstname=Jane&lastname=Doe
+    app.Get("/welcome", func(ctx iris.Context) {
         firstname := ctx.URLParamDefault("firstname", "Guest")
         lastname := ctx.URLParam("lastname") // shortcut for ctx.Request().URL.Query().Get("lastname")
 
@@ -38,21 +39,6 @@ func main() {
 
 
     app.Post("/post", func(ctx iris.Context) {
-        id, err := ctx.URLParamInt("id")
-        if err != nil {
-            ctx.StopWithError(iris.StatusBadRequest, err)
-            return
-        }
-
-        page := ctx.URLParamIntDefault("page", 0)
-        name := ctx.PostValue("name")
-        message := ctx.PostValue("message")
-
-        ctx.Writef("id: %d; page: %d; name: %s; message: %s", id, page, name, message)
-    })
-
-
-    app.Post("/posts", func(ctx iris.Context) {
 
         ids := ctx.URLParamSlice("id")
         names, err := ctx.PostValues("name")
@@ -63,6 +49,8 @@ func main() {
 
         ctx.Writef("ids: %v; names: %v", ids, names)
     })
+
+
 
 
     // h := func(ctx iris.Context) {

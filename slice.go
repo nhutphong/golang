@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"errors"
 	"phong/tricks"
 )
 
@@ -25,7 +26,8 @@ func main() {
 	z1 := append(w, 'd')
 	z2 := append(w, 'g')
 
-	fmt.Println(string(z1)) // bag
+	fmt.Println(string(w)) // bad
+	fmt.Println(string(z1)) // bad
 	fmt.Println(string(z2)) // bag
 
 

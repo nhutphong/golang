@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
+	// "math/rand"
 	"time"
 )
 
@@ -14,7 +14,7 @@ func generator(msg string) <-chan string {
 		
 		for i := 0; ; i++ {
 			ch <- fmt.Sprintf("%s %d", msg, i)
-			time.Sleep(time.Duration(rand.Intn(1e3)) * time.Millisecond)
+			time.Sleep(300 * time.Millisecond)
 		}
 		close(ch)
 

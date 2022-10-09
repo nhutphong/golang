@@ -9,14 +9,7 @@ import (
 )
 
 const NOTE string = `
-	SUPER GOROUTINE MAIN() OR PARENT GOROUTINE nên code: defer time.Sleep(time.Second) ở đầu, để chờ CHILD
-	GOROUTINE
-
-	các WRITE GOROUTINE nên code: defer close(buffer) or defer close(unbuffer) ở đầu, để tránh
-	READ GOROUTINE read buffer empty sẽ gây ra error DEADLOCK 
-*/
-
-/*
+	
 	Unbuffered channel sẽ block goroutine khi write channel 
 	Lấy dữ liệu từ empty unbuffered channel sẽ block goroutine
 
@@ -27,8 +20,6 @@ const NOTE string = `
 	unbuffered := make(chan int)
 	<-unbuffered // receive=read empty channel; BLOCK goroutine current
 
-
-
 	block: chờ case or write quá số lần unbuffered sẽ deadlock 
 	  select { case }
 	  unbuffered channel(write || read)
@@ -37,6 +28,11 @@ const NOTE string = `
 	NOTE: yêu cầu cả 2 goroutines gửi và nhận đều sẵn sàng cùng lúc.
 
 
+	SUPER GOROUTINE MAIN() OR PARENT GOROUTINE nên code: defer time.Sleep(time.Second) ở đầu, để chờ CHILD
+	GOROUTINE
+
+	các WRITE GOROUTINE nên code: defer close(buffer) or defer close(unbuffer) ở đầu, để tránh
+	READ GOROUTINE read buffer empty sẽ gây ra error DEADLOCK 
 `
 
 

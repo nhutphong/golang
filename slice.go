@@ -23,10 +23,10 @@ func main() {
 
 	w := []byte("ba")
 
-	z1 := append(w, 'd')
-	z2 := append(w, 'g')
+	z1 := append(w, 'd') // slice_new
+	z2 := append(w, 'g') // slice_new
 
-	fmt.Println(string(w)) // bad
+	fmt.Println(string(w)) // ba
 	fmt.Println(string(z1)) // bad
 	fmt.Println(string(z2)) // bag
 

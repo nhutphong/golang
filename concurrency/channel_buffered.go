@@ -9,18 +9,11 @@ import (
 	"phong/tricks"
 )
 
-/*
-	SUPER GOROUTINE MAIN() OR PARENT GOROUTINE nên code: defer time.Sleep(time.Second) ở đầu, để chờ CHILD
-	GOROUTINE
-
-	các WRITE GOROUTINE nên code: defer close(buffer) or defer close(unbuffer) ở đầu, để tránh
-	READ GOROUTINE read buffer empty sẽ gây ra error DEADLOCK 
-*/
-
 const NOTE string = `
 	
 	Buffered Channel sẽ block goroutine hiện tại nếu vượt sức chứa
 	Lấy dữ liệu từ empty buffered channel sẽ block goroutine
+
 	buffered := make(chan int,2)
 	buffered <- "hello"
 	buffered <- "world"
@@ -41,9 +34,9 @@ const NOTE string = `
 	  buffered channel(write || read)
 
 
-	write <-:
+	write<-:
 		channel <- "write data vào channel"
-	<- read:
+	<-read:
 		content := <-channel
 
 

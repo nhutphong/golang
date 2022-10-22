@@ -22,11 +22,10 @@ func main() {
 
 
 		CHECK TYPE:
-		var name is type =  any | interface{}, moi dung duoc value, ok := 
-
-		value, ok := ageInt.(int)
-		value, ok := nameString.(string)
-		value, ok := salaryFloat.(float64)
+		var name is type =  any | interface{}, moi dung duoc
+			value, ok := ageInt.(int)
+			value, ok := nameString.(string)
+			value, ok := salaryFloat.(float64)
 
 
 		bool
@@ -99,28 +98,29 @@ func main() {
 
 	// chỉ declared, NOT assign value, thì default value = nil 
 	tricks.Format("nil is default values of: <slice map channel func interface{} pointer>")
-	var dict map[bool]bool
+	var dict map[bool]bool //nil
     fmt.Print("Default Zero Value of a map: ")
     fmt.Println(dict)
+    fmt.Println("dict == nil", dict == nil)
 
-    var channel chan int 
+    var channel chan int //nil
     fmt.Print("Default Zero Value of a channel: ")
     fmt.Println(channel)
 
-    var face interface{}
+    var face interface{} //nil
     fmt.Print("Default Zero Value of a interface: ")
     fmt.Println(face)
 
-    var slice []int
+    var slice []int //nil
     fmt.Println("slice == nil", slice == nil)
     fmt.Print("Default Zero Value of a slice: ")
     fmt.Println(slice)
 
-    var f func()
+    var f func() //nil
     fmt.Print("Default Zero Value of a func: ")
     fmt.Println(f)
 
-    var pointer *int
+    var pointer *int //nil
     fmt.Print("Default Zero Value of a pointer: ")
     fmt.Println(pointer)
 

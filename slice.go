@@ -23,8 +23,8 @@ func main() {
 
 	w := []byte("ba")
 
-	z1 := append(w, 'd') // slice_new
-	z2 := append(w, 'g') // slice_new
+	z1 := append(w, 'd') // slice_new = "bad"
+	z2 := append(w, 'g') // slice_new = "bag"
 
 	fmt.Println(string(w)) // ba
 	fmt.Println(string(z1)) // bad
@@ -41,11 +41,11 @@ func main() {
 	fmt.Println("t = ", t)
 
 	tricks.Format("*")
-	a := [7]string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}
+	arr := [7]string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}
 
 	// syntax slice gan la tham chieu= REF_TYPE, tuc slice1 or slice2 thay doi thi a cung thay doi
-	slice1 := a[1:]
-	slice2 := a[3:]
+	slice1 := arr[1:]
+	slice2 := arr[3:]
 
 	// syntax gan binh thuong, la tham tri = VALUE_TYPE, slice1 or slice2 thay doi, khong lam a thay doi
 	// slice1 = a 
@@ -53,7 +53,7 @@ func main() {
 
 
 	fmt.Println("------- Before Modifications -------")
-	fmt.Println("a  = ", a)
+	fmt.Println("a  = ", arr)
 	fmt.Println("slice1 = ", slice1)
 	fmt.Println("slice2 = ", slice2)
 
@@ -64,7 +64,7 @@ func main() {
 	slice2[1] = "FRIDAY"
 
 	fmt.Println("\n-------- After Modifications --------")
-	fmt.Println("a  = ", a)
+	fmt.Println("a  = ", arr)
 	fmt.Println("slice1 = ", slice1)
 	fmt.Println("slice2 = ", slice2)
 

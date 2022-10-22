@@ -203,17 +203,15 @@ func main() {
 	value := func(){
       fmt.Println("Welcome! to GeeksforGeeks")
   	}
-  	value()
+	value()
 
 
-
-  	tricks.Format("anonymous func")
-
-  	s1 := Student{
-		firstName: "Naveen",
-		lastName:  "Ramanathan",
-		grade:     "A",
-		country:   "India",
+	tricks.Format("anonymous func")
+	s1 := Student{
+	firstName: "Naveen",
+	lastName:  "Ramanathan",
+	grade:     "A",
+	country:   "India",
 	}
 	s2 := Student{
 		firstName: "Samuel",

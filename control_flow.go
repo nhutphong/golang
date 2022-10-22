@@ -14,7 +14,7 @@ func defer_test(end int) {
         defer fmt.Println("defer ", i)
     }
     /*
-    	defer se run khi func chứa nó kết thúc 
+    	chi run sau return of func chua no
     	i = 0 vao truoc, se run sau cùng 
     */
 

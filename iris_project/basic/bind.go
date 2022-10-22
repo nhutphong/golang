@@ -2,10 +2,31 @@ package main
 
 import "github.com/kataras/iris/v12"
 
+var CONST = " 
+ReadJSON(outPtr interface{}) error
 
+ReadJSONProtobuf(ptr proto.Message, opts ...ProtoUnmarshalOptions) error
+ReadProtobuf(ptr proto.Message) error
+ReadMsgPack(ptr interface{}) error
+ReadXML(outPtr interface{}) error
+ReadYAML(outPtr interface{}) error
+
+// dung nhieu
+ReadForm(formObject interface{}) error
+ReadQuery(ptr interface{}) error
+
+ReadBody(ptr interface{}) error
+
+ptr = &struct
+code struct, struct tags cho phu hop voi cac func o tren,
+
+
+"
 
 func main() {
     app := iris.Default()
+
+    // localhost:8080/?name=nguyen-chi-thong&address=gia-lai
     app.Any("/", index)
 
     // {tail:path}; slice params /name/age/.../.../.../
@@ -19,12 +40,12 @@ func main() {
         ctx.Writef("myParams: %#v", p)
     })
 
-
+    //localhost:8080/kataras/27/iris/web/framework
     app.Get("/header", func(ctx iris.Context) {
         var hs myHeaders
         if err := ctx.ReadHeaders(&hs); err != nil {
             ctx.StopWithError(iris.StatusInternalServerError, err)
-            return
+            return //end func
         }
 
         ctx.JSON(hs)
@@ -33,7 +54,6 @@ func main() {
 
     //form
     app.RegisterView(iris.HTML("./templates", ".html"))
-
     app.Get("/form", showForm)
     app.Post("/form", handleForm)
 
@@ -49,12 +69,12 @@ func showForm(ctx iris.Context) {
     ctx.View("form.html")
 }
 
-type formExample struct {
+type FormExample struct {
     Colors []string `form:"colors[]"` // or just "colors".
 }
 
 func handleForm(ctx iris.Context) {
-    var form formExample
+    var form FormExample
     err := ctx.ReadForm(&form)
     if err != nil {
         ctx.StopWithError(iris.StatusBadRequest, err)
@@ -65,7 +85,7 @@ func handleForm(ctx iris.Context) {
 }
 
 
-
+// app.Get("/{name}/{age:int}/{tail:path}", func(ctx iris.Context) {}
 type myParams struct {
     Name string   `param:"name"`
     Age  int      `param:"age"`
@@ -81,6 +101,7 @@ type Person struct {
     Address string `url:"address"`
 }
 
+// localhost:8080/?name=nguyen-chi-thong&address=gia-lai
 func index(ctx iris.Context) {
     var person Person
     if err := ctx.ReadQuery(&person); err!=nil {

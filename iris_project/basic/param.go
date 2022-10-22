@@ -12,6 +12,7 @@ func main() {
     app.RegisterView(iris.HTML("./templates", ".html"))
     app.Get("/", func(ctx iris.Context) {
         // Bind: {{.message}} with "Hello world!"
+        // {"message":"values"}
         ctx.ViewData("message", "use templates/hello.html!") // code ngoai html {{ .message }}
         // Render template file: ./templates/hello.html
         ctx.View("hello.html")
@@ -22,19 +23,31 @@ func main() {
     })
 
    
-    // app.Get("/user/{id:string regexp(^[0-9]+$)}")
-    app.Get("/user/{id:uint64}", func(ctx iris.Context) {
-        userID, _ := ctx.Params().GetUint64("id") //get "id" tu url
-        ctx.Writef("User ID: %d", userID) // render to html
+    // app.Get("/user/{id:uint64}", func(ctx iris.Context) {
+    //     userID, _ := ctx.Params().GetUint64("id") //get "id" tu url
+    //     ctx.Writef("User ID: %d", userID) // render to html
+    // })
+
+    // overwrite /user/{id:unit64}
+    app.Get("/user/{name_any:string}", func(ctx iris.Context) {
+        userName := ctx.Params().Get("name_any") //get "name_any" tu url
+        // ctx.Writef("User Name: %d", userName) // render to html
+
+        // {"message": userName}
+         // Bind: {{.message}} with "Hello world!"
+        ctx.ViewData("message", userName) // code ngoai html {{ .message }}
+        // Render template file: ./templates/hello.html
+        ctx.View("hello.html")
     })
 
 
-    //  QUERY /welcome?firstname=Jane&lastname=Doe
+    //  ?urlparam=QUERY /welcome?firstname=Jane&lastname=Doe      //sau cham hoi?name=thong&old=2
     app.Get("/welcome", func(ctx iris.Context) {
-        firstname := ctx.URLParamDefault("firstname", "Guest")
-        lastname := ctx.URLParam("lastname") // shortcut for ctx.Request().URL.Query().Get("lastname")
+        firstname := ctx.URLParamDefault("firstname", "Guest") // Jane
+        lastname := ctx.URLParam("lastname") // Doe
 
         ctx.Writef("Hello %s %s", firstname, lastname)
+
     })
 
 

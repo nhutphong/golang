@@ -15,7 +15,7 @@ func main() {
 		dict := make(map[string]int) //cach2 co the add dell change key value in map
 		OR
 		var mapEmpty = map[string]interface{}{} // gán thẳng map_empty
-		mapEmpty := map[string]interface{}{}    // gán thẳng map_empty
+		mapEmpty = map[string]interface{}{}    // gán thẳng map_empty
 	*/
 
 	tricks.Format("dict := make(map[string]int)")

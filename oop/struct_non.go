@@ -6,46 +6,50 @@ import (
 
 func main() {
 	var b = Book{pages: 123}
-	var p = &b
+	var p = &b // pointer
 	var f1 = b.Pages
 	var f2 = p.Pages
 	b.pages = 789
-	var g1 = p.Pages2
-	var g2 = b.Pages2
+	var g1 = p.Pages2 // co pointer receiver
+	var g2 = b.Pages2 // co pointer receiver
 	fmt.Println(f1()) // 123
 	fmt.Println(f2()) // 123
-	fmt.Println(g1()) // 789
-	fmt.Println(g2()) // 789
+	fmt.Println(g1()) // 789 ; update
+	fmt.Println(g2()) // 789 ; update
 
 }
 
+// struct-non giong nhu alias cua types ma ta muon gan thui
 type Age int
+
 func (age Age) LargerThan(a Age) bool {
 	return age > a
 }
 func (age *Age) Increase() {
-	*age++ // 
+	*age++ // phai dung operator *, de update, giong nhu types: string slice, ...,
 }
 func (age *Age) Reset() {
-	*age=5
+	*age = 5
 	// *age=Age(5) // OK
 }
 func (age *Age) Set(a Age) {
 	*age = a
 }
+
 // func (age *Age) Set(a int) {
 // 	*age = Age(a)
 // }
 
-
 // Receiver of custom defined function type.
 type FilterFunc func(in int) bool
-func (ff FilterFunc) Filte(in int) bool {
-	return ff(in)
+
+func (f FilterFunc) Filte(in int) bool {
+	return f(in)
 }
 
 // Receiver of custom defined map type.
 type StringSet map[string]struct{}
+
 func (ss StringSet) Has(key string) bool {
 	_, present := ss[key]
 	return present

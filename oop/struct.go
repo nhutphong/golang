@@ -47,8 +47,8 @@ func (p *Person) update(first, last string, age int) {
 	p.Age = age
 }
 
-// chi get value, NOT update field vì không pass pointer *Person 
-func(p Person) info() {
+// chi get value, NOT update field vì không pass pointer *Person
+func (p Person) info() {
 	fmt.Println(p.FirstName, p.LastName, p.Age)
 }
 
@@ -57,7 +57,6 @@ func update(p *Person, first, last string, age int) {
 	p.LastName = last
 	p.Age = age
 }
-
 
 type Car struct {
 	Name, Model, Color string
@@ -99,22 +98,21 @@ func (a myInt) add(b myInt) myInt {
 
 */
 
-
-type Address struct {  
-    city  string
-    state string
+type Address struct {
+	city  string
+	state string
 }
 
 type Human struct {
 	// <name_fields> <type_field>
-	
-    name    string
-    age     int
-    Address // embed struct xem thêm tại inheritance.go
-    /* Address 	// khi declared chi co Address=Type
-    ngam hieu Address Address
 
-    */
+	name    string
+	age     int
+	Address // embed struct xem thêm tại inheritance.go
+	/* Address 	// khi declared chi co Address=Type
+	   ngam hieu Address Address
+
+	*/
 }
 
 func format() {
@@ -123,9 +121,7 @@ func format() {
 	fmt.Println()
 }
 
-
 func main() {
-
 
 	// call struct empty
 	var p Person
@@ -173,7 +169,6 @@ func main() {
 	fmt.Println("p5 = ", p5)
 	fmt.Println("p4 = ", p4)
 
-
 	tricks.Format("so sánh pointer")
 	p6 := Point{3.4, 5.2}
 	p7 := Point{3.4, 5.2}
@@ -183,7 +178,6 @@ func main() {
 		fmt.Println("Point p6 and p7 are not equal.")
 	}
 
-
 	tricks.Format("non-struct")
 	// call non-struct dung (ngoặc tròn)
 	f := MyFloat(-math.Sqrt2)
@@ -191,43 +185,44 @@ func main() {
 
 	// type myInt int
 	num1 := myInt(5)
-    num2 := myInt(10)
-    sum := num1.add(num2)
-    fmt.Println("Sum is", sum)
+	num2 := myInt(10)
+	sum := num1.add(num2)
+	fmt.Println("Sum is", sum)
+	fmt.Println("Sum is", num1.add(25))
 
-    /*
+	/*
 
-    	// anonymous fields == embed struct == inheritance
-		type Person struct {  
-		    string
-		    int
-		}	
+		// anonymous fields == embed struct == inheritance
+			type Person struct {
+			    string
+			    int
+			}
 
-	    person := Person{
-	        string: "naveen",
-	        int:    50,
-	    }
-	    fmt.Println(person.string)
-	    fmt.Println(person.int)
-    */
+		    person := Person{
+			string: "naveen",
+			int:    50,
+		    }
+		    fmt.Println(person.string)
+		    fmt.Println(person.int)
+	*/
 
-    //
-    tricks.Format("embed struct into struct = inheritance")
-    human := Human{
-        name: "Naveen",
-        age:  50,
-        Address: Address{
-            city:  "Chicago",
-            state: "Illinois",
-        },
-    }
+	//
+	tricks.Format("embed struct into struct = inheritance")
+	human := Human{
+		name: "Naveen",
+		age:  50,
+		Address: Address{
+			city:  "Chicago",
+			state: "Illinois",
+		},
+	}
 
-    fmt.Println("human.name:", human.name)
-    fmt.Println("human.age:", human.age)
-    fmt.Println("human.Address.city:", human.Address.city)
-    fmt.Println("human.Address.state:", human.Address.state)
+	fmt.Println("human.name:", human.name)
+	fmt.Println("human.age:", human.age)
+	fmt.Println("human.Address.city:", human.Address.city)
+	fmt.Println("human.Address.state:", human.Address.state)
 	log.Println("vì embed struct nên có thể access fields=attributes")
-    fmt.Println("human.city:", human.city)
-    fmt.Println("human.state:", human.state)
+	fmt.Println("human.city:", human.city)
+	fmt.Println("human.state:", human.state)
 
 }

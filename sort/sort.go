@@ -7,14 +7,13 @@ import (
 	"time"
 )
 
-
 /*
 	khi dung for cho string=chars char đã được convert ngầm về rune=int32
 	vì thế phải dùng char = string(char) về string
 */
 func reverseString(chars string) (result string) {
 
-	for _ , rune := range chars {
+	for _, rune := range chars {
 		result = string(rune) + result
 	}
 	return
@@ -28,14 +27,14 @@ func loop(chars string) {
 }
 
 func loopCharsUpper() {
-	for char := 'A'; char <= 'Z'; char++{
+	for char := 'A'; char <= 'Z'; char++ {
 		fmt.Printf("char '%s' rune %d\n", string(char), char)
 		time.Sleep(time.Millisecond * 100)
 	}
 }
 
 func loopCharsLower() {
-	for char := 'a'; char <= 'z'; char++{
+	for char := 'a'; char <= 'z'; char++ {
 		fmt.Printf("char '%s' rune %d\n", string(char), char)
 		time.Sleep(time.Millisecond * 100)
 	}
@@ -61,12 +60,13 @@ const NOTE = `
 func Find(n int, cmp func(int) int) (i int, found bool)
 func SliceIsSorted(x any, less func(i, j int) bool) bool
 
-
+// update in-place
 func Strings(x []string)
 	s := []string{"Go", "Bravo", "Gopher", "Alpha", "Grin", "Delta"}
 	sort.Strings(s)
 	fmt.Println(s)
 
+// update in-place
 func Ints(x []int)
 func Float64s(x []float64)
 	s := []float64{5.2, -1.3, 0.7, -3.8, 2.6} // unsorted
@@ -91,8 +91,17 @@ func Float64sAreSorted(x []float64) bool // // float64 co tang dan hay khong
 	fmt.Println(sort.Float64sAreSorted(s))
 
 
-
+// dieu kien searching is slice da duoc sort tang
 func Search(n int, f func(int) bool) int
+	slice := []int{1, 3, 6, 10, 15, 21, 28, 36, 45, 55}
+	item := 6
+
+	i := sort.Search(len(a), func(i int) bool { return slice[i] >= item })
+	if i < len(slice) && slice[i] == slice {
+		fmt.Printf("found %d at index %d in %v\n", item, i, slice)
+	} else {
+		fmt.Printf("%d not found in %v\n", item, slice)
+	}
 
 func SearchInts(a []int, x int) int
 func SearchFloat64s(a []float64, x float64) int
@@ -131,14 +140,17 @@ func SliceStable(x any, less func(i, j int) bool) // các item=nhau không bị 
 */
 
 /*
+
+types: IntSlice, Float64Slice, StringSlice deu implement interface Interface
+
+func Reverse(data Interface) Interface
 func IsSorted(data Interface) bool
 func Sort(data Interface)
 func Stable(data Interface)
 
-	sliceInt := []int{5, 2, 6, 3, 1, 4} // unsorted
+	s := []int{5, 2, 6, 3, 1, 4} // unsorted
 	sort.Sort(sort.Reverse(sort.IntSlice(s))) //[6 5 4 3 2 1]
 	fmt.Println(s)
-
 
 	sort.Sort(sort.Reverse(sort.Float64Slice(s)))
 	sort.Sort(sort.Reverse(sort.StringSlice(s)))

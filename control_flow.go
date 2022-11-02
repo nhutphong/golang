@@ -5,20 +5,18 @@ import (
 	"phong/tricks"
 )
 
-
-
 func defer_test(end int) {
 	fmt.Println("counting")
 
-    for i := 0; i < end; i++ {
-        defer fmt.Println("defer ", i)
-    }
-    /*
-    	chi run sau return of func chua no
-    	i = 0 vao truoc, se run sau cùng 
-    */
+	for i := 0; i < end; i++ {
+		defer fmt.Println("defer ", i)
+	}
+	/*
+		chi run sau return of func chua no
+		i = 0 vao truoc, se run sau cùng
+	*/
 
-    fmt.Println("done")
+	fmt.Println("done")
 }
 
 func main() {
@@ -28,7 +26,6 @@ func main() {
 		fmt.Printf("%d is a multiple of 5\n", x)
 	}
 
-	
 	var y = -1
 	if y < 0 {
 		fmt.Printf("%d is negative\n", y)
@@ -93,7 +90,6 @@ func main() {
 		fmt.Println("Invalid day")
 	}
 
-
 	tricks.Format("switch case")
 	switch day_of_week := 5; day_of_week {
 	case 1, 2, 3, 4, 5:
@@ -103,7 +99,6 @@ func main() {
 	default:
 		fmt.Println("Invalid Day")
 	}
-
 
 	tricks.Format("switch case")
 	var AMD = 21.0
@@ -144,7 +139,6 @@ func main() {
 		three *= 2
 	}
 
-
 	tricks.Format("*")
 	for num := 1; num <= 100; num++ {
 		if num%3 == 0 && num%5 == 0 {
@@ -161,20 +155,19 @@ func main() {
 		fmt.Printf("%d ", num)
 	}
 
-    tricks.Format("defer")
+	tricks.Format("defer")
 
-    defer_test(10)
+	defer_test(10)
 
-    tricks.Format("for index, char := range name {}")
+	tricks.Format("for index, char := range name {}")
 
-    name:="chi thong"
+	name := "chi thong"
 	for index, char := range name {
 		/*
 			phai dung %c để print char
 		*/
 		fmt.Printf("index %d char %c\n", index, char)
 	}
-
 
 	tricks.Format("check type use syntax: switch v := value.(type)")
 	// chi dung duoc cho type phai = interface{}
@@ -232,6 +225,5 @@ func main() {
 			}
 		}
 	}
-
 
 }

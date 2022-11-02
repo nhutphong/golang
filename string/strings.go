@@ -13,6 +13,11 @@ func main() {
 }
 
 const NOTE string = `
+// trong golang, string: chua trong double quote ""
+				   byte: chua trong quote '' 
+				   vd: 'a' != "a" // true ; // byte != string
+// type byte is: 'one char in quote'; vd: 'a', 'b', 'c', ...
+// type rune is: 
 
 // substr khớp cả cụm word mới OK 
 // chars khớp bất kỳ char nào cũng OK 
@@ -33,8 +38,9 @@ func EqualFold(s, t string) bool
 
 func Contains(s, substr string) bool
 	// chứa substr
-	fmt.Println(strings.Contains("seafood", "")) // true 
-	fmt.Println(strings.Contains("", ""))		 // true 
+	fmt.Println(strings.Contains("seafood", "foo")) // true
+	fmt.Println(strings.Contains("seafood", ""))	// true 
+	fmt.Println(strings.Contains("", ""))			// true 
 
 func ContainsAny(s, chars string) bool
 	// chỉ cần chứa 1 char la ok
@@ -51,8 +57,7 @@ func HasPrefix(s, prefix string) bool // == str.startswith(s, prefix)
 func HasSuffix(s, suffix string) bool // == str.endswith(s , suffix)
 
 
-
-//return int
+//return int ; substr="word or char" 
 func Count(s, substr string) int
 	fmt.Println(strings.Count("cheese", "e")) //3 
 	fmt.Println(strings.Count("five", "")) //5  before & after each rune
@@ -69,7 +74,7 @@ func Cut(s, sep string) (before, after string, found bool)
 func Index(s, substr string) int
 	// -1 if NOT found
 
-// bat ky char nao trong chars, xuat hien som nhat
+// return index of bat ky char nao trong chars, xuat hien som nhat
 func IndexAny(s, chars string) int
 	fmt.Println(strings.IndexAny("chicken", "aeiouy")) // index=2 la 'i', gan hon 'e'
 	fmt.Println(strings.IndexAny("crwth", "aeiouy")) // -1 not found
@@ -98,8 +103,6 @@ func LastIndexFunc(s string, f func(rune) bool) int
 	fmt.Println(strings.LastIndexFunc("go 123", unicode.IsNumber)) //5
 	fmt.Println(strings.LastIndexFunc("123 go", unicode.IsNumber)) //2
 	fmt.Println(strings.LastIndexFunc("go", unicode.IsNumber)) //-1 NOT found
-
-
 
 
 //return []string

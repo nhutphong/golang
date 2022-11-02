@@ -28,7 +28,7 @@ func Clone(s string) string
 func Compare(a, b string) int
 	-1 if a < b ; 0 if a == b ; 1 if a > b 
 	fmt.Println(strings.Compare("abc", "acb")) // -1 ; so sanh theo cap pair index, 00 11 22
-
+//------------------------------return bool------------------------------
 func EqualFold(s, t string) bool
 	// cũng là so sánh
 	fmt.Println(strings.EqualFold("Go", "go")) //true 
@@ -56,7 +56,10 @@ func ContainsRune(s string, r rune) bool
 func HasPrefix(s, prefix string) bool // == str.startswith(s, prefix)
 func HasSuffix(s, suffix string) bool // == str.endswith(s , suffix)
 
+//------------------------------return bool end------------------------------
 
+//------------------------------return int------------------------------
+// searching index
 //return int ; substr="word or char" 
 func Count(s, substr string) int
 	fmt.Println(strings.Count("cheese", "e")) //3 
@@ -104,7 +107,10 @@ func LastIndexFunc(s string, f func(rune) bool) int
 	fmt.Println(strings.LastIndexFunc("123 go", unicode.IsNumber)) //2
 	fmt.Println(strings.LastIndexFunc("go", unicode.IsNumber)) //-1 NOT found
 
+//------------------------------return int end------------------------------
 
+//------------------------------return slice------------------------------ 
+// string SPLIT spaces word chars
 //return []string
 //đơn giản không cần dùng đến package: regexp
 func Fields(s string) []string
@@ -123,20 +129,32 @@ sep=','
 func Split(s, sep string) []string
 	cắt full 
 
+// cat strings, co the chi dinh so item can co cu slice, sau khi cat
 func SplitN(s, sep string, n int) []string
-	cat voi n items
+	fmt.Printf("%q\n", strings.SplitN("a,b,c", ",", 2)) // ["a" "b,c"]
 
+	z := strings.SplitN("a,b,c", ",", 0) // z = nil
+	fmt.Printf("%q (nil = %v)\n", z, z == nil) // [] (nil = true)
+
+// chia string thanh nhieu items
 func SplitAfter(s, sep string) []string
-	cắt full, sau ',' 
+	fmt.Printf("%q\n", strings.SplitAfter("a,b,c", ","))
+	// ["a," "b," "c"]
+}
 
+// chia string thanh nhieu items (co the chi dinh so items via n int)
 func SplitAfterN(s, sep string, n int) []string
-	cắt = n items, sau ',' ; muốn arr có 5 item thì n=5
+	fmt.Printf("%q\n", strings.SplitAfterN("a,b,c", ",", 2))
+	// ["a," "b,c"]
 
+//------------------------------return slice end------------------------------ 
 
+//==============================return string------------------------------
+// JOIN REMOVE REPLACE REPEAT LOWER UPPER TITLE
 
-//return string
-//
 func Join(elems []string, sep string) string
+	s := []string{"foo", "bar", "baz"}
+	fmt.Println(strings.Join(s, ", ")) // foo, bar, baz
 
 func Map(mapping func(rune) rune, s string) string
 	rot13 := func(r rune) rune {
@@ -159,6 +177,7 @@ func Replace(s, old, new string, n int) string
 	fmt.Println(strings.Replace("oink oink oink", "k", "ky", 2)) // replaces 2 lần 
 	fmt.Println(strings.Replace("oink oink oink", "oink", "moo", -1)) //-1 replacé full 
 
+// replace full
 func ReplaceAll(s, old, new string) string
 	fmt.Println(strings.ReplaceAll("oink oink oink", "oin", "moo")) // replaces full 
 
@@ -174,15 +193,17 @@ func ToUpperSpecial(c unicode.SpecialCase, s string) string
 
 func ToValidUTF8(s, replacement string) string
 
-
+// use char in chars=cutset de remove
 func TrimLeft(s, cutset string) string
+func TrimRight(s, cutset string) string
 func Trim(s, cutset string) string
 	// removed đầu và cuối (left right)
 	// dùng từng char in cutset để removed
-	fmt.Print(strings.Trim("¡¡¡Hello,! Gophers!!!", "!¡")) // "Hello,! Gophers"
-func TrimRight(s, cutset string) string
+	fmt.Print(strings.Trim("¡¡A¡Hello, Gophers!Z!!", "!¡")) // A¡Hello, Gophers!Z
+
 func TrimSpace(s string) string
 	// removed /t /n spaces ... ở left right
+	fmt.Println(strings.TrimSpace(" \t\n Hello, \nGophers \n\t\r\n")) // Hellow, \nGophers
 
 func TrimLeftFunc(s string, f func(rune) bool) string
 	fmt.Print(strings.TrimLeftFunc("¡¡¡Hello, Gophers!!!", func(r rune) bool {
@@ -191,6 +212,7 @@ func TrimLeftFunc(s string, f func(rune) bool) string
 func TrimFunc(s string, f func(rune) bool) string
 	fmt.Print(strings.TrimFunc("¡¡¡Hello, Gophers!!!", func(r rune) bool {
 		return !unicode.IsLetter(r) && !unicode.IsNumber(r)
+		// NOT char va NOT number thi remove
 	}))
 func TrimRightFunc(s string, f func(rune) bool) string
 
@@ -198,4 +220,4 @@ func TrimRightFunc(s string, f func(rune) bool) string
 func TrimPrefix(s, prefix string) string
 func TrimSuffix(s, suffix string) string
 
-`
+//==============================return string end------------------------------

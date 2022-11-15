@@ -11,7 +11,13 @@ import (
 )
 
 const NOTE string = `
-	
+	buffer-channel use khi: chung ta khong bat buoc phai lay het values duoc write vao in channel:
+		dau tien cu cho cap-buffer = write
+		luc do, read <= write ():
+			read chi can 1 lan van ok(thoa man dk, cac child goroutines van end truoc supergoroutine)
+
+		read > write: co the run, nhung ko nen dung
+
 	Buffered Channel sẽ block goroutine hiện tại nếu vượt sức chứa
 	Lấy dữ liệu từ empty buffered channel sẽ block goroutine
 
@@ -96,7 +102,7 @@ func read(buffer chan int, total int, name string) {
 
 func SuperGoroutineControl() {
 	/*
-		buffer := make(chan int, 9) // cap=9
+		buffer := make(chan int, 9) // buffer-cap=9
 		cho cap(buffer) = write cho dễ, lúc đó muốn read <= write bao nhiêu thì lấy,
 		không bị lỗi DATA RACE
 		or cap(buffer) + read = write
@@ -104,17 +110,9 @@ func SuperGoroutineControl() {
 		buffered channel: code theo pattern dưới; 5 goroutine write với 1 goroutine read
 		read+cap(channel) = write=15 (trên channel) ; mới đảm bảo 6 goroutine sẽ run xong, sau đó
 		mới tới SuperGoroutineControl()
-		with close(buffer), read co the > write:
-			read > write: vd read=17, thì tràn ra ngoài main() read 16 17 ko cần cộng thêm cap=3
-			read > write: nếu read tại main() sẽ DEADLOCK, còn goroutine nào nữa đâu mà overflow ra
-			cac goroutines van hoan thanh sau main()
 
-		with NOT close buffer: (nen dung cach nay)
-			cu cho cap=write la dc, read <= write (thi lun ok)
-			read <= write
-			read=1, dieu kien vd: cap14+read1 = write15
-			cac goroutines van hoan thanh sau main()
-
+		note: cu write = buffer-cap la duoc, tu do read <= write deu ok
+		read > write, tuyet doi khong nen code nhu vay, se effect (ket qua khong mong muon)
 
 		các SuperGoroutineControl(): nên chứa:
 			buffer := make(chan int, 3) // STEP 2
@@ -128,8 +126,8 @@ func SuperGoroutineControl() {
 
 	// cap(channel) >= 5
 	buffer := make(chan int, 15) // STEP 2
-	//defer close(buffer)
-	defer fmt.Println("SuperGoroutineControl() END")
+	defer close(buffer)
+	defer fmt.Printf("\tSuperGoroutineControl() END\n")
 	defer time.Sleep(time.Second)
 
 	// write buffer = 15 = cap = 15 // đủ điều kiện end 6 goroutines trước SuperGoroutine()
@@ -140,18 +138,18 @@ func SuperGoroutineControl() {
 	go write(buffer, 3, "FIVE")
 
 	// chỉ read 10 data
-	go read(buffer, 1, "ONE") //; đủ điều kiện 6 goroutine run xong; sau đó toi SuperGoruotineControl()
+	go read(buffer, 10, "ONE") //; đủ điều kiện 6 goroutine run xong(cap-buffer=15); sau đó toi SuperGoruotineControl()
 
 	// go read(buffer, 10, "ONE")
+	// go read(buffer, 2, "ONE")
+
+	// go read(buffer, 3, "ONE")
+	// go read(buffer, 4, "ONE")
 	// go read(buffer, 5, "ONE")
 
-	// go read(buffer, 5, "ONE")
-	// go read(buffer, 5, "ONE")
-	// go read(buffer, 5, "ONE")
-
-	// time.Sleep(time.Second) // phai co de jumpto goroutine CHILD
+	//time.Sleep(time.Second) // phai co de jumpto goroutine CHILD
 	// fmt.Println("SuperGoroutineControl() END")
-	// close(buffer)
+	//close(buffer)
 }
 
 // STEP 1
@@ -163,29 +161,6 @@ func main() {
 	SuperGoroutineControl()
 
 	// unbuffer := make(chan int, 0)
-
-	// buffer := make(chan int, 1) // STEP 2
-	// buffer := make(chan int, 4) // STEP 2
-	// // defer close(buffer)
-	// // defer time.Sleep(time.Second)
-
-	// // go writeGoroutine(buffer)
-
-	// go write(buffer, 3, "ONE")
-	// go write(buffer, 3, "TWO")
-	// go write(buffer, 3, "THREE")
-	// go write(buffer, 3, "FOUR")
-	// go write(buffer, 3, "FIVE")
-
-	// go read(buffer, 10, "ONE")
-	// go read(buffer, 1, "TWO")
-	// go read(buffer, 5, "THREE")
-	// go readBufferUseRange(buffer)
-
-	// DEADLOCK
-	// for item := range buffer {
-	// 	fmt.Println("read value", item, " for _ := range buffer")
-	// }
 
 	// buffer <- 1
 	// buffer <- 2
@@ -206,22 +181,11 @@ func main() {
 	// buffer <- 3
 	// buffer <- 4
 	// buffer <- 5
-
 	// fmt.Println(<-buffer)
 	// fmt.Println(<-buffer)
 	// fmt.Println(<-buffer)
 	// fmt.Println(<-buffer)
 	// fmt.Println(<-buffer)
-
-	// run goroutine thu 2
-	// go func(){
-	// 	log.Println("anonymous goroutine 2 START")
-	// 	buffer <- 1
-	// 	buffer <- 2
-	// 	// log.Println(<-buffer)
-	// 	// log.Println(<-buffer)
-	// 	log.Println("anonymous goroutine 2 END")
-	// }()
 
 	//
 	time.Sleep(time.Second)

@@ -32,9 +32,9 @@ func fibonacci(ch chan int, quit chan bool, result chan int) {
 			count++
 			fmt.Println("\t\t\tcase write ch<- count: ", count)
 
-		case <-quit:
-			fmt.Println("\tquit")
-			fmt.Println("\tfibonacci() end")
+		case <-quit: // await for6 se co goroutine write-data, quit<- true
+			fmt.Println("\t\t\tquit")
+			fmt.Println("\t\t\tfibonacci() end")
 			result <- y
 			return //break for
 		}
@@ -56,6 +56,7 @@ func main() {
 	go func() {
 		fmt.Println("\tMAIN READ START")
 
+		// case ch <- number: //se duoc chon
 		for i := 1; i < LOOP; i++ {
 			fmt.Printf("\t\tMAIN() for start%v\n", i)
 
@@ -66,7 +67,8 @@ func main() {
 		}
 
 		fmt.Println("\tMAIN READ END")
-		quit <- true
+		quit <- true //block, jumpto fib for6 select-case <-quit
+		fmt.Println("\tMAIN READ END2")
 	}()
 
 	// go action(ch, quit)
@@ -77,3 +79,20 @@ func main() {
 	time.Sleep(time.Second)
 	tricks.Format("main() end")
 }
+
+const NOTE = `
+case is await, NOT block
+case of select co the write or read channel, no la await, khong phai blocking, tuc la,
+channel read or write o goroutines nao do, bi block, se jumpto to case,
+goroutines nao xu ly read or write on channel nhanh hon, thi case of channel do se run truoc
+
+	for {
+		select {
+		case write<- "data":
+			
+		case <-quit:
+			
+			return
+		}
+	}
+`

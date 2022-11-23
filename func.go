@@ -10,9 +10,6 @@ import (
 )
 
 /*
-
-
-	// variadic arguments is 1 slice = list
 	// variadic arguments: phải được khai báo nằm ở sau cùng
 	func hello(a int, args ...int) {
 		// syntax ok
@@ -119,10 +116,6 @@ func factorial(num int) int {
 	countNum() // 11
 	countNum() // 12
 	countNum() // 13
-
-
-
-
 */
 
 /*
@@ -164,8 +157,6 @@ func factorial(num int) int {
 	num2 := displayNumbers()
 	fmt.Println(num2()) // 1
 	fmt.Println(num2()) // 2
-
-
 */
 
 // var varName string //<=> varName := ""
